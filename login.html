@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style/login.css">
+    <link rel="stylesheet" href="style/index.css">
+    <title>bliblioteca online</title>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="/images/logo-image.png" alt="">
+            <h1>bliblioteca online</h1>
+        </div>
+    </header>
+        
+    <div id="area-login">
+        <form action="process-login.php" method="post">
+            <h1>login:</h1>
+            <div class="name">
+                <label for="user">usuario:</label>
+                <input type="text" name="user">
+            </div>
+            <div class="password">
+                <label for="password">senha:</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <input type="submit" value="entrar" id="login">
+        </form>
+        <p>Nao possui cadastro? <a href="register.html">clique aqui para se registrar</a></p>
+    </div>
+        
+</body>
+</html>

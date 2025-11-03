@@ -1,0 +1,12 @@
+@charset 'utf8';
+:root{
+    --primary-color-1: #09DB7D;
+    --primary-color-2: #09B1DB ;
+    --primary-color-3: #09cbc3;
+    --primary-color-4: #09cb33;
+    --primary-color-5: #096fdb;
+
+    
+    --light-color: #f4f4f4;
+    --dark-color: #333;
+}
