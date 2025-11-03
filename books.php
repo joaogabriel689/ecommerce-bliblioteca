@@ -1,79 +1,92 @@
 <?php
     session_start();
+
+        
+
+    if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
+
+        header("Location: login.html");
+        exit;
+    }
+
+
+    if ($_SESSION['type'] !== 'admin') {
+        header("Location: index.php");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
     <title>bliblioteca online</title>
 </head>
 <body>
-     <header>
+    <header>
         
             <div>
                 <img src="/images/logo-image.png" alt="">
                 <h1>bliblioteca online</h1>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="">home</a></li>
-                    <li><a href="">livros</a></li>
-                    <li><a href=""><i class="fa-solid fa-heart"></i></a></li>
-                    <li><a href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
-                </ul>
-            </nav>
-            <?php
-            if (empty($_SESSION['user'])){
-                echo '<button><a href="login.html">login</a></button>';
-            }else{
-                echo '<button><a href="painel_controle.php"><i class="fa-solid fa-user"></i></a></button>';
-            }
 
-
-            
-            ?>
         
     </header>
- <div class="container">
-     
-     <main>
-         <h2>Bem-vindo à nossa biblioteca online!</h2>
-         <section id="welcome-section">
-             <article>
-     
-                 <p>Aqui você pode encontrar uma vasta coleção de livros para todos os gostos.</p>
-     
-             </article>
-             <img src="images/welcome-image.png" alt="">
-         </section>
-         <section id="catalog-books">
-             <article>
-                 <h2>Catálogo de Livros</h2>
-                 <p>Explore nossa seleção de livros disponíveis para empréstimo ou compra.</p>
-                 <a href="">veja o catalogo completo aqui</a>
-             </article>
-             <div id="books">
-            <?php
+    <main>
+        <?php
+         echo "<h1>Ola, {$_SESSION['name']}, aqui voce pode gerenciar o catalogo de livros.</h1>";
+
+        ?>
+        <h2>cadastrar livro</h2>
+        <form action="process-book-post.php" method="post" enctype="multipart/form-data">
+                <h3>registrar:</h3>
+                <div class="name">
+                    <label for="name">nome:</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="price">
+                    <label for="price">preço:</label>
+                    <input type="text" name="price" id="price">
+                </div>
+                <div class="file">
+                    <label for="file">imagem:</label>
+                    <input type="file" name="file">
+                </div>
+                <div class="describe">    
+                    <label for="describe">descriçao</label>
+                    <input type="text" name="describe" id="describe">
+                </div>
+                <div class="stock">    
+                    <label for="stock">estoque</label>
+                    <input type="number" name="stock" id="stock">
+                </div>
+                <input type="submit" value="cadastrar" id="register">
+        </form>
+        <h2>excluir livro</h2>
+        <form action="process-book-delete.php" method="post" enctype="multpart/formdata">
+                <h3>deletar:</h3>
+                <div class="name">
+                    <label for="name">nome:</label>
+                    <input type="text" name="name">
+                </div>
+                <input type="submit" value="delete" id="delete">
+        </form>
+        <section id="list-books">
+        <?php
                 include 'connection.php';
                 $sql = 'SELECT * FROM books;';
                 $query = $connection->prepare($sql);
                 $query->execute();
                 $result = $query->get_result(); 
-                $cont = 0;
                 
                 if($result->num_rows == 0){
                     echo "<p>Nenhum livro foi cadastrado ainda</p>";
                 }else{
                     while($response = $result->fetch_assoc()){ 
-                        if ($cont>4){
-                            break;
-                        }
-                        $cont = $cont + 1;
-
             ?>
                         <div class="card-product">
                             <div class="image-book">
@@ -83,19 +96,19 @@
                             <p>R$ <?= $response['price'] ?></p>
                             <p><?= $response['decrib'] ?></p>
                             <p>Estoque: <?= $response['stock'] ?></p>
-                            <button>adicionar aos favoritos</button>
-                            <button>adicionar ao carrinho</button>
+                            <button>remover</button>
+                            <button>editar</button>
                         </div>
-
             <?php
-
                     }
                 }
             ?>
-             </div>
-         </section>
-     </main>
- </div>
+        </section>
+
+
+    </main>
+
+
     <footer>
         <section id="social-media">
             <a href="https://www.instagram.com/joao_pereira_couto/"><i class="fa-brands fa-instagram"></i></a>

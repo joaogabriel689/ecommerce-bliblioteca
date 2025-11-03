@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style/login.css">
-    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="/style/style.css">
     <title>bliblioteca online</title>
 </head>
 <body>
@@ -16,22 +15,33 @@
             <h1>bliblioteca online</h1>
         </div>
     </header>
-        
-    <div id="area-login">
-        <form action="process-login.php" method="post">
-            <h1>login:</h1>
-            <div class="name">
-                <label for="user">usuario:</label>
-                <input type="text" name="user">
-            </div>
-            <div class="password">
-                <label for="password">senha:</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <input type="submit" value="entrar" id="login">
-        </form>
-        <p>Nao possui cadastro? <a href="register.html">clique aqui para se registrar</a></p>
+    <div class="container">
+        <div id="area-login">
+            <form action="process-login.php" method="post">
+                <h1>login:</h1>
+                <div class="name">
+                    <label for="user">usuario:</label>
+                    <input type="text" name="user">
+                </div>
+                <div class="password">
+                    <label for="password">senha:</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <input type="submit" value="entrar" id="login">
+            </form>
+            <p>Nao possui cadastro? <a href="register.html">clique aqui para se registrar</a></p>
+        </div>
     </div>
+    <footer>
+        <section id="social-media">
+            <a href="https://www.instagram.com/joao_pereira_couto/"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/joaogabriel689link"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/joao-couto-b55b04321/"><i class="fa-brands fa-linkedin"></i></a>
+
+        </section>
+        <p>&copy; 2024 Biblioteca Online. Todos os direitos reservados.</p>
+
+    </footer>
         
 </body>
 </html>

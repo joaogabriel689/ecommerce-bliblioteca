@@ -1,12 +1,387 @@
 @charset 'utf8';
-:root{
+
+/* ========================================
+   VARIÁVEIS CSS
+   ======================================== */
+:root {
     --primary-color-1: #09DB7D;
-    --primary-color-2: #09B1DB ;
+    --primary-color-2: #09B1DB;
     --primary-color-3: #09cbc3;
     --primary-color-4: #09cb33;
     --primary-color-5: #096fdb;
-
-    
     --light-color: #f4f4f4;
     --dark-color: #333;
 }
+
+/* ========================================
+   ESTILOS GLOBAIS
+   ======================================== */
+* {
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--light-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+header {
+    background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 0;
+    height: 10vh;
+    width: 100% !important;
+}
+
+header div {
+    margin-right: auto;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header img {
+    height: 50px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    text-decoration: none;
+}
+
+header button {
+    margin-right: 40px;
+    background-color: var(--primary-color-3);
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    height: 50px;
+    width: 50px;
+    text-decoration: none;
+    border-color: transparent;
+}
+
+header button a {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+/* ========================================
+   MAIN
+   ======================================== */
+main {
+    padding: 20px;
+}
+
+main h2 {
+    color: var(--primary-color-1);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+/* ========================================
+   SECTION: WELCOME
+   ======================================== */
+section#welcome-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+section#welcome-section img {
+    max-width: 80vh;
+    max-height: 600vh;
+    height: auto;
+    margin-top: 20px;
+    margin: auto;
+}
+
+section#welcome-section article {
+    max-width: 40vh;
+    margin: 0 20px;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+section#welcome-section article p {
+    font-size: 2rem;
+    color: var(--dark-color);
+}
+
+/* ========================================
+   SECTION: CATALOG BOOKS
+   ======================================== */
+section#catalog-books {
+    text-align: center;
+    margin-top: 40px;
+}
+
+section#catalog-books article {
+    max-width: 60vh;
+    margin: 0 auto 20px auto;
+}
+
+section#catalog-books article p {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+}
+
+section#catalog-books article a {
+    font-size: 1.2rem;
+    color: var(--primary-color-5);
+    text-decoration: none;
+}
+
+section#catalog-books article a:hover {
+    text-decoration: underline;
+    padding: 20px;
+    padding-left: 40px;
+}
+
+#books {
+    margin-top: 20px;
+    text-align: center;
+    flex-direction: row;
+    row-gap: 20px;
+    gap: 20px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ========================================
+   CARD PRODUCT
+   ======================================== */
+div.card-product {
+    border: 1px solid #ccc;
+    background: radial-gradient(at top, var(--primary-color-3), var(--primary-color-2));
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 350px;
+    height: 400px;
+    margin: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.card-product div.image-book {
+    height: 200px;
+    margin-bottom: 10px;
+    background-color: var(--light-color);
+}
+
+div.card-product .image-book img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+div.card-product button {
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    background-color: var(--primary-color-3);
+    margin-bottom: 0px;
+}
+
+div.card-product i {
+    margin-top: 20px;
+}
+
+/* ========================================
+   SECTION: AREA USER
+   ======================================== */
+.container {
+    flex: 1; 
+   
+}
+section#area-user ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    flex-wrap: wrap;
+    columns: 3;
+    gap: 20px;
+}
+
+section#area-user ul li {
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+section#area-user ul li div.function-user a {
+    background-color: var(--primary-color-3);
+    border-radius: 20px;
+    width: 300px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 80%;
+    gap: 5px;
+}
+
+/* ========================================
+   AREA: LOGIN
+   ======================================== */
+#area-login {
+    background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
+    margin-top: 100px;
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    columns: 1;
+}
+
+#area-login p {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#area-login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    columns: 1;
+    gap: 30px;
+}
+
+#area-login form h1 {
+    margin-left: 10px;
+}
+
+#area-login form input#login {
+    border-radius: 20px;
+    background: var(--primary-color-3);
+    width: 80%;
+    margin: auto;
+}
+
+#area-login form div.name,
+#area-login form div.password,
+#area-login form div.age,
+#area-login form div.nickname {
+    display: grid;
+    justify-content: left;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+#area-login form div.name input,
+#area-login form div.password input,
+#area-login form div.age input,
+#area-login form div.nickname input {
+    border-radius: 20px;
+    background-color: var(--primary-color-3);
+    opacity: 60%;
+}
+
+/* ========================================
+   AREA: REGISTER
+   ======================================== */
+#area-register {
+    background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
+    margin-top: 100px;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    columns: 1;
+}
+
+#area-register p {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#area-register form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    columns: 1;
+    gap: 30px;
+}
+
+#area-register form h1 {
+    margin-left: 10px;
+}
+
+#area-register form input#register {
+    border-radius: 20px;
+    background: var(--primary-color-3);
+    width: 80%;
+    margin: auto;
+}
+
+#area-register form div.name,
+#area-register form div.password,
+#area-register form div.age,
+#area-register form div.nickname {
+    display: grid;
+    justify-content: left;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+#area-register form div.name input,
+#area-register form div.password input,
+#area-register form div.age input,
+#area-register form div.nickname input {
+    border-radius: 20px;
+    background-color: var(--primary-color-3);
+    opacity: 60%;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+footer {
+    background-color: var(--primary-color-2);
+    color: var(--light-color);
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto;
+}
+
