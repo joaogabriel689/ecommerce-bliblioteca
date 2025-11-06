@@ -9,6 +9,7 @@
     $age = $_POST["age"] ?? "";
     $user = $_POST["user"] ?? "";
     $pass = $_POST["password"] ?? "";
+    $type = $_POST['type'] ?? "";
     
     if(empty($user) || empty($pass)){
         header("Location: register.html");
@@ -30,12 +31,19 @@
         $date_for_query =  $current_date->modify("-$age years")->format('Y-m-d');
 
         $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+        if (empty($type)){
+            $type = 'default';
+
+        }else{
+            $type = $_POST['type'];
+
+        }
 
         $sql = "INSERT INTO users (name, age, nickname, password, type, date_of_register) 
-        VALUES (?, ?, ?, ?, 'default', NOW())";
+        VALUES (?, ?, ?, ?, ?, NOW())";
 
         $prep_query = $connection->prepare($sql);
-        $prep_query->bind_param("ssss",  $name, $date_for_query, $user, $pass_hash);
+        $prep_query->bind_param("sssss",  $name, $date_for_query, $user, $pass_hash, $type);
         $prep_query->execute();
 
         

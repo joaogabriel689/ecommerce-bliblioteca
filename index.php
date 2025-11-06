@@ -77,12 +77,11 @@
             ?>
                         <div class="card-product">
                             <div class="image-book">
-                                <img src="uploads/<?= $response['image'] ?>" alt="Capa do Livro">
+                                <img src="upload/<?= $response['image'] ?>" alt="Capa do Livro">
                             </div>
                             <h3><?= $response['name'] ?></h3>
                             <p>R$ <?= $response['price'] ?></p>
                             <p><?= $response['decrib'] ?></p>
-                            <p>Estoque: <?= $response['stock'] ?></p>
                             <button>adicionar aos favoritos</button>
                             <button>adicionar ao carrinho</button>
                         </div>
@@ -99,7 +98,7 @@
     <footer>
         <section id="social-media">
             <a href="https://www.instagram.com/joao_pereira_couto/"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://github.com/joaogabriel689link"><i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/joaogabriel689"><i class="fa-brands fa-github"></i></a>
             <a href="https://www.linkedin.com/in/joao-couto-b55b04321/"><i class="fa-brands fa-linkedin"></i></a>
 
         </section>

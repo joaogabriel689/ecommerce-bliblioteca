@@ -37,6 +37,8 @@
         
     </header>
     <main>
+        <a href="javascript:history.back()">Voltar para a página anterior</a>
+
         <?php
          echo "<h1>Ola, {$_SESSION['name']}, aqui voce pode gerenciar o catalogo de livros.</h1>";
 
@@ -90,7 +92,7 @@
             ?>
                         <div class="card-product">
                             <div class="image-book">
-                                <img src="uploads/<?= $response['image'] ?>" alt="Capa do Livro">
+                                <img src="upload/<?= $response['image'] ?>" alt="Capa do Livro">
                             </div>
                             <h3><?= $response['name'] ?></h3>
                             <p>R$ <?= $response['price'] ?></p>

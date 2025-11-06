@@ -37,6 +37,8 @@
         
     </header>
     <div class="container">
+        <a href="javascript:history.back()">Voltar para a página anterior</a>
+
         <?php
             echo "<h1>Ola, {$_SESSION['name']}</h1>";
         ?>

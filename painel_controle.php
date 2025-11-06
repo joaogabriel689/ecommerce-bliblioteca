@@ -24,6 +24,8 @@
         </div>
         <button><a href="meu_perfil.php"><i class="fa-solid fa-user"></i></a></button>
     </header>
+    <a href="javascript:history.back()">Voltar para a página anterior</a>
+
     <?php
         echo "<h1>Ola {$_SESSION['name']}</h1>";
     ?>
