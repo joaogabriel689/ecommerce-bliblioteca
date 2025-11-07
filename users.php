@@ -30,8 +30,10 @@
     <header>
         
             <div>
-                <img src="/images/logo-image.png" alt="">
-                <h1>bliblioteca online</h1>
+                <a href="index.php">
+                    <img src="/images/logo-image.png" alt="">
+                    <h1>bliblioteca online</h1>
+                </a>
             </div>
 
         
@@ -70,15 +72,6 @@
                 </div>
                 <input type="submit" value="cadastrar" id="register">
             </form>
-        <h2>excluir usuario</h2>
-        <form action="process-user-delete.php" method="post" >
-                <h3>deletar:</h3>
-                <div class="nickname">
-                    <label for="nickname">nickname:</label>
-                    <input type="text" name="nickname">
-                </div>
-                <input type="submit" value="delete" id="delete">
-        </form>
         <section id="list-users">
             <table>
                 <thead>
@@ -87,6 +80,8 @@
                         <th>Idade</th>
                         <th>Nickname</th>
                         <th>Tipo</th>
+                        <th>deletar</th>
+                        <th>editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,6 +102,19 @@
                                 <td><?= $response['age']?></td>
                                 <td><?= $response['nickname']?></td>
                                 <td><?= $response['type']?></td>
+                                <td>
+                                    <form action="process-user-delete.php" method="post">
+                                        <input type="hidden" name="nickname" value="<?= $response['nickname'] ?>">
+                                        <input type="submit" value="deletar">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="user-alter.php" method="post">
+                                        <input type="hidden" name="id" value="<?= $response['id'] ?>">
+                                        <input type="submit" value="alterar">
+                                    </form>
+                                </td>
+                                
                             </tr>
                     <?php
                             }

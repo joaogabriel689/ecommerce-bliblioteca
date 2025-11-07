@@ -30,8 +30,10 @@
     <header>
         
             <div>
-                <img src="/images/logo-image.png" alt="">
-                <h1>bliblioteca online</h1>
+                <a href="index.php">
+                    <img src="/images/logo-image.png" alt="">
+                    <h1>bliblioteca online</h1>
+                </a>
             </div>
 
         
@@ -68,15 +70,7 @@
                 </div>
                 <input type="submit" value="cadastrar" id="register">
         </form>
-        <h2>excluir livro</h2>
-        <form action="process-book-delete.php" method="post" enctype="multpart/formdata">
-                <h3>deletar:</h3>
-                <div class="name">
-                    <label for="name">nome:</label>
-                    <input type="text" name="name">
-                </div>
-                <input type="submit" value="delete" id="delete">
-        </form>
+
         <section id="list-books">
         <?php
                 include 'connection.php';
@@ -98,8 +92,14 @@
                             <p>R$ <?= $response['price'] ?></p>
                             <p><?= $response['decrib'] ?></p>
                             <p>Estoque: <?= $response['stock'] ?></p>
-                            <button>remover</button>
-                            <button>editar</button>
+                            <form action="process-book-delete.php" method="post">
+                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
+                                <input type="submit" value="apagar">
+                            </form>
+                            <form action="book-alter.php" method="post">
+                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
+                                <input type="submit" value="editar">
+                            </form>
                         </div>
             <?php
                     }

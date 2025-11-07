@@ -1,4 +1,4 @@
-@charset 'utf8';
+@charset 'utf-8';
 
 /* ========================================
    VARIÁVEIS CSS
@@ -11,25 +11,48 @@
     --primary-color-5: #096fdb;
     --light-color: #f4f4f4;
     --dark-color: #333;
+    --white: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================
-   ESTILOS GLOBAIS
+   RESET E ESTILOS GLOBAIS
    ======================================== */
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
     background-color: var(--light-color);
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+ul {
+    list-style: none;
 }
 
 /* ========================================
@@ -37,536 +60,714 @@ body {
    ======================================== */
 header {
     background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
-    padding: 10px;
-    text-align: center;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    margin-top: 0;
-    height: 10vh;
-    width: 100% !important;
+    width: 100%;
+    min-height: 80px;
+    box-shadow: 0 2px 10px var(--shadow-medium);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-header div {
-    margin-right: auto;
-    margin-left: 20px;
+header div:first-child {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 header img {
     height: 50px;
+    width: auto;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 24px;
+    font-size: 1.8rem;
+    color: var(--white);
+    font-weight: bold;
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
-    gap: 15px;
-    justify-content: center;
+    gap: 30px;
     align-items: center;
-    margin-right: 20px;
-    text-decoration: none;
-}
-
-header nav ul li {
-    display: inline;
 }
 
 header nav ul li a {
-    text-decoration: none;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+header nav ul li a i {
+    font-size: 1.3rem;
 }
 
 header button {
-    margin-right: 40px;
     background-color: var(--primary-color-3);
-    border-radius: 20px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    height: 50px;
-    width: 50px;
-    text-decoration: none;
-    border-color: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px var(--shadow-medium);
+}
+
+header button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-dark);
 }
 
 header button a {
+    color: var(--white);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    text-decoration: none;
+}
+
+/* ========================================
+   CONTAINER PRINCIPAL
+   ======================================== */
+.container {
+    flex: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.container > a {
+    display: inline-block;
+    color: var(--primary-color-5);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-light);
+}
+
+.container > a:hover {
+    background-color: var(--primary-color-3);
+    color: var(--white);
 }
 
 /* ========================================
    MAIN
    ======================================== */
 main {
-    padding: 20px;
+    padding: 30px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+main > a {
+    display: inline-block;
+    color: var(--primary-color-5);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-light);
+}
+
+main > a:hover {
+    background-color: var(--primary-color-3);
+    color: var(--white);
+}
+
+main h1 {
+    color: var(--primary-color-2);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 main h2 {
     color: var(--primary-color-1);
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 2rem;
+    margin: 40px 0 20px;
     text-align: center;
-    font-size: 2.5rem;
 }
 
 /* ========================================
    SECTION: WELCOME
    ======================================== */
-section#welcome-section {
+#welcome-section {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin-bottom: 40px;
-}
-
-section#welcome-section img {
-    max-width: 80vh;
-    max-height: 600vh;
-    height: auto;
-    margin-top: 20px;
-    margin: auto;
-}
-
-section#welcome-section article {
-    max-width: 40vh;
-    margin: 0 20px;
     flex-wrap: wrap;
-    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 60px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(9, 203, 195, 0.1), rgba(9, 177, 219, 0.1));
+    border-radius: 20px;
 }
 
-section#welcome-section article p {
-    font-size: 2rem;
+#welcome-section article {
+    flex: 1;
+    min-width: 300px;
+}
+
+#welcome-section article p {
+    font-size: 1.5rem;
     color: var(--dark-color);
+    line-height: 1.8;
+}
+
+#welcome-section img {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--shadow-medium);
 }
 
 /* ========================================
    SECTION: CATALOG BOOKS
    ======================================== */
-section#catalog-books {
+#catalog-books {
+    margin-top: 60px;
+}
+
+#catalog-books article {
     text-align: center;
-    margin-top: 40px;
+    max-width: 800px;
+    margin: 0 auto 40px;
 }
 
-section#catalog-books article {
-    max-width: 60vh;
-    margin: 0 auto 20px auto;
+#catalog-books article h2 {
+    margin-bottom: 15px;
 }
 
-section#catalog-books article p {
-    font-size: 1.5rem;
+#catalog-books article p {
+    font-size: 1.3rem;
     color: var(--dark-color);
+    margin-bottom: 20px;
 }
 
-section#catalog-books article a {
-    font-size: 1.2rem;
+#catalog-books article a {
+    display: inline-block;
     color: var(--primary-color-5);
-    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    background-color: var(--white);
+    border-radius: 25px;
+    box-shadow: 0 4px 10px var(--shadow-light);
+    transition: all 0.3s ease;
 }
 
-section#catalog-books article a:hover {
-    text-decoration: underline;
-    padding: 20px;
-    padding-left: 40px;
+#catalog-books article a:hover {
+    background-color: var(--primary-color-3);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
 }
 
 #books {
-    margin-top: 20px;
-    text-align: center;
-    flex-direction: row;
-    row-gap: 20px;
-    gap: 20px;
-    margin: auto;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 /* ========================================
    CARD PRODUCT
    ======================================== */
-div.card-product {
-    border: 1px solid #ccc;
-    background: radial-gradient(at top, var(--primary-color-3), var(--primary-color-2));
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    width: 350px;
-    height: 400px;
-    margin: 10px;
-    display: inline-block;
-    vertical-align: top;
+.card-product {
+    background: linear-gradient(135deg, var(--primary-color-3), var(--primary-color-2));
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 5px 15px var(--shadow-medium);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-div.card-product div.image-book {
-    height: 200px;
-    margin-bottom: 10px;
-    background-color: var(--light-color);
+.card-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-dark);
 }
 
-div.card-product .image-book img {
-    max-height: 100%;
+.image-book {
+    background-color: var(--white);
+    border-radius: 10px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.image-book img {
     max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
 }
 
-div.card-product button {
+.card-product h3 {
+    color: var(--white);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    min-height: 50px;
+}
+
+.card-product p {
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.card-product button {
+    background-color: var(--primary-color-1);
+    color: var(--dark-color);
+    border: none;
     border-radius: 20px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    background-color: var(--primary-color-3);
-    margin-bottom: 0px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    box-shadow: 0 3px 8px var(--shadow-medium);
 }
 
-div.card-product i {
-    margin-top: 20px;
+.card-product button:hover {
+    background-color: var(--primary-color-4);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px var(--shadow-dark);
 }
 
 /* ========================================
    SECTION: AREA USER
    ======================================== */
-.container {
-    flex: 1; 
-   
+#area-user {
+    margin-top: 40px;
 }
-section#area-user ul {
+
+#area-user ul {
     display: flex;
-    flex-direction: row;
-    list-style: none;
     flex-wrap: wrap;
-    columns: 3;
-    gap: 20px;
-}
-
-section#area-user ul li {
-    flex: 1 1 calc(33.333% - 20px);
-    box-sizing: border-box;
-}
-
-section#area-user ul li div.function-user a {
-    background-color: var(--primary-color-3);
-    border-radius: 20px;
-    width: 300px;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 80%;
-    gap: 5px;
-}
-
-/* ========================================
-   AREA: LOGIN
-   ======================================== */
-#area-login {
-    background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
-    margin-top: 100px;
-    width: 500px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    columns: 1;
-}
-
-#area-login p {
-    margin-top: 20px;
-    margin-left: 10px;
-}
-
-#area-login form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    columns: 1;
     gap: 30px;
+    justify-content: center;
 }
 
-#area-login form h1 {
-    margin-left: 10px;
+#area-user ul li {
+    flex: 1 1 calc(33.333% - 30px);
+    min-width: 280px;
 }
 
-#area-login form input#login {
-    border-radius: 20px;
-    background: var(--primary-color-3);
-    width: 80%;
-    margin: auto;
-}
-
-#area-login form div.name,
-#area-login form div.password,
-#area-login form div.age,
-#area-login form div.nickname {
-    display: grid;
-    justify-content: left;
-    margin-left: 10px;
-    font-size: 18px;
-}
-
-#area-login form div.name input,
-#area-login form div.password input,
-#area-login form div.age input,
-#area-login form div.nickname input {
-    border-radius: 20px;
+.function-user a {
     background-color: var(--primary-color-3);
-    opacity: 60%;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    box-shadow: 0 4px 12px var(--shadow-medium);
+    transition: all 0.3s ease;
+    min-height: 100px;
+}
+
+.function-user a:hover {
+    background-color: var(--primary-color-2);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px var(--shadow-dark);
+}
+
+.function-user a i {
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.function-user a h2 {
+    font-size: 1.3rem;
+    color: var(--white);
+    margin: 0;
 }
 
 /* ========================================
-   AREA: REGISTER
+   AREA: LOGIN E REGISTER
    ======================================== */
+#area-login,
 #area-register {
     background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
-    margin-top: 100px;
-    width: 500px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    columns: 1;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 25px var(--shadow-dark);
 }
 
-#area-register p {
-    margin-top: 20px;
-    margin-left: 10px;
+#area-login {
+    min-height: 400px;
 }
 
+#area-register {
+    min-height: 600px;
+}
+
+#area-login form,
 #area-register form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    columns: 1;
-    gap: 30px;
+    gap: 25px;
 }
 
+#area-login form h1,
 #area-register form h1 {
-    margin-left: 10px;
+    color: var(--white);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
-#area-register form input#register {
-    border-radius: 20px;
-    background: var(--primary-color-3);
-    width: 80%;
-    margin: auto;
+#area-login form div,
+#area-register form div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-#area-register form div.name,
-#area-register form div.password,
-#area-register form div.age,
-#area-register form div.nickname {
-    display: grid;
-    justify-content: left;
-    margin-left: 10px;
-    font-size: 18px;
+#area-login form label,
+#area-register form label {
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
-#area-register form div.name input,
-#area-register form div.password input,
-#area-register form div.age input,
-#area-register form div.nickname input {
-    border-radius: 20px;
-    background-color: var(--primary-color-3);
-    opacity: 60%;
+#area-login form input,
+#area-register form input {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
+
+#area-login form input:focus,
+#area-register form input:focus {
+    outline: none;
+    background-color: var(--white);
+    box-shadow: 0 0 10px rgba(9, 219, 125, 0.5);
+}
+
+#area-login form input[type="submit"],
+#area-register form input[type="submit"] {
+    background-color: var(--primary-color-1);
+    color: var(--dark-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#area-login form input[type="submit"]:hover,
+#area-register form input[type="submit"]:hover {
+    background-color: var(--primary-color-4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-dark);
+}
+
+#area-login p,
+#area-register p {
+    color: var(--white);
+    text-align: center;
+    margin-top: 20px;
+}
+
+#area-login p a,
+#area-register p a {
+    color: var(--primary-color-1);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 /* ========================================
    FORMULÁRIOS DE ADMINISTRAÇÃO
    ======================================== */
 main form {
     background: radial-gradient(circle at bottom, var(--primary-color-3), var(--primary-color-2));
-    border-radius: 10px;
-    padding: 30px;
-    margin: 20px auto;
-    max-width: 600px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 40px;
+    margin: 30px auto;
+    max-width: 700px;
+    box-shadow: 0 8px 25px var(--shadow-dark);
+}
+
+main form h1,
+main form h3 {
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+main form h1 {
+    font-size: 2rem;
 }
 
 main form h3 {
-    text-align: center;
+    font-size: 1.5rem;
+}
+
+main form div {
     margin-bottom: 20px;
-    color: var(--dark-color);
 }
 
-main form div.name,
-main form div.password,
-main form div.age,
-main form div.nickname,
-main form div.type,
-main form div.price,
-main form div.file,
-main form div.describe,
-main form div.stock {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+main form label {
+    display: block;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
 }
 
-main form div.name label,
-main form div.password label,
-main form div.age label,
-main form div.nickname label,
-main form div.type label,
-main form div.price label,
-main form div.file label,
-main form div.describe label,
-main form div.stock label {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: var(--dark-color);
-    font-weight: bold;
-}
-
-main form div.name input,
-main form div.password input,
-main form div.age input,
-main form div.nickname input,
-main form div.price input,
-main form div.file input,
-main form div.describe input,
-main form div.stock input {
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px 15px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 14px;
+main form input[type="text"],
+main form input[type="password"],
+main form input[type="number"],
+main form input[type="file"],
+main form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-main form div.name input:focus,
-main form div.password input:focus,
-main form div.age input:focus,
-main form div.nickname input:focus,
-main form div.price input:focus,
-main form div.file input:focus,
-main form div.describe input:focus,
-main form div.stock input:focus {
+main form input:focus,
+main form select:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(9, 203, 195, 0.5);
+    background-color: var(--white);
+    box-shadow: 0 0 10px rgba(9, 219, 125, 0.5);
 }
 
-main form div.type select {
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px 15px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 14px;
+main form select {
+    cursor: pointer;
 }
 
 main form input[type="submit"] {
-    border-radius: 20px;
-    background: var(--primary-color-1);
     width: 100%;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 15px;
+    background-color: var(--primary-color-1);
     color: var(--dark-color);
-    margin-top: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px var(--shadow-medium);
     transition: all 0.3s ease;
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 main form input[type="submit"]:hover {
-    background: var(--primary-color-4);
+    background-color: var(--primary-color-4);
     transform: translateY(-2px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 18px var(--shadow-dark);
 }
 
-main form input#delete {
-    background: #ff4444;
-    color: white;
+main form input[type="submit"]#delete {
+    background-color: #ff4444;
+    color: var(--white);
 }
 
-main form input#delete:hover {
-    background: #cc0000;
+main form input[type="submit"]#delete:hover {
+    background-color: #cc0000;
 }
+
+/* ========================================
+   TABELAS
+   ======================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px var(--shadow-medium);
+    margin: 20px 0;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color-3), var(--primary-color-2));
+}
+
+thead tr th {
+    padding: 20px;
+    text-align: left;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(9, 203, 195, 0.1);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr td {
+    padding: 18px 20px;
+    color: var(--dark-color);
+}
+
+tbody tr td input[type="text"],
+tbody tr td input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid var(--primary-color-3);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+tbody tr td input:focus {
+    outline: none;
+    border-color: var(--primary-color-1);
+    background-color: var(--white);
+    box-shadow: 0 0 8px rgba(9, 219, 125, 0.3);
+}
+
+tbody tr td form {
+    background: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+tbody tr td form input[type="submit"] {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 /* ========================================
    LISTA DE USUÁRIOS
    ======================================== */
-section#list-users {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+#list-users {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-medium);
 }
 
-section#list-users table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-}
-
-section#list-users table tr {
-    border-bottom: 2px solid var(--primary-color-3);
-    padding: 15px;
+#list-users table thead tr {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     align-items: center;
     text-align: center;
 }
 
-section#list-users table tr:first-child {
-    background: radial-gradient(circle at top, var(--primary-color-3), var(--primary-color-2));
-    font-weight: bold;
-    color: var(--dark-color);
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-section#list-users table tr:hover:not(:first-child) {
-    background-color: rgba(9, 203, 195, 0.1);
-}
-
-section#list-users p {
+#list-users table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    align-items: center;
     text-align: center;
-    font-size: 1.2rem;
+    padding: 15px 0;
+}
+
+#list-users p {
+    text-align: center;
+    font-size: 1.3rem;
     color: var(--dark-color);
     padding: 40px;
 }
+
 /* ========================================
    LISTA DE LIVROS
    ======================================== */
-section#list-books {
-    margin-top: 40px;
+#list-books {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
+    margin-top: 50px;
 }
 
-section#list-books p {
-    text-align: center;
+#list-books p {
     width: 100%;
-    font-size: 1.2rem;
+    text-align: center;
+    font-size: 1.3rem;
     color: var(--dark-color);
     padding: 40px;
 }
 
-section#list-books .card-product {
-    height: auto;
-    min-height: 450px;
-}
-
-section#list-books .card-product button {
-    margin: 5px;
+#list-books .card-product {
+    min-height: 500px;
 }
 
 /* ========================================
    FOOTER
    ======================================== */
 footer {
-    background-color: var(--primary-color-2);
-    color: var(--light-color);
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color-2), var(--primary-color-3));
+    color: var(--white);
+    padding: 30px 20px;
     margin-top: auto;
+    width: 100%;
+    box-shadow: 0 -2px 10px var(--shadow-medium);
 }
 
+#social-media {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+#social-media a {
+    color: var(--white);
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+#social-media a:hover {
+    color: var(--primary-color-1);
+    transform: scale(1.2);
+}
+
+footer p {
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+}

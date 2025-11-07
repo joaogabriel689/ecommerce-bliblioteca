@@ -15,8 +15,10 @@
      <header>
         
             <div>
-                <img src="/images/logo-image.png" alt="">
-                <h1>bliblioteca online</h1>
+                <a href="index.php">
+                    <img src="/images/logo-image.png" alt="">
+                    <h1>bliblioteca online</h1>
+                </a>
             </div>
             <nav>
                 <ul>
@@ -30,7 +32,12 @@
             if (empty($_SESSION['user'])){
                 echo '<button><a href="login.html">login</a></button>';
             }else{
-                echo '<button><a href="painel_controle.php"><i class="fa-solid fa-user"></i></a></button>';
+                if ($_SESSION['type'] == 'admin'){
+                    echo '<button><a href="admin.php"><i class="fa-solid fa-user"></i></a></button>';
+                }else{
+                    echo '<button><a href="painel_controle.php"><i class="fa-solid fa-user"></i></a></button>';
+                }
+                
             }
 
 

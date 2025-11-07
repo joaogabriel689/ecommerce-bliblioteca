@@ -30,14 +30,16 @@
     <header>
         
             <div>
-                <img src="/images/logo-image.png" alt="">
-                <h1>bliblioteca online</h1>
+                <a href="index.php">
+                    <img src="/images/logo-image.png" alt="">
+                    <h1>bliblioteca online</h1>
+                </a>
             </div>
 
         
     </header>
     <div class="container">
-        <a href="javascript:history.back()">Voltar para a página anterior</a>
+        <a href="index.php">Voltar para a página anterior</a>
 
         <?php
             echo "<h1>Ola, {$_SESSION['name']}</h1>";
