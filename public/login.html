@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
     <title>bliblioteca online</title>
 </head>
 <body>
     <header>
         <div>
-                <a href="index.php">
+                <a href="/public/index.php">
                     <img src="/images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
@@ -19,7 +19,7 @@
     </header>
     <div class="container">
         <div id="area-login">
-            <form action="process-login.php" method="post">
+            <form action="../process/login-register/process-login.php" method="post">
                 <h1>login:</h1>
                 <div class="name">
                     <label for="user">usuario:</label>
@@ -31,7 +31,7 @@
                 </div>
                 <input type="submit" value="entrar" id="login">
             </form>
-            <p>Nao possui cadastro? <a href="register.html">clique aqui para se registrar</a></p>
+            <p>Nao possui cadastro? <a href="../process/login-register/process-register.php">clique aqui para se registrar</a></p>
         </div>
     </div>
     <footer>

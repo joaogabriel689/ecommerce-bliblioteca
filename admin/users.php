@@ -5,13 +5,13 @@
 
     if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-        header("Location: login.html");
+        header("Location: /public/login.html");
         exit;
     }
 
 
     if ($_SESSION['type'] !== 'admin') {
-        header("Location: index.php");
+        header("Location: /public/index.php");
         exit;
     }
 ?>
@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
     <title>bliblioteca online</title>
 </head>
@@ -30,7 +30,7 @@
     <header>
         
             <div>
-                <a href="index.php">
+                <a href="/public/index.php">
                     <img src="/images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
@@ -45,7 +45,7 @@
          echo "<h1>Ola, {$_SESSION['name']}, aqui voce pode gerenciar os usuarios.</h1>";
                 ?>
         <h2>cadastrar usuario:</h2>
-        <form action="process-register.php" method="post">
+        <form action="/process/login-register/process-register.php" method="post">
                 <h1>registrar:</h1>
                 <div class="name">
                     <label for="name">nome:</label>
@@ -86,7 +86,7 @@
                 </thead>
                 <tbody>
                 <?php
-                        include 'connection.php';
+                        include '../config/connection.php';
                         $sql = 'SELECT * FROM users;';
                         $query = $connection->prepare($sql);
                         $query->execute();
@@ -103,13 +103,13 @@
                                 <td><?= $response['nickname']?></td>
                                 <td><?= $response['type']?></td>
                                 <td>
-                                    <form action="process-user-delete.php" method="post">
+                                    <form action="/process/users-process/process-user-delete.php" method="post">
                                         <input type="hidden" name="nickname" value="<?= $response['nickname'] ?>">
                                         <input type="submit" value="deletar">
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="user-alter.php" method="post">
+                                    <form action="/process/users-process/user-alter.php" method="post">
                                         <input type="hidden" name="id" value="<?= $response['id'] ?>">
                                         <input type="submit" value="alterar">
                                     </form>

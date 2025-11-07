@@ -1,13 +1,13 @@
 <?php
     session_start();
 
-    include 'connection.php';
+    include '../../config/connection.php';
     
     $user = $_POST["user"] ?? "";
     $pass = $_POST["password"] ?? "";
 
     if(empty($user) or empty($pass)){
-        header("location: login.html");
+        header("location: ../pulbic/login.html");
         exit;
     }else{
         $sql = "SELECT * FROM users where nickname = ? ;";
@@ -28,19 +28,19 @@
                 $_SESSION['name'] = $response['name'];
                 $_SESSION['type'] = $response['type'];
                 if ($_SESSION['type'] == 'admin'){
-                    header("Location: admin.php");
+                    header("Location: ../../admin/admin.php");
 
                 }else{
-                    header("Location: index.php");
+                    header("Location: ../../public/index.php");
                 }
                 exit;
             }else {
-                header("location: register.html");
+                header("location: ../../public/register.html");
                 exit;
             }
 
         }else{
-            header("Location: register.html");
+            header("Location: ../../public/register.html");
             exit;
         }
     }

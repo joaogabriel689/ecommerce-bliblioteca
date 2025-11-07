@@ -2,14 +2,14 @@
     session_start();
     if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-        header("Location: login.html");
+        header("Location: /public/login.html");
         exit;
     }
     if ($_SESSION['type'] !== 'admin') {
-        header("Location: index.php");
+        header("Location: /pulic/index.php");
         exit;
     }
-    include 'connection.php';
+    include '../config/connection.php';
     $name = $_POST['name'] ?? "";
     $sql = 'SELECT * FROM books WHERE name = ?;';
     $query = $connection->prepare($sql);
@@ -25,6 +25,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title>bliblioteca online</title>
 
 </head>
@@ -32,7 +33,7 @@
         <header>
         
             <div>
-                <a href="index.php">
+                <a href="/public/index.php">
                     <img src="/images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
@@ -40,7 +41,7 @@
 
         
     </header>
-    <form action="process-book-alter.php" method = "post">
+    <form action="/process/books-process/process-book-alter.php" method = "post">
        
         <table>
                     <thead>

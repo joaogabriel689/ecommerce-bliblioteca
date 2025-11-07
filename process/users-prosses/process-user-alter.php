@@ -2,15 +2,14 @@
         session_start();
         if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-            header("Location: login.html");
+            header("Location: ../../pulbic/login.html");
             exit;
         }
         if ($_SESSION['type'] !== 'admin') {
-            header("Location: index.php");
+            header("Location: ../../pulbic/index.php");
             exit;
         }
-        include 'connection.php';
-
+        include '../../config/connection.php';
         $id = $_POST['id'];
         $name = $_POST['name'];
         $age = $_POST['age'] ?? "";
@@ -32,9 +31,9 @@
         $alter_query->execute();
 
         if ($alter_query->affected_rows > 0) {
-            header("Location: users.php?success=1");
+            header("Location: ../../admin/users.php?success=1");
         } else {
-            header("Location: users.php?error=1");
+            header("Location: ../../admin/users.php?error=1");
         }
         exit;
 

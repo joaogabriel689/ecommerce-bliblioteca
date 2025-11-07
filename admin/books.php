@@ -5,13 +5,13 @@
 
     if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-        header("Location: login.html");
+        header("Location: /public/login.html");
         exit;
     }
 
 
     if ($_SESSION['type'] !== 'admin') {
-        header("Location: index.php");
+        header("Location: /public/index.php");
         exit;
     }
 ?>
@@ -22,15 +22,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
+    <script>
+        var category = document.getElementById('category-div')
+        var option = document.getElementsByName('option')
+        var new_category = document.getElementById('new')
+        var new_text = document.getElementById('new_input')
+
+
+        new_category.addEventListener('click', () => show_element(new_text))
+        function show_element(element){
+            element.setAttribute('class', 'activete');
+        }
+    </script>
     <title>bliblioteca online</title>
 </head>
 <body>
     <header>
         
             <div>
-                <a href="index.php">
+                <a href="/public/index.php">
                     <img src="/images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
@@ -46,7 +58,7 @@
 
         ?>
         <h2>cadastrar livro</h2>
-        <form action="process-book-post.php" method="post" enctype="multipart/form-data">
+        <form action="/process/books-processprocess-book-post.php" method="post" enctype="multipart/form-data">
                 <h3>registrar:</h3>
                 <div class="name">
                     <label for="name">nome:</label>
@@ -64,8 +76,20 @@
                     <label for="describe">descriçao</label>
                     <input type="text" name="describe" id="describe">
                 </div>
+                <div class="category">    
+                    <label for="category">type:</label>
+                    <select id="type" name="category" multiple>
+                    <option value="ficção">ficção</option>
+                    <option value="fantasia">fantasia</option>
+                    <option value="didatico">didatico</option>
+                    <option value="romance">romance</option>
+                    <option value="new-category">criar nova categoria
+                        <input type="text" id="new-category-input" class="">
+                    </option>
+                    </select>
+                </div>
                 <div class="stock">    
-                    <label for="stock">estoque</label>
+                    <label for="stock">estoque</label>new-category-input
                     <input type="number" name="stock" id="stock">
                 </div>
                 <input type="submit" value="cadastrar" id="register">
@@ -73,7 +97,7 @@
 
         <section id="list-books">
         <?php
-                include 'connection.php';
+                include '../config/connection.php';
                 $sql = 'SELECT * FROM books;';
                 $query = $connection->prepare($sql);
                 $query->execute();
@@ -92,11 +116,11 @@
                             <p>R$ <?= $response['price'] ?></p>
                             <p><?= $response['decrib'] ?></p>
                             <p>Estoque: <?= $response['stock'] ?></p>
-                            <form action="process-book-delete.php" method="post">
+                            <form action="/process/books-process/process-book-delete.php" method="post">
                                 <input type="hidden" name="name" value="<?= $response['name'] ?>">
                                 <input type="submit" value="apagar">
                             </form>
-                            <form action="book-alter.php" method="post">
+                            <form action="/process/books-process/book-alter.php" method="post">
                                 <input type="hidden" name="name" value="<?= $response['name'] ?>">
                                 <input type="submit" value="editar">
                             </form>

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
     <title>bliblioteca online</title>
 </head>
@@ -30,12 +30,12 @@
             </nav>
             <?php
             if (empty($_SESSION['user'])){
-                echo '<button><a href="login.html">login</a></button>';
+                echo '<button><a href="../public/login.html">login</a></button>';
             }else{
                 if ($_SESSION['type'] == 'admin'){
-                    echo '<button><a href="admin.php"><i class="fa-solid fa-user"></i></a></button>';
+                    echo '<button><a href="../admin/admin.php"><i class="fa-solid fa-user"></i></a></button>';
                 }else{
-                    echo '<button><a href="painel_controle.php"><i class="fa-solid fa-user"></i></a></button>';
+                    echo '<button><a href="../user/painel_controle.php"><i class="fa-solid fa-user"></i></a></button>';
                 }
                 
             }
@@ -55,17 +55,17 @@
                  <p>Aqui você pode encontrar uma vasta coleção de livros para todos os gostos.</p>
      
              </article>
-             <img src="images/welcome-image.png" alt="">
+             <img src="/images/welcome-image.png" alt="">
          </section>
          <section id="catalog-books">
              <article>
                  <h2>Catálogo de Livros</h2>
                  <p>Explore nossa seleção de livros disponíveis para empréstimo ou compra.</p>
-                 <a href="">veja o catalogo completo aqui</a>
+                 <a href="catalog-books.php">veja o catalogo completo aqui</a>
              </article>
              <div id="books">
             <?php
-                include 'connection.php';
+                include '../config/connection.php';
                 $sql = 'SELECT * FROM books;';
                 $query = $connection->prepare($sql);
                 $query->execute();
@@ -84,13 +84,19 @@
             ?>
                         <div class="card-product">
                             <div class="image-book">
-                                <img src="upload/<?= $response['image'] ?>" alt="Capa do Livro">
+                                <img src="/uploads/<?= $response['image'] ?>" alt="Capa do Livro">
                             </div>
                             <h3><?= $response['name'] ?></h3>
                             <p>R$ <?= $response['price'] ?></p>
                             <p><?= $response['decrib'] ?></p>
-                            <button>adicionar aos favoritos</button>
-                            <button>adicionar ao carrinho</button>
+                            <form action="../process/orders/add-favorite.php" class="add-favorites">
+                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
+                                <input type="submit" value="adicionar aos favoritos">
+                            </form>
+                            <form action="../process/orders/add-car.php" class="add-car">
+                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
+                                <input type="submit" value="adicionar ao carrinho">
+                            </form>
                         </div>
 
             <?php

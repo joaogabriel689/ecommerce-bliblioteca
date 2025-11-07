@@ -2,14 +2,14 @@
         session_start();
         if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-            header("Location: login.html");
+            header("Location: ../../public/login.html");
             exit;
         }
         if ($_SESSION['type'] !== 'admin') {
-            header("Location: index.php");
+            header("Location: ../../public/index.php");
             exit;
         }
-        include 'connection.php';
+        include '../../config/connection.php';
 
         $name_new = $_POST['name'];
         $price = $_POST['price'];
@@ -37,9 +37,9 @@
         $alter_query->execute();
 
         if ($alter_query->affected_rows > 0) {
-            header("Location: books.php?success=1");
+            header("Location: ../../admin/books.php?success=1");
         } else {
-            header("Location: books.php?error=1");
+            header("Location: ../../admin/books.php?error=1");
         }
         exit;
 

@@ -3,7 +3,7 @@
     session_start();
 
 
-    include 'connection.php';
+    include '../../config/connection.php';
 
     $name = $_POST["name"] ?? "";
     $age = $_POST["age"] ?? "";
@@ -12,7 +12,7 @@
     $type = $_POST['type'] ?? "";
     
     if(empty($user) || empty($pass)){
-        header("Location: register.html");
+        header("Location: ../../public/register.html");
         exit;
 
     }else{ 
@@ -23,7 +23,7 @@
         $result_check = $query_check->get_result();
 
         if ($result_check->num_rows > 0) {
-            header("Location: register.html");
+            header("Location: ../../public/register.html");
             exit;
         }
         $current_date = new DateTime();
@@ -49,12 +49,12 @@
         
         if ($prep_query->affected_rows > 0) {
         
-            header("Location: login.html");
+            header("Location: ../../public/login.html");
             exit;
             
         } else {
             
-            header("Location: register.html");
+            header("Location: ../../public/register.html");
             exit;
         }
     }

@@ -19,14 +19,14 @@
 <body>
     <header>
         <div>
-                <a href="index.php">
+                <a href="../public/index.php">
                     <img src="/images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
         </div>
         <button><a href="meu_perfil.php"><i class="fa-solid fa-user"></i></a></button>
     </header>
-    <a href="index.php">Voltar para a página anterior</a>
+    <a href="/public/index.php">Voltar para a página anterior</a>
 
     <?php
         echo "<h1>Ola {$_SESSION['name']}</h1>";
@@ -49,7 +49,7 @@
                 <a href="settings.php"><i class="fa-solid fa-gear"></i><h2>Configuraçoes</h2></a>
             </div></li>
             <li><div class="function-user">
-                <a href="exit.php"><i class="fa-solid fa-right-from-bracket"></i><h2>Sair</h2></a>
+                <a href="/exit.php"><i class="fa-solid fa-right-from-bracket"></i><h2>Sair</h2></a>
             </div></li>
         </ul>
     </section>

@@ -5,13 +5,13 @@
 
     if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-        header("Location: login.html");
+        header("Location: /public/login.html");
         exit;
     }
 
 
     if ($_SESSION['type'] !== 'admin') {
-        header("Location: index.php");
+        header("Location: /public/index.php");
         exit;
     }
 ?>
@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="shortcut icon" href="images/logo-image.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
     <title>bliblioteca online</title>
 </head>
@@ -30,7 +30,7 @@
     <header>
         
             <div>
-                <a href="index.php">
+                <a href="/public/index.php">
                     <img src="/images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
@@ -39,7 +39,7 @@
         
     </header>
     <div class="container">
-        <a href="index.php">Voltar para a página anterior</a>
+        <a href="/public/index.php">Voltar para a página anterior</a>
 
         <?php
             echo "<h1>Ola, {$_SESSION['name']}</h1>";
@@ -71,7 +71,7 @@
                     <a href="sales.php"><i class="fa-solid fa-money-bill-trend-up"></i><h2>Vendas</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="exit.php"><i class="fa-solid fa-right-from-bracket"></i><h2>Sair</h2></a>
+                    <a href="/exit.php"><i class="fa-solid fa-right-from-bracket"></i><h2>Sair</h2></a>
                 </div></li>
             </ul>
         </section>

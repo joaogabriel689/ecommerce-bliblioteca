@@ -12,6 +12,6 @@ connection.php
 .env
 .DS_Store
 Thumbs.db
-upload/
+uploads/
 
 

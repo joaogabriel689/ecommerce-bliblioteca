@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'connection.php';
+    include '../../config/connection.php';
 
 
 $name = $_POST['name'] ?? "";
@@ -30,7 +30,7 @@ $name = $_POST['name'] ?? "";
     $query->bind_param("sssis", $name, $price, $discrib, $stock, $file['name']);
     $query->execute();
 
-    header("location: books.php");
+    header("location: ../../admin/books.php");
     exit;
 
 

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'connection.php';
+    include '../../config/connection.php';
     $name = $_POST['name'] ?? "";
 
     $sql = "DELETE FROM books WHERE name = ?;";
@@ -9,7 +9,7 @@
     $prep_query->bind_param("s", $name);
     $prep_query->execute();
 
-    header("Location: books.php");
+    header("Location: ../../admin/books.php");
 
 
 

@@ -12,9 +12,12 @@
     --light-color: #f4f4f4;
     --dark-color: #333;
     --white: #ffffff;
+    --error-color: #ff4444;
+    --error-hover: #cc0000;
     --shadow-light: rgba(0, 0, 0, 0.1);
     --shadow-medium: rgba(0, 0, 0, 0.2);
     --shadow-dark: rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
 }
 
 /* ========================================
@@ -39,7 +42,7 @@ body {
 a {
     text-decoration: none;
     color: inherit;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 a:hover {
@@ -48,11 +51,17 @@ a:hover {
 
 button {
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 ul {
     list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* ========================================
@@ -73,6 +82,12 @@ header {
 }
 
 header div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header div:first-child a {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -107,7 +122,7 @@ header nav ul li a {
     font-weight: 500;
     padding: 8px 16px;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 header nav ul li a:hover {
@@ -156,7 +171,8 @@ header button a {
     padding: 30px 20px;
 }
 
-.container > a {
+.container > a,
+main > a {
     display: inline-block;
     color: var(--primary-color-5);
     font-size: 1rem;
@@ -165,11 +181,20 @@ header button a {
     background-color: var(--white);
     border-radius: 8px;
     box-shadow: 0 2px 5px var(--shadow-light);
+    transition: var(--transition);
 }
 
-.container > a:hover {
+.container > a:hover,
+main > a:hover {
     background-color: var(--primary-color-3);
     color: var(--white);
+}
+
+.container h1 {
+    color: var(--primary-color-2);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 /* ========================================
@@ -180,22 +205,7 @@ main {
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
-}
-
-main > a {
-    display: inline-block;
-    color: var(--primary-color-5);
-    font-size: 1rem;
-    margin-bottom: 20px;
-    padding: 8px 16px;
-    background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-light);
-}
-
-main > a:hover {
-    background-color: var(--primary-color-3);
-    color: var(--white);
+    flex: 1;
 }
 
 main h1 {
@@ -210,6 +220,12 @@ main h2 {
     font-size: 2rem;
     margin: 40px 0 20px;
     text-align: center;
+}
+
+main h3 {
+    color: var(--primary-color-3);
+    font-size: 1.5rem;
+    margin: 20px 0;
 }
 
 /* ========================================
@@ -278,7 +294,7 @@ main h2 {
     background-color: var(--white);
     border-radius: 25px;
     box-shadow: 0 4px 10px var(--shadow-light);
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 #catalog-books article a:hover {
@@ -305,7 +321,7 @@ main h2 {
     padding: 20px;
     width: 300px;
     box-shadow: 0 5px 15px var(--shadow-medium);
-    transition: all 0.3s ease;
+    transition: var(--transition);
     display: flex;
     flex-direction: column;
 }
@@ -345,18 +361,31 @@ main h2 {
     margin-bottom: 10px;
 }
 
-.card-product button {
+.card-product form {
+    background: none;
+    padding: 0;
+    margin: 5px 0;
+    box-shadow: none;
+}
+
+.card-product button,
+.card-product input[type="submit"] {
     background-color: var(--primary-color-1);
     color: var(--dark-color);
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
-    margin-top: 10px;
+    width: 100%;
+    margin-top: 5px;
     font-weight: bold;
+    font-size: 1rem;
     box-shadow: 0 3px 8px var(--shadow-medium);
+    cursor: pointer;
+    transition: var(--transition);
 }
 
-.card-product button:hover {
+.card-product button:hover,
+.card-product input[type="submit"]:hover {
     background-color: var(--primary-color-4);
     transform: translateY(-2px);
     box-shadow: 0 5px 12px var(--shadow-dark);
@@ -379,6 +408,11 @@ main h2 {
 #area-user ul li {
     flex: 1 1 calc(33.333% - 30px);
     min-width: 280px;
+    max-width: 400px;
+}
+
+.function-user {
+    height: 100%;
 }
 
 .function-user a {
@@ -390,8 +424,9 @@ main h2 {
     justify-content: center;
     gap: 15px;
     box-shadow: 0 4px 12px var(--shadow-medium);
-    transition: all 0.3s ease;
+    transition: var(--transition);
     min-height: 100px;
+    height: 100%;
 }
 
 .function-user a:hover {
@@ -469,7 +504,7 @@ main h2 {
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.9);
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 #area-login form input:focus,
@@ -538,7 +573,7 @@ main form h3 {
     font-size: 1.5rem;
 }
 
-main form div {
+main form > div {
     margin-bottom: 20px;
 }
 
@@ -554,18 +589,26 @@ main form input[type="text"],
 main form input[type="password"],
 main form input[type="number"],
 main form input[type="file"],
-main form select {
+main form select,
+main form textarea {
     width: 100%;
     padding: 12px 15px;
     border: none;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.9);
     font-size: 1rem;
-    transition: all 0.3s ease;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+main form textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
 main form input:focus,
-main form select:focus {
+main form select:focus,
+main form textarea:focus {
     outline: none;
     background-color: var(--white);
     box-shadow: 0 0 10px rgba(9, 219, 125, 0.5);
@@ -575,7 +618,12 @@ main form select {
     cursor: pointer;
 }
 
-main form input[type="submit"] {
+main form select[multiple] {
+    min-height: 120px;
+}
+
+main form input[type="submit"],
+main form button[type="submit"] {
     width: 100%;
     padding: 15px;
     background-color: var(--primary-color-1);
@@ -587,22 +635,23 @@ main form input[type="submit"] {
     cursor: pointer;
     margin-top: 20px;
     box-shadow: 0 4px 12px var(--shadow-medium);
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
-main form input[type="submit"]:hover {
+main form input[type="submit"]:hover,
+main form button[type="submit"]:hover {
     background-color: var(--primary-color-4);
     transform: translateY(-2px);
     box-shadow: 0 6px 18px var(--shadow-dark);
 }
 
 main form input[type="submit"]#delete {
-    background-color: #ff4444;
+    background-color: var(--error-color);
     color: var(--white);
 }
 
 main form input[type="submit"]#delete:hover {
-    background-color: #cc0000;
+    background-color: var(--error-hover);
 }
 
 /* ========================================
@@ -632,7 +681,7 @@ thead tr th {
 
 tbody tr {
     border-bottom: 1px solid #e0e0e0;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 tbody tr:hover {
@@ -646,16 +695,18 @@ tbody tr:last-child {
 tbody tr td {
     padding: 18px 20px;
     color: var(--dark-color);
+    vertical-align: middle;
 }
 
 tbody tr td input[type="text"],
-tbody tr td input[type="number"] {
+tbody tr td input[type="number"],
+tbody tr td input[type="password"] {
     width: 100%;
     padding: 8px 12px;
     border: 2px solid var(--primary-color-3);
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 tbody tr td input:focus {
@@ -672,10 +723,17 @@ tbody tr td form {
     box-shadow: none;
 }
 
-tbody tr td form input[type="submit"] {
+tbody tr td form input[type="submit"],
+tbody tr td form button {
     padding: 8px 16px;
     font-size: 0.9rem;
-    margin: 0;
+    margin: 2px 0;
+    width: 100%;
+}
+
+tbody tr td form input[type="submit"]:hover,
+tbody tr td form button:hover {
+    transform: translateY(-1px);
 }
 
 /* ========================================
@@ -691,7 +749,7 @@ tbody tr td form input[type="submit"] {
 
 #list-users table thead tr {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 2fr 1fr 1.5fr 1fr 1fr 1fr;
     gap: 10px;
     align-items: center;
     text-align: center;
@@ -699,11 +757,11 @@ tbody tr td form input[type="submit"] {
 
 #list-users table tbody tr {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 2fr 1fr 1.5fr 1fr 1fr 1fr;
     gap: 10px;
     align-items: center;
     text-align: center;
-    padding: 15px 0;
+    padding: 15px 10px;
 }
 
 #list-users p {
@@ -737,6 +795,60 @@ tbody tr td form input[type="submit"] {
 }
 
 /* ========================================
+   ELEMENTOS DE FORMULÁRIO ESPECIAIS
+   ======================================== */
+.category select,
+.type select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
+}
+
+#new-category-input {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid var(--primary-color-1);
+    border-radius: 8px;
+    background-color: var(--white);
+}
+
+#new-category-input.activate {
+    display: block;
+}
+
+input[type="hidden"] {
+    display: none;
+}
+
+/* ========================================
+   MENSAGENS DE FEEDBACK
+   ======================================== */
+.success-message {
+    background-color: var(--primary-color-1);
+    color: var(--white);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 600px;
+    box-shadow: 0 4px 10px var(--shadow-medium);
+}
+
+.error-message {
+    background-color: var(--error-color);
+    color: var(--white);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 600px;
+    box-shadow: 0 4px 10px var(--shadow-medium);
+}
+
+/* ========================================
    FOOTER
    ======================================== */
 footer {
@@ -758,7 +870,7 @@ footer {
 #social-media a {
     color: var(--white);
     font-size: 2rem;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 #social-media a:hover {
@@ -770,4 +882,104 @@ footer p {
     text-align: center;
     font-size: 1rem;
     margin: 0;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    header button {
+        width: 55px;
+        height: 45px;
+    }
+
+    #welcome-section {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    #welcome-section article p {
+        font-size: 1.2rem;
+    }
+
+    #area-user ul li {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .card-product {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    #list-users table thead tr,
+    #list-users table tbody tr {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        text-align: left;
+    }
+
+    #list-users table thead tr th,
+    #list-users table tbody tr td {
+        padding: 10px;
+    }
+
+    main form,
+    #area-login,
+    #area-register {
+        padding: 25px;
+        margin: 20px 10px;
+    }
+
+    table {
+        overflow-x: auto;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    header img {
+        height: 40px;
+    }
+
+    main h1,
+    .container h1 {
+        font-size: 1.5rem;
+    }
+
+    main h2 {
+        font-size: 1.5rem;
+    }
+
+    .function-user a {
+        padding: 20px;
+        min-height: 80px;
+    }
+
+    .function-user a i {
+        font-size: 1.5rem;
+    }
+
+    .function-user a h2 {
+        font-size: 1.1rem;
+    }
 }
