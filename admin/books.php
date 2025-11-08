@@ -58,7 +58,7 @@
 
         ?>
         <h2>cadastrar livro</h2>
-        <form action="/process/books-processprocess-book-post.php" method="post" enctype="multipart/form-data">
+        <form action="/process/books-process/process-book-post.php" method="post" enctype="multipart/form-data">
                 <h3>registrar:</h3>
                 <div class="name">
                     <label for="name">nome:</label>
