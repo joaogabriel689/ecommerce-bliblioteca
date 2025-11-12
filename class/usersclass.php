@@ -10,7 +10,17 @@ class User{
     private $fone;
     private $connection;
 
-    public function  __construct($name, $email, $pass, $adress, $city, $state, $fone, $connection){
+    public function  __construct(
+        string $name = '',
+        string $email = '', 
+        string $pass = '', 
+        string $adress = '', 
+        string $city = '', 
+        string $state = '', 
+        int $fone = null, 
+        $connection
+        )
+        {
         $this->name = $name;
         $this->email = $email;
         $this->pass = $pass;
@@ -40,7 +50,7 @@ class User{
     private function getAll(){
         return [$this->name, $this->email, $this->pass, $this->adress, $this->city, $this->state, $this->fone];
     }
-    protected function setPassworshash(){
+    protected function setPasswordhash(){
         $pass_hash = password_hash($this->pass, PASSWORD_DEFAULT);
         $this->pass = $pass_hash;
     }
@@ -54,9 +64,9 @@ class User{
     public function register(){
         if(User::verify_user($this->email, $this->connection)){
 
-            $sql = "INSERT INTO usuarios (nome, email, senha, enderco, cidade, estado, telefone) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            $sql = "INSERT INTO usuarios (nome, email, senha, endereco, cidade, estado, telefone) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-            $this->setPassworshash();
+            $this->setPasswordhash();
 
 
             $values = $this->getAll();
