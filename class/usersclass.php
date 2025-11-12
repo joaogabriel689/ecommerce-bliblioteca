@@ -10,7 +10,6 @@ class User{
     private $fone;
     private $connection;
 
-
     public function  __construct($name, $email, $pass, $adress, $city, $state, $fone, $connection){
         $this->name = $name;
         $this->email = $email;
@@ -24,8 +23,6 @@ class User{
 
 
     }
-
-
     private static function verify_user($email, $connection){
         $sql = "SELECT * FROM usuarios WHERE email = ? ;";
         $query = $connection->prepare($sql);
@@ -40,18 +37,13 @@ class User{
             return false;
         }
     }
-
-
     private function getAll(){
         return [$this->name, $this->email, $this->pass, $this->adress, $this->city, $this->state, $this->fone];
     }
-
-
     protected function setPassworshash(){
         $pass_hash = password_hash($this->pass, PASSWORD_DEFAULT);
         $this->pass = $pass_hash;
     }
-
     private function pass_verify($responsepass){
         if(password_verify($this->pass, $responsepass)){
             return true;
@@ -59,10 +51,6 @@ class User{
             return false;
         }
     }
-
-
-
-
     public function register(){
         if(User::verify_user($this->email, $this->connection)){
 
@@ -182,6 +170,29 @@ class User{
             return [
                     'status'=> true,
                     'msg' => 'usario selecionado',
+                    'data' => $response
+                ];
+        }else{
+            return [
+                'status' => false,
+                'msg' => 'nao foi possivel selecionar esse usuario '
+            ];
+        }
+    }
+    public static function select_all_user($email, $connection){
+        $sql = "SELECT * FROM usuarios ;";
+        $query = $connection->prepare($sql);
+        try{
+            $query->execute([$email]);
+        }catch(PDOexception $e){
+            die("nao foi possivel verificar se o usuario existe". $e->getMessage());
+        }
+        if($query->rowCount() == 1){
+            $response = $query->fetchAll();
+
+            return [
+                    'status'=> true,
+                    'msg' => 'usarios selecionado',
                     'data' => $response
                 ];
         }else{
