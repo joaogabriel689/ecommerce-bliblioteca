@@ -45,7 +45,7 @@
          echo "<h1>Ola, {$_SESSION['name']}, aqui voce pode gerenciar os usuarios.</h1>";
                 ?>
         <h2>cadastrar usuario:</h2>
-        <form action="/process/login-register/process-register.php" method="post">
+        <form action="/process/process-register.php" method="post">
                 <h1>registrar:</h1>
                 <div class="name">
                     <label for="name">nome:</label>
@@ -103,13 +103,13 @@
                                 <td><?= $response['nickname']?></td>
                                 <td><?= $response['type']?></td>
                                 <td>
-                                    <form action="/process/users-process/process-user-delete.php" method="post">
+                                    <form action="/process/process-user-delete.php" method="post">
                                         <input type="hidden" name="nickname" value="<?= $response['nickname'] ?>">
                                         <input type="submit" value="deletar">
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="/process/users-process/user-alter.php" method="post">
+                                    <form action="/process/user-alter.php" method="post">
                                         <input type="hidden" name="id" value="<?= $response['id'] ?>">
                                         <input type="submit" value="alterar">
                                     </form>

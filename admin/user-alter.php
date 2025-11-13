@@ -41,7 +41,7 @@
 
         
     </header>
-    <form action="/process/users-process/process-user-alter.php" method = "post">
+    <form action="/process/process-user-alter.php" method = "post">
        
         <table>
                     <thead>

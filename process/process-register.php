@@ -1,10 +1,9 @@
-
 <?php
     session_start();
 
 
-    include '../../config/connection.php';
-    include '../../class/usersclass.php';
+    include '../config/connection.php';
+    include '../class/usersclass.php';
 
     $name = $_POST["name"] ?? "";
     $email = $_POST["email"] ?? "";
@@ -17,13 +16,13 @@
     
     
     if(empty($email) || empty($pass) || empty($name)){
-        header("Location: ../../public/register.html");
+        header("Location: ../public/register.html");
         exit;
 
     }else{ 
-        $user = new User($name,
+        $user = new User($pass,
             $email,
-            $pass,
+            $name,
             $adress,
             $city,
             $state,
@@ -33,10 +32,10 @@
         $result = $user->register();
 
         if($result['status']==true){
-            header("Location: ../../public/login.html");
+            header("Location: ../public/login.html");
             exit;
         }else{
-            header("Location: ../../public/register.html");
+            header("Location: ../public/register.html");
             exit; 
         }
                

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 class User{
     private $name;
     private $email;
@@ -11,14 +14,14 @@ class User{
     private $connection;
 
     public function  __construct(
+        string $email, 
+        string $pass,
         string $name = '',
-        string $email = '', 
-        string $pass = '', 
         string $adress = '', 
         string $city = '', 
         string $state = '', 
-        int $fone = null, 
-        $connection
+        ?int $fone = null,
+        $connection = null
         )
         {
         $this->name = $name;
@@ -33,43 +36,47 @@ class User{
 
 
     }
-    private static function verify_user($email, $connection){
+    protected static function verify_user($email, $connection){
         $sql = "SELECT * FROM usuarios WHERE email = ? ;";
         $query = $connection->prepare($sql);
         try{
             $query->execute([$email]);
-        }catch(PDOexception $e){
+            $response = $query-> fetch();
+        }catch(PDOException $e){
             die("nao foi possivel verificar se o usuario existe". $e->getMessage());
         }
         if($query->rowCount() == 1){
-            return true;
+            return [
+                    'status'=> true,
+                    'msg' => 'usario encontrado',
+                    'data' => $response
+                ];
         }else{
-            return false;
+            return [
+                    'status'=> false,
+                    'msg' => 'usario nao encontardo',
+                ];
         }
     }
-    private function getAll(){
+    public function getAll(){
         return [$this->name, $this->email, $this->pass, $this->adress, $this->city, $this->state, $this->fone];
     }
     protected function setPasswordhash(){
         $pass_hash = password_hash($this->pass, PASSWORD_DEFAULT);
-        $this->pass = $pass_hash;
-    }
-    private function pass_verify($responsepass){
-        if(password_verify($this->pass, $responsepass)){
-            return true;
-        }else{
-            return false;
-        }
+        return $pass_hash;
     }
     public function register(){
-        if(User::verify_user($this->email, $this->connection)){
+        $verify = User::verify_user($this->email, $this->connection );
+        if($verify['status'] == false){
 
             $sql = "INSERT INTO usuarios (nome, email, senha, endereco, cidade, estado, telefone) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-            $this->setPasswordhash();
+            $pass_hash = $this->setPasswordhash();
 
 
             $values = $this->getAll();
+            $values[2] = $pass_hash;
+
 
 
             $bd = $this->connection;
@@ -79,7 +86,7 @@ class User{
                 $query->execute($values);
 
 
-            }catch(PDOexception $e){
+            }catch(PDOException $e){
                 die("nao foi possivel registrar o usuario ". $e->getMessage());
             }
 
@@ -101,47 +108,41 @@ class User{
         }
     }
     public function login(){
-        if(User::verify_user($this->email, $this->connection)){
-            $sql = "SELECT * FROM usuarios WHERE email = ?;";
+        $verify = User::verify_user($this->email, $this->connection );
+        if($verify['status'] == true){
+            if (password_verify($this->pass, $verify['data']["senha"])){
+                $response = $verify;
+                $response['senha'] = "";
+                return [
+                        'status'=> true,
+                        'msg' => 'usario logado ',
+                        'data' => $response
+                    ];
+            }else{
+                return [
+                        'status'=> false,
+                        'msg' => 'senha incorreta',
+                        'data' => null
+                    ];
 
-            $bd = $this->connection;
-
-            $query = $bd->prepare($sql);
-
-            $query->execute([$this->email]);
-
-            
-
-            if($query->rowCount() == 1){
-               $response = $query->fetchAll();
-               if ($this->pass_verify($response[0]['senha'])){
-                    return [
-                            'status'=> true,
-                            'msg' => 'usario logado ',
-                            'data' => $response
-                        ];
-                
-               }else{
-                    return [
-                            'status'=> false,
-                            'msg' => 'senha incorreta',
-                            'data' => null
-                        ];
-               }
             }
 
+
         }else{
+
             return [
                     'status'=> false,
-                    'msg' => 'usario nao encontrado',
+                    'msg' => 'usuario nao encontrado login',
                     'data' => null
                 ];
 
         }
 
+
     }
     public static function delete_user($email, $connection){
-        if(User::verify_user($email, $connection)){
+        $verify = User::verify_user($this->email, $this->connection );
+        if($verify['status'] == true){
             $sql = "DELETE FROM usuarios WHERE email = ?;";
             $bd = $connection;
 
@@ -153,7 +154,7 @@ class User{
                     'status' => true,
                     'msg' => 'usuario deletado com sucesso '
                 ];
-            }catch(PDOexception $e){
+            }catch(PDOException $e){
                 die("nao foi possivel registrar o usuario ". $e->getMessage());
             }
 
@@ -171,7 +172,7 @@ class User{
         $query = $connection->prepare($sql);
         try{
             $query->execute([$email]);
-        }catch(PDOexception $e){
+        }catch(PDOException $e){
             die("nao foi possivel verificar se o usuario existe". $e->getMessage());
         }
         if($query->rowCount() == 1){
@@ -190,14 +191,14 @@ class User{
         }
     }
     public static function select_all_user($email, $connection){
-        $sql = "SELECT * FROM usuarios ;";
+        $sql = "SELECT * FROM usuarios WHERE email = ? ;";
         $query = $connection->prepare($sql);
         try{
             $query->execute([$email]);
-        }catch(PDOexception $e){
+        }catch(PDOException $e){
             die("nao foi possivel verificar se o usuario existe". $e->getMessage());
         }
-        if($query->rowCount() == 1){
+        if($query->rowCount() > 0){
             $response = $query->fetchAll();
 
             return [
@@ -213,7 +214,8 @@ class User{
         }
     }
     public function update_user(){
-        if(User::verify_user($this->email, $this->connection)){
+        $verify = User::verify_user($this->email, $this->connection );
+        if($verify['status'] == true){
 
             $sql = "UPDATE usuarios SET nome = ?, endereco = ?, cidade = ?, estado = ?, telefone = ? WHERE email = ?;";
 
@@ -229,7 +231,7 @@ class User{
                 $query = $bd->prepare($sql);
                 $query->execute($values);
 
-                }catch(PDOexception $e){
+                }catch(PDOException $e){
                     die("nao foi possivel atualizar o usuario ". $e->getMessage());
                 }
 

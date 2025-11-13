@@ -29,7 +29,7 @@
                 </ul>
             </nav>
             <?php
-            if (empty($_SESSION['user'])){
+            if (empty($_SESSION['email'])){
                 echo '<button><a href="../public/login.html">login</a></button>';
             }else{
                 if ($_SESSION['type'] == 'admin'){

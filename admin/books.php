@@ -58,7 +58,7 @@
 
         ?>
         <h2>cadastrar livro</h2>
-        <form action="/process/books-process/process-book-post.php" method="post" enctype="multipart/form-data">
+        <form action="/process/process-book-post.php" method="post" enctype="multipart/form-data">
                 <h3>registrar:</h3>
                 <div class="name">
                     <label for="name">nome:</label>
@@ -116,11 +116,11 @@
                             <p>R$ <?= $response['price'] ?></p>
                             <p><?= $response['decrib'] ?></p>
                             <p>Estoque: <?= $response['stock'] ?></p>
-                            <form action="/process/books-process/process-book-delete.php" method="post">
+                            <form action="/process/process-book-delete.php" method="post">
                                 <input type="hidden" name="name" value="<?= $response['name'] ?>">
                                 <input type="submit" value="apagar">
                             </form>
-                            <form action="/process/books-process/book-alter.php" method="post">
+                            <form action="/process/book-alter.php" method="post">
                                 <input type="hidden" name="name" value="<?= $response['name'] ?>">
                                 <input type="submit" value="editar">
                             </form>
