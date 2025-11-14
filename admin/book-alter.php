@@ -15,13 +15,12 @@
         exit;
     }
     include '../config/connection.php';
+    include '../class/productclass.php';
+
     $name = $_POST['name'] ?? "";
-    $sql = 'SELECT * FROM books WHERE name = ?;';
-    $query = $connection->prepare($sql);
-    $query->bind_param('s', $name);
-    $query->execute();
-    $result = $query->get_result();
-    $response = $result->fetch_assoc();
+    $book = Product::select_product($name, $connection);
+    $data = $book['data']
+
 
 ?>
 <!DOCTYPE html>
@@ -60,11 +59,11 @@
                     </thead>
                     <tbody>
                         <tr> 
-                            <input type="hidden" name="old_name" value = "<?=$response['name'] ?? ''?>">
-                            <td><input type="text" name="name" value="<?=$response['name'] ?? ''?>"></td>
-                            <td><input type="text" name="price" value="<?=$response['price'] ?? '' ?>"></td>
-                            <td><input type="text" name="describ" value="<?=$response['describ'] ?? '' ?>"></td>
-                            <td><input type="text" name="stock" value="<?=$response['stock'] ?? '' ?>"></td>
+                            <input type="hidden" name="old_name" value = "<?=$response['nome'] ?? ''?>">
+                            <td><input type="text" name="name" value="<?=$data['nome'] ?? ''?>"></td>
+                            <td><input type="text" name="price" value="<?=$response['valor'] ?? '' ?>"></td>
+                            <td><input type="text" name="describ" value="<?=$response['decricao'] ?? '' ?>"></td>
+                            <td><input type="text" name="stock" value="<?=$response['qtd'] ?? '' ?>"></td>
                             <td><input type="text" name="image" value="<?=$response['image'] ?? '' ?>"></td>
                         </tr>
                     </tbody>

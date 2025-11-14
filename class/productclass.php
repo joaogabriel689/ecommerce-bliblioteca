@@ -60,16 +60,16 @@ class Product{
             ];
         }
     }
-    public static function select_all_user($name, $connection){
+    public static function select_all_products( $connection){
         $sql = "SELECT * FROM produtos ;";
         $query = $connection->prepare($sql);
         try{
-            $query->execute([$name]);
+            $query->execute();
         }catch(PDOexception $e){
             die("nao foi possivel selecionar os produtos ". $e->getMessage());
         }
-        if($query->rowCount() == 1){
-            $response = $query->fetchAll();
+        if($query->rowCount() > 0){
+            $response = $query->fetchAll(PDO::FETCH_ASSOC);
 
             return [
                     'status'=> true,
@@ -79,7 +79,7 @@ class Product{
         }else{
             return [
                 'status' => false,
-                'msg' => 'nao foi possivel selecionar esse produto '
+                'msg' => 'nao foi possivel selecionar os produtos '
             ];
         }
     }
@@ -126,11 +126,11 @@ class Product{
     }
     public static function delete_product($name, $connection){
         if(Product::verify_product($name, $connection)){
-            $sql = "DELETE FROM usuarios WHERE nome = ?;";
+            $sql = "DELETE FROM produtos WHERE nome = ?;";
             $bd = $connection;
             $query = $bd->prepare($sql);
             try{
-                $query->execute([$email]);
+                $query->execute([$name]);
 
                 return [
                     'status' => true,

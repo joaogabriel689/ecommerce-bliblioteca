@@ -1,13 +1,13 @@
 <?php
     session_start();
-    include '../../config/connection.php';
+    include '../config/connection.php';
+    include '../class/productclass.php';
+
     $name = $_POST['name'] ?? "";
 
-    $sql = "DELETE FROM books WHERE name = ?;";
+    product::delete_product($name, $connection);
 
-    $prep_query = $connection->prepare($sql);
-    $prep_query->bind_param("s", $name);
-    $prep_query->execute();
+
 
     header("Location: ../../admin/books.php");
 

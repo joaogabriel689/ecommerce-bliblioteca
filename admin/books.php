@@ -23,19 +23,7 @@
     <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/style/style.css">
-    <script>
-        var category = document.getElementById('category-div')
-        var option = document.getElementsByName('option')
-        var new_category = document.getElementById('new')
-        var new_text = document.getElementById('new_input')
-
-
-        new_category.addEventListener('click', () => show_element(new_text))
-        function show_element(element){
-            element.setAttribute('class', 'activete');
-        }
-    </script>
+    <link rel="stylesheet" href="../style/style.css">
     <title>bliblioteca online</title>
 </head>
 <body>
@@ -54,11 +42,11 @@
         <a href="javascript:history.back()">Voltar para a página anterior</a>
 
         <?php
-         echo "<h1>Ola, {$_SESSION['name']}, aqui voce pode gerenciar o catalogo de livros.</h1>";
+         echo "<h1>Ola {$_SESSION['name']}, aqui voce pode gerenciar o catalogo de livros.</h1>";
 
         ?>
         <h2>cadastrar livro</h2>
-        <form action="/process/process-book-post.php" method="post" enctype="multipart/form-data">
+        <form action="../process/process-book-post.php" method="post" enctype="multipart/form-data">
                 <h3>registrar:</h3>
                 <div class="name">
                     <label for="name">nome:</label>
@@ -68,28 +56,12 @@
                     <label for="price">preço:</label>
                     <input type="text" name="price" id="price">
                 </div>
-                <div class="file">
-                    <label for="file">imagem:</label>
-                    <input type="file" name="file">
-                </div>
                 <div class="describe">    
                     <label for="describe">descriçao</label>
                     <input type="text" name="describe" id="describe">
                 </div>
-                <div class="category">    
-                    <label for="category">type:</label>
-                    <select id="type" name="category" multiple>
-                    <option value="ficção">ficção</option>
-                    <option value="fantasia">fantasia</option>
-                    <option value="didatico">didatico</option>
-                    <option value="romance">romance</option>
-                    <option value="new-category">criar nova categoria
-                        <input type="text" id="new-category-input" class="">
-                    </option>
-                    </select>
-                </div>
                 <div class="stock">    
-                    <label for="stock">estoque</label>new-category-input
+                    <label for="stock">estoque</label>
                     <input type="number" name="stock" id="stock">
                 </div>
                 <input type="submit" value="cadastrar" id="register">
@@ -98,39 +70,44 @@
         <section id="list-books">
         <?php
                 include '../config/connection.php';
-                $sql = 'SELECT * FROM books;';
-                $query = $connection->prepare($sql);
-                $query->execute();
-                $result = $query->get_result(); 
+                include '../class/productclass.php';
                 
-                if($result->num_rows == 0){
+                $count = 0;
+
+                $result = Product::select_all_products($connection);
+
+                
+                if($result['status'] == false){
                     echo "<p>Nenhum livro foi cadastrado ainda</p>";
                 }else{
-                    while($response = $result->fetch_assoc()){ 
-            ?>
-                        <div class="card-product">
-                            <div class="image-book">
-                                <img src="upload/<?= $response['image'] ?>" alt="Capa do Livro">
-                            </div>
-                            <h3><?= $response['name'] ?></h3>
-                            <p>R$ <?= $response['price'] ?></p>
-                            <p><?= $response['decrib'] ?></p>
-                            <p>Estoque: <?= $response['stock'] ?></p>
-                            <form action="/process/process-book-delete.php" method="post">
-                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
-                                <input type="submit" value="apagar">
-                            </form>
-                            <form action="/process/book-alter.php" method="post">
-                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
-                                <input type="submit" value="editar">
-                            </form>
-                        </div>
-            <?php
-                    }
-                }
-            ?>
-        </section>
+                    $products = $result['data'];
+                    foreach ($products as $product){
+                ?>
+                                <div class="card-product">
+                                    <div class="image-book">
+                                        <img src="" alt="Capa do Produto">
+                                    </div>
 
+                                    <h3><?= $product['nome'] ?></h3>
+                                    <p>R$ <?= $product['valor'] ?></p>
+                                    <p><?= $product['descricao'] ?></p>
+                                    <p>Estoque: <?= $product['qtd'] ?></p>
+
+                                    <form action="../process/process-product-delete.php" method="post">
+                                        <input type="hidden" name="name" value="<?= $product['nome'] ?>">
+                                        <input type="submit" value="apagar">
+                                    </form>
+
+                                    <form action="book-alter.php" method="post">
+                                        <input type="hidden" name="name" value="<?= $product['nome'] ?>">
+                                        <input type="submit" value="editar">
+                                    </form>
+                                </div>
+                    <?php
+                            }
+                        }
+                    ?>
+                    
 
     </main>
 

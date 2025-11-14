@@ -64,46 +64,50 @@
                  <a href="catalog-books.php">veja o catalogo completo aqui</a>
              </article>
              <div id="books">
-            <?php
+        <?php
                 include '../config/connection.php';
-                $sql = 'SELECT * FROM books;';
-                $query = $connection->prepare($sql);
-                $query->execute();
-                $result = $query->get_result(); 
-                $cont = 0;
+                include '../class/productclass.php';
                 
-                if($result->num_rows == 0){
+                $count = 0;
+
+                $result = Product::select_all_products($connection);
+
+                
+                if($result['status'] == false){
                     echo "<p>Nenhum livro foi cadastrado ainda</p>";
                 }else{
-                    while($response = $result->fetch_assoc()){ 
-                        if ($cont>4){
+                    $products = $result['data'];
+                    $count = 0;
+                    foreach ($products as $product){
+                        $count = $count + 1
+
+                ?>
+                                <div class="card-product">
+                                    <div class="image-book">
+                                        <img src="" alt="Capa do Produto">
+                                    </div>
+
+                                    <h3><?= $product['nome'] ?></h3>
+                                    <p>R$ <?= $product['valor'] ?></p>
+                                    <p><?= $product['descricao'] ?></p>
+                                    <form action="../process/process-product-delete.php" method="post">
+                                        <input type="hidden" name="name" value="<?= $product['nome'] ?>">
+                                        <input type="submit" value="adicionar aos favoritos">
+                                    </form>
+
+                                    <form action="book-alter.php" method="post">
+                                        <input type="hidden" name="name" value="<?= $product['nome'] ?>">
+                                        <input type="submit" value="adicionar ao carrionho">
+                                    </form>
+                                </div>
+                    <?php
+                        if($count==8){
+
                             break;
                         }
-                        $cont = $cont + 1;
-
-            ?>
-                        <div class="card-product">
-                            <div class="image-book">
-                                <img src="/uploads/<?= $response['image'] ?>" alt="Capa do Livro">
-                            </div>
-                            <h3><?= $response['name'] ?></h3>
-                            <p>R$ <?= $response['price'] ?></p>
-                            <p><?= $response['decrib'] ?></p>
-                            <form action="../process/orders/add-favorite.php" class="add-favorites">
-                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
-                                <input type="submit" value="adicionar aos favoritos">
-                            </form>
-                            <form action="../process/orders/add-car.php" class="add-car">
-                                <input type="hidden" name="name" value="<?= $response['name'] ?>">
-                                <input type="submit" value="adicionar ao carrinho">
-                            </form>
-                        </div>
-
-            <?php
-
                     }
                 }
-            ?>
+                    ?>
              </div>
          </section>
      </main>

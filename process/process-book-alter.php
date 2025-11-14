@@ -10,12 +10,13 @@
             exit;
         }
         include '../../config/connection.php';
+        include '../class/productclass.php';
+
 
         $name_new = $_POST['name'];
         $price = $_POST['price'];
         $describ = $_POST['describ'] ?? "";
         $stock = $_POST['stock'];
-        $image = $_POST['image'];
 
         $old_name = $_POST['old_name'];
         if (empty($name_new) || empty($price) || empty($stock) || empty($old_name)) {
