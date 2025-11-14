@@ -20,13 +20,21 @@ class Product{
         $query = $connection->prepare($sql);
         try{
             $query->execute([$name]);
+            $result = $query->fetchAll();
         }catch(PDOexception $e){
             die("nao foi possivel verificar se o produto existe". $e->getMessage());
         }
         if($query->rowCount() == 1){
-            return true;
+            return [
+                    'status'=> true,
+                    'msg' => 'produto encontrado',
+                    'data' => $response
+                ];
         }else{
-            return false;
+            return [
+                    'status'=> false,
+                    'msg' => 'produto nao encontardo',
+                ];
         }
     }
     public static function select_product($name, $connection){
