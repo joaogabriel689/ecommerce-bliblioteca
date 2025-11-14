@@ -9,28 +9,31 @@
             header("Location: ../../pulbic/index.php");
             exit;
         }
-        include '../../config/connection.php';
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $age = $_POST['age'] ?? "";
-        $type = $_POST['type'];
+        include '../config/connection.php';
+        include '../class/usersclass.php';
+        $name = $_POST["name"] ?? "";
+        $email = $_POST["email"] ?? "";
+        $adress = $_POST["adress"] ?? "";
+        $pass = $_POST["password"] ?? "";
+        $city = $_POST["city"] ?? "";
+        $state = $_POST["state"] ?? "";
+        $fone = $_POST["fone"] ?? 0;
+
+        $user = new User($email,
+            $pass,
+            $name,
+            $adress,
+            $city,
+            $state,
+            $fone,
+            $connection
+        );
+        $result = $user->update_user();
 
 
-        $sql = "UPDATE users
-                SET name = ?, age = ?, type = ?
-                WHERE id = ?;";
-
-        $alter_query = $connection->prepare($sql);
 
 
-
-
-
-        $alter_query->bind_param("sssi", $name, $age, $type, $id);
-
-        $alter_query->execute();
-
-        if ($alter_query->affected_rows > 0) {
+        if ($result['status']==true) {
             header("Location: ../../admin/users.php?success=1");
         } else {
             header("Location: ../../admin/users.php?error=1");

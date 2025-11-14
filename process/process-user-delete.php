@@ -1,13 +1,11 @@
 <?php
     session_start();
-    include '../../config/connection.php';
-    $nick = $_POST['nickname'] ?? "";
+    include '../config/connection.php';
+    include '../class/usersclass.php';
+    $email = $_POST['email'] ?? "";
 
-    $sql = "DELETE FROM users WHERE nickname = ?;";
+    User::delete_user($email, $connection);
 
-    $prep_query = $connection->prepare($sql);
-    $prep_query->bind_param("s", $nick);
-    $prep_query->execute();
 
     header("Location: ../../pulbic/users.php");
 

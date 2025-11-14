@@ -15,13 +15,11 @@
         exit;
     }
     include '../config/connection.php';
-    $id = $_POST['id'] ?? "";
-    $sql = 'SELECT * FROM users WHERE id = ?;';
-    $query = $connection->prepare($sql);
-    $query->bind_param('s', $id);
-    $query->execute();
-    $result = $query->get_result();
-    $response = $result->fetch_assoc();
+    include '../class/usersclass.php';
+    $email = $_POST['email'];
+    $response = User::select_user($email, $connection);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -46,24 +44,28 @@
 
         
     </header>
-    <form action="/process/process-user-alter.php" method = "post">
+    <form action="../process/process-user-alter.php" method = "post">
        
         <table>
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>idade</th>
-                            <th>nickname</th>
-                            <th>tipo</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Enderço</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>Telefone</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr> 
-                            <input type="hidden" name="id" value = "<?=$response['id'] ?? ''?>">
-                            <td><input type="text" name="name" value="<?=$response['name'] ?? ''?>"></td>
-                            <td><input type="text" name="age" value="<?=$response['age'] ?? '' ?>"></td>
-                            <td><input type="text" name="nickname" value="<?=$response['nickname'] ?? '' ?>"></td>
-                            <td><input type="text" name="type" value="<?=$response['type'] ?? '' ?>"></td>
+                            <input type="hidden" name="old_name" value = "<?=$response['nome'] ?? ''?>">
+                            <td><input type="text" name="name" value="<?=$response['nome'] ?? ''?>"></td>
+                            <td><input type="text" name="email" value="<?=$response['email'] ?? '' ?>"></td>
+                            <td><input type="text" name="adress" value="<?=$response['endereco'] ?? '' ?>"></td>
+                            <td><input type="text" name="state" value="<?=$response['estado'] ?? '' ?>"></td>
+                            <td><input type="text" name="city" value="<?=$response['cidade'] ?? '' ?>"></td>
+                            <td><input type="text" name="fone" value="<?=$response['telefone'] ?? '' ?>"></td>
                         </tr>
                     </tbody>
         </table>

@@ -9,7 +9,7 @@
             header("Location: ../../public/index.php");
             exit;
         }
-        include '../../config/connection.php';
+        include '../config/connection.php';
         include '../class/productclass.php';
 
 
@@ -22,22 +22,10 @@
         if (empty($name_new) || empty($price) || empty($stock) || empty($old_name)) {
             die("Preencha todos os campos obrigatórios");
         }
+        $book = new Product($name, $qtd, $describ, $price, $connection);
+        $response = $book->update($old_name);
 
-        $sql = "UPDATE books
-                SET name = ?, price = ?, describ = ?, stock = ?, image = ?
-                WHERE name = ?;";
-
-        $alter_query = $connection->prepare($sql);
-
-
-
-
-
-        $alter_query->bind_param("ssssss", $name_new, $price, $describ, $stock, $image, $old_name);
-
-        $alter_query->execute();
-
-        if ($alter_query->affected_rows > 0) {
+        if ($response['status']==true) {
             header("Location: ../../admin/books.php?success=1");
         } else {
             header("Location: ../../admin/books.php?error=1");

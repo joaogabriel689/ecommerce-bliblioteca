@@ -59,12 +59,12 @@
                     </thead>
                     <tbody>
                         <tr> 
-                            <input type="hidden" name="old_name" value = "<?=$response['nome'] ?? ''?>">
+                            <input type="hidden" name="old_name" value = "<?=$data['nome'] ?? ''?>">
                             <td><input type="text" name="name" value="<?=$data['nome'] ?? ''?>"></td>
-                            <td><input type="text" name="price" value="<?=$response['valor'] ?? '' ?>"></td>
-                            <td><input type="text" name="describ" value="<?=$response['decricao'] ?? '' ?>"></td>
-                            <td><input type="text" name="stock" value="<?=$response['qtd'] ?? '' ?>"></td>
-                            <td><input type="text" name="image" value="<?=$response['image'] ?? '' ?>"></td>
+                            <td><input type="text" name="price" value="<?=$data['valor'] ?? '' ?>"></td>
+                            <td><input type="text" name="describ" value="<?=$data['decricao'] ?? '' ?>"></td>
+                            <td><input type="text" name="stock" value="<?=$data['qtd'] ?? '' ?>"></td>
+                            <td><input type="text" name="image" value="<?=$data['image'] ?? '' ?>"></td>
                         </tr>
                     </tbody>
         </table>

@@ -90,14 +90,14 @@
                                     <h3><?= $product['nome'] ?></h3>
                                     <p>R$ <?= $product['valor'] ?></p>
                                     <p><?= $product['descricao'] ?></p>
-                                    <form action="../process/process-product-delete.php" method="post">
+                                    <form action="../process/add-favorite.php" method="post">
                                         <input type="hidden" name="name" value="<?= $product['nome'] ?>">
                                         <input type="submit" value="adicionar aos favoritos">
                                     </form>
 
-                                    <form action="book-alter.php" method="post">
+                                    <form action="../process/add-car.php" method="post">
                                         <input type="hidden" name="name" value="<?= $product['nome'] ?>">
-                                        <input type="submit" value="adicionar ao carrionho">
+                                        <input type="submit" value="adicionar ao carrinho">
                                     </form>
                                 </div>
                     <?php

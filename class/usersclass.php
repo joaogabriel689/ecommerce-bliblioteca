@@ -188,16 +188,16 @@ class User{
             ];
         }
     }
-    public static function select_all_user($email, $connection){
-        $sql = "SELECT * FROM usuarios WHERE email = ? ;";
+    public static function select_all_user( $connection){
+        $sql = "SELECT nome,email,endereco,estado,cidade,telefone FROM usuarios;";
         $query = $connection->prepare($sql);
         try{
-            $query->execute([$email]);
+            $query->execute();
         }catch(PDOException $e){
             die("nao foi possivel verificar se o usuario existe". $e->getMessage());
         }
         if($query->rowCount() > 0){
-            $response = $query->fetchAll();
+            $response = $query->fetchAll(PDO::FETCH_ASSOC);
 
             return [
                     'status'=> true,

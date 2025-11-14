@@ -51,24 +51,29 @@
                     <label for="name">nome:</label>
                     <input type="text" name="name">
                 </div>
-                <div class="age">
-                    <label for="age">idade</label>
-                    <input type="number" name="age" id="age">
+                <div class="email">
+                    <label for="email">email:</label>
+                    <input type="text" name="email">
                 </div>
-                <div class="nickname">
-                    <label for="user">usuario:</label>
-                    <input type="text" name="user">
+                <div class="adress">
+                    <label for="adress">endereço:</label>
+                    <input type="text" name="adress">
+                </div>
+                <div class="state">
+                    <label for="state">estado:</label>
+                    <input type="text" name="state">
+                </div>
+                <div class="city">
+                    <label for = "city">cidede:</label>
+                    <input type="text" name="city">
+                </div>
+                <div class="fone">
+                    <label for="fone">telefone</label>
+                    <input type="number" name="fone">
                 </div>
                 <div class="password">    
                     <label for="password">senha:</label>
                     <input type="password" name="password" id="password">
-                </div>
-                <div class="type">    
-                    <label for="type">type:</label>
-                    <select id="type" name="type" multiple>
-                    <option value="admin">admin</option>
-                    <option value="defaut">client</option>
-                    </select>
                 </div>
                 <input type="submit" value="cadastrar" id="register">
             </form>
@@ -77,40 +82,45 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Idade</th>
-                        <th>Nickname</th>
-                        <th>Tipo</th>
-                        <th>deletar</th>
-                        <th>editar</th>
+                        <th>Email</th>
+                        <th>Enderço</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>Telefone</th>
+                        <th>Apagar</th>
+                        <th>Editar</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
                         include '../config/connection.php';
-                        $sql = 'SELECT * FROM users;';
-                        $query = $connection->prepare($sql);
-                        $query->execute();
-                        $result = $query->get_result(); 
+                        include '../class/usersclass.php';
+
+                        $response = User::select_all_user($connection);
+                       
                         
-                        if($result->num_rows == 0){
+                        if($response['status'] == false){
                             echo "<p>Nenhum usuario foi cadastrado ainda</p>";
                         }else{
-                            while($response = $result->fetch_assoc()){ 
+                            $data = $response['data'];
+                            foreach($data as $user){ 
                     ?>
                             <tr>
-                                <td><?= $response['name']?></td>
-                                <td><?= $response['age']?></td>
-                                <td><?= $response['nickname']?></td>
-                                <td><?= $response['type']?></td>
+                                <td><?= $user['nome']?></td>
+                                <td><?= $user['email']?></td>
+                                <td><?= $user['endereco']?></td>
+                                <td><?= $user['estado']?></td>
+                                <td><?= $user['cidade']?></td>
+                                <td><?= $user['telefone']?></td>
                                 <td>
-                                    <form action="/process/process-user-delete.php" method="post">
-                                        <input type="hidden" name="nickname" value="<?= $response['nickname'] ?>">
+                                    <form action="../process/process-user-delete.php" method="post">
+                                        <input type="hidden" name="email" value="<?= $user['email'] ?>">
                                         <input type="submit" value="deletar">
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="/process/user-alter.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $response['id'] ?>">
+                                    <form action="../process/user-alter.php" method="post">
+                                        <input type="hidden" name="email" value="<?= $user['email'] ?>">
                                         <input type="submit" value="alterar">
                                     </form>
                                 </td>
