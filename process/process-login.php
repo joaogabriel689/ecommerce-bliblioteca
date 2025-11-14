@@ -9,22 +9,28 @@
     
     $email = $_POST["email"] ?? "";
     $pass = $_POST["password"] ?? "";
+    var_dump($email);
 
     if(empty($email) or empty($pass)){
         header("location: ../public/login.html");
         exit;
     }else{
 
-        $user = new User( pass: $pass, email: $email, connection: $connection);
+        $user = new User(pass: $pass, email: $email, connection: $connection);
 
-        $result = $user->login();
-        if($result['status']==true){
-            $_SESSION['name'] = $result['data']['nome'];
-            $_SESSION['email'] = $result['data']['email'];
-            $_SESSION['adress'] = $result['data']['endereco'];
-            $_SESSION['state'] = $result['data']['estado'];
-            $_SESSION['city'] = $result['data']['cidade'];
-            $_SESSION['fone'] = $result['data']['telefone'];
+        $data = $user->login();
+
+        if($data['status']==true){
+            $result = $data['data'];
+            $_SESSION['name'] = $result['nome'];
+            $_SESSION['email'] = $result['email'];
+            $_SESSION['adress'] = $result['endereco'];
+            $_SESSION['state'] = $result['estado'];
+            $_SESSION['city'] = $result['cidade'];
+            $_SESSION['fone'] = $result['telefone'];
+            $_SESSION['type'] = 'default';
+
+
             if($_SESSION['email'] == 'admin@bliblioteca.com'){
                 $_SESSION['type'] = 'admin';
                 header("Location: ../admin/admin.php");
@@ -35,9 +41,7 @@
                 exit;               
 
             }
-
-
-            
+   
         }else{
             
             header("location: ../public/login.html?msg={$result['msg']}");

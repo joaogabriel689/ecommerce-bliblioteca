@@ -11,7 +11,7 @@
     $pass = $_POST["password"] ?? "";
     $city = $_POST["city"] ?? "";
     $state = $_POST["state"] ?? "";
-    $fone = $_POST["fone"] ?? "";
+    $fone = $_POST["fone"] ?? 0;
 
     
     
@@ -20,8 +20,8 @@
         exit;
 
     }else{ 
-        $user = new User($pass,
-            $email,
+        $user = new User($email,
+            $pass,
             $name,
             $adress,
             $city,

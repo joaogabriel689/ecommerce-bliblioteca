@@ -1,12 +1,17 @@
 <?php
     session_start();
-    if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
 
-        header("Location: /public/login.html");
+        
+
+    if (!isset($_SESSION['email']) || !isset($_SESSION['type'])) {
+
+        header("Location: ../public/login.html");
         exit;
     }
+
+
     if ($_SESSION['type'] !== 'admin') {
-        header("Location: /pulic/index.php");
+        header("Location: ../public/index.php");
         exit;
     }
     include '../config/connection.php';

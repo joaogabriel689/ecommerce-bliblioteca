@@ -3,15 +3,15 @@
 
         
 
-    if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
+    if (!isset($_SESSION['email']) || !isset($_SESSION['type'])) {
 
-        header("Location: /public/login.html");
+        header("Location: ../public/login.html");
         exit;
     }
 
 
     if ($_SESSION['type'] !== 'admin') {
-        header("Location: /public/index.php");
+        header("Location: ../public/index.php");
         exit;
     }
 ?>

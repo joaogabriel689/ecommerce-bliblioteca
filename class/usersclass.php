@@ -37,11 +37,11 @@ class User{
 
     }
     protected static function verify_user($email, $connection){
-        $sql = "SELECT * FROM usuarios WHERE email = ? ;";
+        $sql = "SELECT * FROM usuarios WHERE email = ? LIMIT 1;";
         $query = $connection->prepare($sql);
         try{
             $query->execute([$email]);
-            $response = $query-> fetch();
+            $response = $query->fetchAll();
         }catch(PDOException $e){
             die("nao foi possivel verificar se o usuario existe". $e->getMessage());
         }
@@ -59,7 +59,7 @@ class User{
         }
     }
     public function getAll(){
-        return [$this->name, $this->email, $this->pass, $this->adress, $this->city, $this->state, $this->fone];
+        return [$this->email, $this->pass,$this->name, $this->adress, $this->city, $this->state, $this->fone];
     }
     protected function setPasswordhash(){
         $pass_hash = password_hash($this->pass, PASSWORD_DEFAULT);
@@ -69,13 +69,13 @@ class User{
         $verify = User::verify_user($this->email, $this->connection );
         if($verify['status'] == false){
 
-            $sql = "INSERT INTO usuarios (nome, email, senha, endereco, cidade, estado, telefone) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            $sql = "INSERT INTO usuarios ( email,senha, nome, endereco, cidade, estado, telefone) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
             $pass_hash = $this->setPasswordhash();
 
 
             $values = $this->getAll();
-            $values[2] = $pass_hash;
+            $values[1] = $pass_hash;
 
 
 
@@ -110,8 +110,8 @@ class User{
     public function login(){
         $verify = User::verify_user($this->email, $this->connection );
         if($verify['status'] == true){
-            if (password_verify($this->pass, $verify['data']["senha"])){
-                $response = $verify;
+            if (password_verify($this->pass, $verify['data'][0]["senha"])){
+                $response = $verify['data'][0];
                 $response['senha'] = "";
                 return [
                         'status'=> true,
