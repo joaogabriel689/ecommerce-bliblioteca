@@ -1,0 +1,399 @@
+@charset 'utf-8';
+
+/* variãveis principais */
+:root {
+    --cor-azul: #0EA5E9;
+    --cor-verde: #10B981;
+    --cor-branco: #FFFFFF;
+    --cor-preto: #000000;
+}
+
+/* reset basico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    background-color: var(--cor-branco);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--cor-preto);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* HEADER styles */
+header {
+    background-color: var(--cor-azul);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 80px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header div:first-child a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header img {
+    height: 50px;
+    width: auto;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--cor-branco);
+    font-weight: bold;
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+header nav ul li a {
+    color: var(--cor-branco);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+
+header nav ul li a:hover {
+    opacity: 0.7;
+}
+
+header nav ul li a i {
+    font-size: 1.3rem;
+}
+
+/* botao header - SEM padding, background ou border-radius extras */
+header button {
+    background: none;
+    border: none;
+    width: 65px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header button:hover {
+    opacity: 0.8;
+}
+
+header button a {
+    color: var(--cor-branco);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* CONTAINER geral */
+.container {
+    flex: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.container > a,
+main > a {
+    display: inline-block;
+    color: var(--cor-azul);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background-color: var(--cor-branco);
+    border: 2px solid var(--cor-azul);
+    transition: all 0.3s ease;
+}
+
+.container > a:hover,
+main > a:hover {
+    background-color: var(--cor-azul);
+    color: var(--cor-branco);
+}
+
+.container h1 {
+    color: var(--cor-azul);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* main container */
+main {
+    padding: 30px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
+}
+
+main h1 {
+    color: var(--cor-azul);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+main h2 {
+    color: var(--cor-verde);
+    font-size: 2rem;
+    margin: 40px 0 20px;
+    text-align: center;
+}
+
+main h3 {
+    color: var(--cor-azul);
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--cor-preto);
+    color: var(--cor-branco);
+    padding: 30px 20px;
+    margin-top: auto;
+    width: 100%;
+}
+
+#social-media {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+#social-media a {
+    color: var(--cor-branco);
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+#social-media a:hover {
+    color: var(--cor-azul);
+}
+
+footer p {
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* MENU MOBILE - botoes sem deformacao */
+#mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--cor-branco);
+    font-size: 1.5rem;
+}
+
+#mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--cor-branco);
+    padding: 20px;
+    z-index: 9999;
+    transition: left 0.3s ease;
+}
+
+#mobile-menu.active {
+    left: 0;
+}
+
+#mobile-menu li {
+    margin-bottom: 15px;
+}
+
+#mobile-menu a {
+    color: var(--cor-preto);
+    font-size: 1rem;
+}
+
+#mobile-menu a:hover {
+    color: var(--cor-azul);
+}
+
+/* overlay mobile */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.mobile-menu-overlay.active {
+    display: block;
+}
+
+/* TABELAS simples */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--cor-branco);
+    margin: 20px 0;
+    border: 1px solid var(--cor-preto);
+}
+
+thead {
+    background-color: var(--cor-azul);
+}
+
+thead tr th {
+    padding: 20px;
+    text-align: left;
+    color: var(--cor-branco);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--cor-preto);
+}
+
+tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+tbody tr td {
+    padding: 18px 20px;
+    color: var(--cor-preto);
+}
+
+tbody tr td input[type="text"],
+tbody tr td input[type="number"],
+tbody tr td input[type="password"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid var(--cor-azul);
+    background-color: var(--cor-branco);
+}
+
+tbody tr td form {
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+tbody tr td form input[type="submit"],
+tbody tr td form button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    margin: 2px 0;
+    width: 100%;
+}
+
+/* responsivo basico */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    header button {
+        width: 55px;
+        height: 45px;
+    }
+
+    #mobile-menu-button {
+        display: block;
+    }
+
+    table {
+        overflow-x: auto;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    header img {
+        height: 40px;
+    }
+
+    main h1,
+    .container h1 {
+        font-size: 1.5rem;
+    }
+
+    main h2 {
+        font-size: 1.5rem;
+    }
+}

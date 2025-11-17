@@ -1,5 +1,6 @@
 <?php
-    session_start();
+
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,6 +11,7 @@
     <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style/base.css">
     <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/index.css">
     <title>bliblioteca online</title>
 </head>
 <body>
@@ -29,33 +31,7 @@
                     <li><a href=""><i class="fa-solid fa-cart-shopping"></a></i></li>
 
                 </ul>
-                <div class="orders">
-                    <?php
-                    $total = 0;
-                    foreach($_SESSION['orders'] as $product){
-                        $total = $total +  ($product['value'] * $product['qtd'])
-                        ?>
-                        <div class="product-order " >
-                            <h3><?= $product['name'] ?></h3>
-                            <p>R$ <?= $product['value'] ?></p>
-                            <p>Subtotal: R$ <?php $product['value'] * $product['qtd']?></p>
 
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-                        <div class="total-order">
-                            <form action="" method="post">
-                                <label for=""><?php $total ?></label>
-                                <input type="submit" value="comprar">
-                            </form>
-                                
-                        </div>
-                    <?php
-
-                    ?>
-                </div>
             </nav>
             <button id="mobile-menu-button"><i class="fa-solid fa-book-atlas"></i></button>
             <nav id="mobile-menu">
@@ -93,54 +69,7 @@
             ?>
         
     </header>
-
-    <main>
-        <section id="catalog-books">
-             <article>
-                 <h2>Catálogo de Livros</h2>
-             </article>
-             <div id="books">
-        <?php
-                include '../config/connection.php';
-                include '../class/productclass.php';
-                
-                $count = 0;
-
-                $result = Product::select_all_products($connection);
-
-                
-                if($result['status'] == false){
-                    echo "<p>Nenhum livro foi cadastrado ainda</p>";
-                }else{
-                    $products = $result['data'];
-                    foreach ($products as $product){
-                ?>
-                                <div class="card-product">
-                                    <div class="image-book">
-                                        <img src="" alt="Capa do Produto">
-                                    </div>
-
-                                    <h3><?= $product['nome'] ?></h3>
-                                    <p>R$ <?= $product['valor'] ?></p>
-                                    <p><?= $product['descricao'] ?></p>
-                                    <form action="../process/add-favorite.php" method="post">
-                                        <input type="hidden" name="name" value="<?= $product['nome'] ?>">
-                                        <input type="submit" value="adicionar aos favoritos">
-                                    </form>
-
-                                    <form action="../process/add-car.php" method="post">
-                                        <input type="hidden" name="name" value="<?= $product['nome'] ?>">
-                                        <input type="submit" value="adicionar ao carrinho">
-                                    </form>
-                                </div>
-                    <?php
-                            }
-                        }
-                    ?>
-             </div>
-         </section>
-    </main>
-     <footer>
+    <footer>
         <section id="social-media">
             <a href="https://www.instagram.com/joao_pereira_couto/"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://github.com/joaogabriel689"><i class="fa-brands fa-github"></i></a>
@@ -150,7 +79,35 @@
         <p>&copy; 2024 Biblioteca Online. Todos os direitos reservados.</p>
 
     </footer>
+    <main>
+        <div class="orders">
+                    <?php
+                    $total = 0;
+                    foreach($_SESSION['orders'] as $product){
+                        $total = $total +  ($product['value'] * $product['qtd'])
+                        ?>
+                        <div class="product-order " >
+                            <h3><?= $product['name'] ?></h3>
+                            <p>R$ <?= $product['value'] ?></p>
+                            <p>Subtotal: R$ <?php $product['value'] * $product['qtd']?></p>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                        <div class="total-order">
+                            <form action="" method="post">
+                                <label for=""><?php $total ?></label>
+                                <input type="submit" value="comprar">
+                            </form>
+                                
+                        </div>
+                    <?php
+
+                    ?>
+        </div>
+    </main>
     
 </body>
 </html>
-    

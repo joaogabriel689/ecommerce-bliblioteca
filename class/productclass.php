@@ -186,6 +186,13 @@ class Product{
                     
             }
     }
+    public static function execute_query($sql, $values, $connection){
+        $query = $connection->prepare($sql);
+        $query->execute($values);
+        $result = $query->fetchAll();
+        return $result;
+
+    }
 
 
 

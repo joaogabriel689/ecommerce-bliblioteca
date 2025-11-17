@@ -1,0 +1,266 @@
+/* painel usuario */
+
+/* area user */
+#area-user {
+    margin-top: 40px;
+}
+
+#area-user ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+#area-user ul li {
+    flex: 1 1 calc(33.333% - 30px);
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.function-user {
+    height: 100%;
+}
+
+.function-user a {
+    background-color: var(--cor-branco);
+    border: 3px solid var(--cor-verde);
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    min-height: 100px;
+    height: 100%;
+}
+
+.function-user a:hover {
+    background-color: var(--cor-verde);
+    border-color: var(--cor-azul);
+}
+
+.function-user a i {
+    font-size: 2rem;
+    color: var(--cor-verde);
+    transition: all 0.3s ease;
+}
+
+.function-user a:hover i {
+    color: var(--cor-branco);
+}
+
+.function-user a h2 {
+    font-size: 1.3rem;
+    color: var(--cor-preto);
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+.function-user a:hover h2 {
+    color: var(--cor-branco);
+}
+
+/* pedidos */
+#orders-section {
+    margin-top: 40px;
+}
+
+#orders-section h2 {
+    color: var(--cor-verde);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.order-item {
+    background-color: var(--cor-branco);
+    border: 2px solid var(--cor-verde);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-item h3 {
+    color: var(--cor-preto);
+    margin-bottom: 10px;
+}
+
+.order-item p {
+    color: var(--cor-preto);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/* favoritos usuario */
+#favorites-section {
+    margin-top: 40px;
+}
+
+#favorites-section h2 {
+    color: var(--cor-verde);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* enderecos */
+#adress-section {
+    margin-top: 40px;
+}
+
+#adress-section h2 {
+    color: var(--cor-verde);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.adress-item {
+    background-color: var(--cor-branco);
+    border: 2px solid var(--cor-azul);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.adress-item p {
+    color: var(--cor-preto);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/* formas pagamento */
+#payment-section {
+    margin-top: 40px;
+}
+
+#payment-section h2 {
+    color: var(--cor-verde);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.payment-item {
+    background-color: var(--cor-branco);
+    border: 2px solid var(--cor-azul);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.payment-item p {
+    color: var(--cor-preto);
+    font-size: 1rem;
+}
+
+/* configuracoes */
+#settings-section {
+    margin-top: 40px;
+}
+
+#settings-section h2 {
+    color: var(--cor-verde);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#settings-section form {
+    background-color: #f4f4f4;
+    border: 2px solid var(--cor-verde);
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#settings-section form label {
+    display: block;
+    color: var(--cor-preto);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#settings-section form input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid var(--cor-azul);
+    background-color: var(--cor-branco);
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+#settings-section form input:focus {
+    outline: none;
+    border-color: var(--cor-verde);
+}
+
+#settings-section form input[type="submit"] {
+    background-color: var(--cor-verde);
+    color: var(--cor-branco);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#settings-section form input[type="submit"]:hover {
+    background-color: var(--cor-azul);
+}
+
+/* perfil */
+#profile-section {
+    margin-top: 40px;
+    text-align: center;
+}
+
+#profile-section h2 {
+    color: var(--cor-verde);
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    background-color: #f4f4f4;
+    border: 2px solid var(--cor-azul);
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-info p {
+    color: var(--cor-preto);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.profile-info p strong {
+    color: var(--cor-verde);
+}
+
+/* responsivo user */
+@media screen and (max-width: 768px) {
+    #area-user ul li {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    #settings-section form,
+    .profile-info {
+        padding: 20px;
+        margin: 0 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .function-user a {
+        padding: 20px;
+        min-height: 80px;
+    }
+
+    .function-user a i {
+        font-size: 1.5rem;
+    }
+
+    .function-user a h2 {
+        font-size: 1.1rem;
+    }
+
+    .order-item,
+    .adress-item,
+    .payment-item {
+        padding: 15px;
+    }
+}
