@@ -7,6 +7,6 @@
     User::delete_user($email, $connection);
 
 
-    header("Location: ../../pulbic/users.php");
+    header("Location: ../admin/users.php");
 
 ?>

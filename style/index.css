@@ -1,6 +1,4 @@
-/* pagina inicial - INDEX */
 
-/* secao welcome */
 #welcome-section {
     display: flex;
     flex-wrap: wrap;
@@ -32,7 +30,7 @@
     border: 3px solid var(--cor-azul);
 }
 
-/* catalogo de livros */
+
 #catalog-books {
     margin-top: 60px;
 }
@@ -66,7 +64,6 @@
     background-color: var(--cor-verde);
 }
 
-/* grid livros */
 #books {
     display: flex;
     flex-wrap: wrap;
@@ -75,7 +72,6 @@
     margin-top: 40px;
 }
 
-/* card produto */
 .card-product {
     background-color: var(--cor-branco);
     border: 2px solid var(--cor-azul);
@@ -145,7 +141,7 @@
     background-color: var(--cor-verde);
 }
 
-/* carrinho de compras */
+
 .orders {
     position: fixed;
     top: auto;
@@ -216,7 +212,7 @@
     background-color: var(--cor-azul);
 }
 
-/* responsivo index */
+
 @media screen and (max-width: 768px) {
     #welcome-section {
         flex-direction: column;

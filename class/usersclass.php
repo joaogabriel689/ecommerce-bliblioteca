@@ -11,17 +11,16 @@ class User{
     private $fone;
     private $connection;
 
-    public function  __construct(
-        string $email, 
-        string $pass,
+    public function __construct(
+        string $email = '', 
+        string $pass = '',
         string $name = '',
         string $adress = '', 
         string $city = '', 
         string $state = '', 
         ?int $fone = null,
         $connection = null
-        )
-        {
+    ) {
         $this->name = $name;
         $this->email = $email;
         $this->pass = $pass;
@@ -30,10 +29,8 @@ class User{
         $this->state = $state;
         $this->fone = $fone;
         $this->connection = $connection;
-
-
-
     }
+
     protected static function verify_user($email, $connection){
         $sql = "SELECT * FROM usuarios WHERE email = ? LIMIT 1;";
         $query = $connection->prepare($sql);
@@ -139,7 +136,7 @@ class User{
 
     }
     public static function delete_user($email, $connection){
-        $verify = User::verify_user($this->email, $this->connection );
+        $verify = User::verify_user($email, $connection);
         if($verify['status'] == true){
             $sql = "DELETE FROM usuarios WHERE email = ?;";
             $bd = $connection;
@@ -211,16 +208,16 @@ class User{
             ];
         }
     }
-    public function update_user(){
+    public function update_user($old_email){
         $verify = User::verify_user($this->email, $this->connection );
         if($verify['status'] == true){
 
-            $sql = "UPDATE usuarios SET nome = ?, endereco = ?, cidade = ?, estado = ?, telefone = ? WHERE email = ?;";
+            $sql = "UPDATE usuarios SET nome = ?,email = ?, endereco = ?, cidade = ?, estado = ?, telefone = ? WHERE email = ?;";
 
 
 
 
-            $values = [$this->name, $this->adress, $this->city, $this->state, $this->fone, $this->email];
+            $values = [$this->name,$this->email, $this->adress, $this->city, $this->state, $this->fone, $old_email];
 
 
             $bd = $this->connection;
@@ -229,25 +226,24 @@ class User{
                 $query = $bd->prepare($sql);
                 $query->execute($values);
 
-                }catch(PDOException $e){
+            }catch(PDOException $e){
                     die("nao foi possivel atualizar o usuario ". $e->getMessage());
-                }
-
-                return [
-                    'status' => true,
-                    'msg' => 'usuario deletado com sucesso '
-                ];
-                    
-
-            }else{
-
-
-                return [
-                    'status' => false,
-                    'msg' => 'usuario nao encontrado'
-                ];
-                    
             }
+
+            return [
+                'status' => true,
+                'msg' => 'usuario deletado com sucesso '
+            ];
+                    
+
+        }else{
+
+
+            return [
+                'status' => false,
+                'msg' => 'usuario nao encontrado'
+            ];                    
+        }
     }
 
 

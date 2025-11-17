@@ -20,19 +20,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style/base.css">
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/user.css">
     <link rel="stylesheet" href="../style/admin.css">
+    <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/auth.css">
+    <script src="../script/script.js"></script>
     <title>bliblioteca online</title>
 </head>
 <body>
      <header>
         
             <div>
-                <a href="../public/index.php">
-                    <img src="/images/logo-image.png" alt="">
+                <a href="../piblic/index.php">
+                    <img src="../images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
             </div>
@@ -41,7 +45,7 @@
                     <li><a href="../public/index.php">home</a></li>
                     <li><a href="../public/catalog-books.php">livros</a></li>
                     <li><a href="../public/favorites.php"><i class="fa-solid fa-heart"></i></a></li>
-                    <li><a href=""><i class="fa-solid fa-cart-shopping"></a></i></li>
+                    <li><a href="../public/orders.php"><i class="fa-solid fa-cart-shopping"></a></i></li>
 
                 </ul>
                 <div class="orders">
@@ -117,19 +121,19 @@
         <section id="area-user">
             <ul>
                 <li><div class="function-user">
-                    <a href="order.php"><i class="fa-solid fa-truck"></i><h2>Pedidos</h2></a>
+                    <a href="../public/orders.php"><i class="fa-solid fa-truck"></i><h2>Pedidos</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="favorites.php"><i class="fa-regular fa-heart"></i><h2>Favoritos</h2></a>
+                    <a href="../public/favorites.php"><i class="fa-regular fa-heart"></i><h2>Favoritos</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="adress.php"><i class="fa-solid fa-location-dot"></i><h2>Enderços</h2></a>
+                    <a href="../coming-soon.php"><i class="fa-solid fa-location-dot"></i><h2>Enderços</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="pay-form.php"><i class="fa-solid fa-credit-card"></i><h2>Formas de Pagamento</h2></a>
+                    <a href="../coming-soon.php"><i class="fa-solid fa-credit-card"></i><h2>Formas de Pagamento</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="settings.php"><i class="fa-solid fa-gear"></i><h2>Configuraçoes</h2></a>
+                    <a href="../coming-soon.php"><i class="fa-solid fa-gear"></i><h2>Configuraçoes</h2></a>
                 </div></li>
                 <li><div class="function-user">
                     <a href="users.php"><i class="fa-solid fa-users"></i></i><h2>Usuarios</h2></a>
@@ -138,10 +142,10 @@
                     <a href="books.php"><i class="fa-solid fa-book-open"></i><h2>Catalogo de Livros</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="sales.php"><i class="fa-solid fa-money-bill-trend-up"></i><h2>Vendas</h2></a>
+                    <a href="../coming-soon.php"><i class="fa-solid fa-money-bill-trend-up"></i><h2>Vendas</h2></a>
                 </div></li>
                 <li><div class="function-user">
-                    <a href="/exit.php"><i class="fa-solid fa-right-from-bracket"></i><h2>Sair</h2></a>
+                    <a href="../exit.php"><i class="fa-solid fa-right-from-bracket"></i><h2>Sair</h2></a>
                 </div></li>
             </ul>
         </section>

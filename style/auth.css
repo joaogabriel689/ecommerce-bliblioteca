@@ -1,6 +1,4 @@
-/* login e registro */
 
-/* area login */
 #area-login,
 #area-register {
     background-color: #f4f4f4;
@@ -98,7 +96,7 @@
     color: var(--cor-verde);
 }
 
-/* responsivo auth */
+
 @media screen and (max-width: 768px) {
     #area-login,
     #area-register {

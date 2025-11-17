@@ -11,6 +11,9 @@
     <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style/base.css">
     <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/catalog.css">
+    <script src="../script/script.js"></script>
+
     <title>bliblioteca online</title>
 </head>
 <body>
@@ -18,7 +21,7 @@
         
             <div>
                 <a href="index.php">
-                    <img src="/images/logo-image.png" alt="">
+                    <img src="../images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
             </div>
@@ -27,7 +30,7 @@
                     <li><a href="../public/index.php">home</a></li>
                     <li><a href="../public/catalog-books.php">livros</a></li>
                     <li><a href="../public/favorites.php"><i class="fa-solid fa-heart"></i></a></li>
-                    <li><a href=""><i class="fa-solid fa-cart-shopping"></a></i></li>
+                    <li><a href="../public/orders.php"><i class="fa-solid fa-cart-shopping"></a></i></li>
 
                 </ul>
                 <div class="orders">
@@ -109,7 +112,7 @@
          <section id="catalog-books">
              <article>
                  <h2>Catálogo de Livros</h2>
-                 <p>Explore nossa seleção de livros disponíveis para empréstimo ou compra.</p>
+                 <p>Explore nossa seleção de livros disponíveis para compra.</p>
                  <a href="catalog-books.php">veja o catalogo completo aqui</a>
              </article>
              <div id="books">
@@ -120,6 +123,7 @@
                 $count = 0;
 
                 $result = Product::select_all_products($connection);
+
 
                 
                 if($result['status'] == false){

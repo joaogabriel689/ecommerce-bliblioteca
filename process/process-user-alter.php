@@ -1,6 +1,6 @@
 <?php
         session_start();
-        if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
+        if (!isset($_SESSION['email']) || !isset($_SESSION['type'])) {
 
             header("Location: ../../pulbic/login.html");
             exit;
@@ -9,26 +9,31 @@
             header("Location: ../../pulbic/index.php");
             exit;
         }
+
         include '../config/connection.php';
         include '../class/usersclass.php';
         $name = $_POST["name"] ?? "";
         $email = $_POST["email"] ?? "";
         $adress = $_POST["adress"] ?? "";
-        $pass = $_POST["password"] ?? "";
         $city = $_POST["city"] ?? "";
         $state = $_POST["state"] ?? "";
         $fone = $_POST["fone"] ?? 0;
-
-        $user = new User($email,
-            $pass,
-            $name,
-            $adress,
-            $city,
-            $state,
-            $fone,
-            $connection
+        $old_email = $_POST['old_email'];
+        $pass = '';
+        var_dump($_POST);
+        $user = new User(
+            email: $email,
+            pass: $pass,
+            name: $name,
+            adress: $adress,
+            city: $city,
+            state: $state,
+            fone: (int)$fone,
+            connection: $connection
         );
-        $result = $user->update_user();
+        
+        $result = $user->update_user($old_email);        
+        
 
 
 

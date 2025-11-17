@@ -15,7 +15,7 @@ class Product{
         $this->connection = $connection;
     }
     
-    public function verify_product($name, $connection){
+    public static function verify_product($name, $connection){
         $sql = "SELECT * FROM produtos WHERE nome = ? ;";
         $query = $connection->prepare($sql);
         try{
@@ -28,7 +28,7 @@ class Product{
             return [
                     'status'=> true,
                     'msg' => 'produto encontrado',
-                    'data' => $response
+                    'data' => $result
                 ];
         }else{
             return [
@@ -46,7 +46,9 @@ class Product{
             die("nao foi possivel selecionar o produto ". $e->getMessage());
         }
         if($query->rowCount() == 1){
-            $response = $query->fetchAll();
+            $response = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
 
             return [
                     'status'=> true,
@@ -87,7 +89,7 @@ class Product{
         return [$this->name, $this->qtd, $this->describ, $this->price];
     }
     public function add_product(){
-        if(Product::verify_product($this->name, $this->connection)){
+        if(Product::verify_product($this->name, $this->connection)['status'] == false){
 
             $sql = "INSERT INTO produtos (nome, qtd, descricao, valor) VALUES (?, ?, ?, ?);";
 
@@ -125,7 +127,7 @@ class Product{
         }
     }
     public static function delete_product($name, $connection){
-        if(Product::verify_product($name, $connection)){
+        if(Product::verify_product($name, $connection)['status']){
             $sql = "DELETE FROM produtos WHERE nome = ?;";
             $bd = $connection;
             $query = $bd->prepare($sql);
@@ -150,9 +152,9 @@ class Product{
         }
     }
     public function update_product($oldname){
-        if(Product::verify_product($this->name, $this->connection)){
+        if(Product::verify_product($oldname, $this->connection)['status']){
 
-            $sql = "UPDATE produtos SET nome = ?, qtd = ?, descricao = ?, price = ? WHERE nome = ?;";
+            $sql = "UPDATE produtos SET nome = ?, qtd = ?, descricao = ?, valor = ? WHERE nome = ?;";
 
 
 

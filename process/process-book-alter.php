@@ -1,6 +1,6 @@
 <?php
         session_start();
-        if (!isset($_SESSION['user']) || !isset($_SESSION['type'])) {
+        if (!isset($_SESSION['email']) || !isset($_SESSION['type'])) {
 
             header("Location: ../../public/login.html");
             exit;
@@ -13,17 +13,26 @@
         include '../class/productclass.php';
 
 
-        $name_new = $_POST['name'];
-        $price = $_POST['price'];
-        $describ = $_POST['describ'] ?? "";
-        $stock = $_POST['stock'];
-
         $old_name = $_POST['old_name'];
-        if (empty($name_new) || empty($price) || empty($stock) || empty($old_name)) {
+        $old_price = $_POST['old_price'];
+        $old_describ = $_POST['old_describ'];
+        $old_stock = $_POST['old_stock'];
+
+        $new_name = $_POST['name'];
+        $new_price = $_POST['price'];
+        $new_describ = $_POST['describ'];
+        $new_stock = $_POST['stock'];
+
+
+        if ($new_name === "")    $new_name    = $old_name;
+        if ($new_price === "")   $new_price   = $old_price;
+        if ($new_describ === "") $new_describ = $old_describ;
+        if ($new_stock === "")   $new_stock   = $old_stock;
+        if (empty($old_name)) {
             die("Preencha todos os campos obrigatórios");
         }
-        $book = new Product($name, $qtd, $describ, $price, $connection);
-        $response = $book->update($old_name);
+        $book = new Product($new_name, $new_stock, $new_describ, $new_price, $connection);
+        $response = $book->update_product($old_name);
 
         if ($response['status']==true) {
             header("Location: ../../admin/books.php?success=1");

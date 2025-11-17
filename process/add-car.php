@@ -21,20 +21,23 @@ if($result['status'] == false){
     $orders_ids =array_column($_SESSION['orders'], 'id');
 
         if(in_array($product_id, $orders_ids)){
-            $id = array_search($product_id, $order_ids);
-            $_SESSION['orders'][$id]['qtd'] += 1; 
+            $index = array_search($product_id, $orders_ids);
+
+            if ($index !== false) {
+                $_SESSION['orders'][$index]['qtd'] += 1;
+            }
         }else{
             $_SESSION['orders'][] = [
-                'id' => $productId,
+                'id' => $product_id,
                 'name' => $product['nome'],
                 'value' => $product['valor'],
                 'qtd' => 1    
             ];
-            header('Location: ' . $previous_page);
-            exit();
+            
 
         }
-
+    header('Location: ' . $previous_page);
+    exit();
 }
 
 

@@ -5,11 +5,12 @@
 
     $name = $_POST['name'] ?? "";
 
-    product::delete_product($name, $connection);
+    Product::delete_product($name, $connection);
 
 
 
     header("Location: ../../admin/books.php");
+    exit;
 
 
 

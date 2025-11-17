@@ -20,19 +20,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style/base.css">
+    <link rel="stylesheet" href="../style/index.css">
+
+
     <link rel="stylesheet" href="../style/admin.css">
+    <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/auth.css">
+    <script src="../script/script.js"></script>
     <title>bliblioteca online</title>
 </head>
 <body>
      <header>
         
             <div>
-                <a href="../public/index.php">
-                    <img src="/images/logo-image.png" alt="">
+                <a href="../piblic/index.php">
+                    <img src="../images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
             </div>
@@ -41,7 +46,7 @@
                     <li><a href="../public/index.php">home</a></li>
                     <li><a href="../public/catalog-books.php">livros</a></li>
                     <li><a href="../public/favorites.php"><i class="fa-solid fa-heart"></i></a></li>
-                    <li><a href=""><i class="fa-solid fa-cart-shopping"></a></i></li>
+                    <li><a href="../public/orders.php"><i class="fa-solid fa-cart-shopping"></a></i></li>
 
                 </ul>
                 <div class="orders">
@@ -109,44 +114,48 @@
         
     </header>
     <main>
+
+
         <a href="javascript:history.back()">Voltar para a página anterior</a>
 
         <?php
-         echo "<h1>Ola, {$_SESSION['name']}, aqui voce pode gerenciar os usuarios.</h1>";
+         echo "<h1>Ola {$_SESSION['name']}, aqui voce pode gerenciar os usuarios.</h1>";
                 ?>
         <h2>cadastrar usuario:</h2>
-        <form action="/process/process-register.php" method="post">
-                <h1>registrar:</h1>
-                <div class="name">
-                    <label for="name">nome:</label>
-                    <input type="text" name="name">
-                </div>
-                <div class="email">
-                    <label for="email">email:</label>
-                    <input type="text" name="email">
-                </div>
-                <div class="adress">
-                    <label for="adress">endereço:</label>
-                    <input type="text" name="adress">
-                </div>
-                <div class="state">
-                    <label for="state">estado:</label>
-                    <input type="text" name="state">
-                </div>
-                <div class="city">
-                    <label for = "city">cidede:</label>
-                    <input type="text" name="city">
-                </div>
-                <div class="fone">
-                    <label for="fone">telefone</label>
-                    <input type="number" name="fone">
-                </div>
-                <div class="password">    
-                    <label for="password">senha:</label>
-                    <input type="password" name="password" id="password">
-                </div>
-                <input type="submit" value="cadastrar" id="register">
-            </form>
+        <div id="area-register">
+            <form action="/process/process-register.php" method="post">
+                    <h1>registrar:</h1>
+                    <div class="name">
+                        <label for="name">nome:</label>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="email">
+                        <label for="email">email:</label>
+                        <input type="text" name="email">
+                    </div>
+                    <div class="adress">
+                        <label for="adress">endereço:</label>
+                        <input type="text" name="adress">
+                    </div>
+                    <div class="state">
+                        <label for="state">estado:</label>
+                        <input type="text" name="state">
+                    </div>
+                    <div class="city">
+                        <label for = "city">cidede:</label>
+                        <input type="text" name="city">
+                    </div>
+                    <div class="fone">
+                        <label for="fone">telefone</label>
+                        <input type="number" name="fone">
+                    </div>
+                    <div class="password">
+                        <label for="password">senha:</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <input type="submit" value="cadastrar" id="register">
+                </form>
+        </div>
         <section id="list-users">
             <table>
                 <thead>
@@ -189,7 +198,7 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="../process/user-alter.php" method="post">
+                                    <form action="user-alter.php" method="post">
                                         <input type="hidden" name="email" value="<?= $user['email'] ?>">
                                         <input type="submit" value="alterar">
                                     </form>

@@ -20,20 +20,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/admin">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="shortcut icon" href="/images/logo-image.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style/base.css">
-    <link rel="stylesheet" href="../style/admin.css">
     <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/admin.css">
+    <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/auth.css">
+    <link rel="stylesheet" href="../style/list-books.css">
+    <script src="../script/script.js"></script>
     <title>bliblioteca online</title>
 </head>
 <body>
      <header>
         
             <div>
-                <a href="../public/index.php">
-                    <img src="/images/logo-image.png" alt="">
+                <a href="../piblic/index.php">
+                    <img src="../images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
             </div>
@@ -42,7 +45,7 @@
                     <li><a href="../public/index.php">home</a></li>
                     <li><a href="../public/catalog-books.php">livros</a></li>
                     <li><a href="../public/favorites.php"><i class="fa-solid fa-heart"></i></a></li>
-                    <li><a href=""><i class="fa-solid fa-cart-shopping"></a></i></li>
+                    <li><a href="../public/orders.php"><i class="fa-solid fa-cart-shopping"></a></i></li>
 
                 </ul>
                 <div class="orders">
@@ -117,26 +120,28 @@
 
         ?>
         <h2>cadastrar livro</h2>
-        <form action="../process/process-book-post.php" method="post" enctype="multipart/form-data">
-                <h3>registrar:</h3>
-                <div class="name">
-                    <label for="name">nome:</label>
-                    <input type="text" name="name">
-                </div>
-                <div class="price">
-                    <label for="price">preço:</label>
-                    <input type="text" name="price" id="price">
-                </div>
-                <div class="describe">    
-                    <label for="describe">descriçao</label>
-                    <input type="text" name="describe" id="describe">
-                </div>
-                <div class="stock">    
-                    <label for="stock">estoque</label>
-                    <input type="number" name="stock" id="stock">
-                </div>
-                <input type="submit" value="cadastrar" id="register">
-        </form>
+        <div id="area-register">
+            <form action="../process/process-book-post.php" method="post" enctype="multipart/form-data">
+                    <h3>cadastrar:</h3>
+                    <div class="name">
+                        <label for="name">nome:</label>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="price">
+                        <label for="price">preço:</label>
+                        <input type="text" name="price" id="price">
+                    </div>
+                    <div class="describe">
+                        <label for="describe">descriçao</label>
+                        <input type="text" name="describe" id="describe">
+                    </div>
+                    <div class="stock">
+                        <label for="stock">estoque</label>
+                        <input type="number" name="stock" id="stock">
+                    </div>
+                    <input type="submit" value="cadastrar" id="register">
+            </form>
+        </div>
 
         <section id="list-books">
         <?php
@@ -164,7 +169,7 @@
                                     <p><?= $product['descricao'] ?></p>
                                     <p>Estoque: <?= $product['qtd'] ?></p>
 
-                                    <form action="../process/process-product-delete.php" method="post">
+                                    <form action="../process/process-book-delete.php" method="post">
                                         <input type="hidden" name="name" value="<?= $product['nome'] ?>">
                                         <input type="submit" value="apagar">
                                     </form>
