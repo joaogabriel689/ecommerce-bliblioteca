@@ -106,7 +106,7 @@ CREATE TABLE `usuarios` (
   `endereco` VARCHAR(255),
   `cidade` VARCHAR(255),
   `estado` CHAR(2),
-  `telefone` INT
+  `telefone` VARCHAR(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
@@ -134,7 +134,7 @@ CREATE TABLE `produtos` (
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/biblioteca-online.git
+git clone https://github.com/joaogabriel689/biblioteca-online.git
 cd biblioteca-online
 ```
 
@@ -159,13 +159,8 @@ $db_user = 'seu_usuario';
 $db_pass = 'sua_senha';
 ```
 
-4. **Configure permissões**
-```bash
-chmod 755 uploads/
-chmod 644 config/connection.php
-```
 
-5. **Crie o usuário admin**
+4. **Crie o usuário admin**
 ```sql
 INSERT INTO usuarios (nome, email, senha, endereco, cidade, estado, telefone) 
 VALUES (
@@ -179,7 +174,7 @@ VALUES (
 );
 ```
 
-6. **Acesse o sistema**
+5. **Acesse o sistema**
 ```
 http://localhost/biblioteca-online/public/index.php
 ```
@@ -228,11 +223,6 @@ http://localhost/biblioteca-online/public/index.php
 3. Acesse o carrinho
 4. Finalize a compra
 
-## 🐛 Problemas Conhecidos
-
-- [ ] Carrinho de compras em desenvolvimento
-- [ ] Sistema de favoritos incompleto
-- [ ] Sistema de pedidos em desenvolvimento
 
 
 
@@ -246,11 +236,7 @@ Contribuições são sempre bem-vindas!
 4. Push para a branch (`git push origin feature/MinhaFeature`)
 5. Abra um Pull Request
 
-### Padrões de Código
-- Use PSR-12 para código PHP
-- Comente código complexo
-- Escreva nomes descritivos para variáveis
-- Mantenha funções pequenas e específicas
+
 
 ## 📄 Licença
 
@@ -264,11 +250,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - LinkedIn: [João Couto](https://www.linkedin.com/in/joao-couto-b55b04321/)
 - Instagram: [@joao_pereira_couto](https://www.instagram.com/joao_pereira_couto/)
 
-## 🙏 Agradecimentos
-
-- Font Awesome pelos ícones
-- Estácio pela oportunidade de desenvolver este projeto
-- Comunidade PHP Brasil
 
 ---
 
