@@ -35,9 +35,9 @@
         $response = $book->update_product($old_name);
 
         if ($response['status']==true) {
-            header("Location: ../../admin/books.php?success=1");
+            header("Location: ../../admin/books.php");
         } else {
-            header("Location: ../../admin/books.php?error=1");
+            header("Location: ../../admin/books.php");
         }
         exit;
 
