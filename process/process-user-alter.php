@@ -39,9 +39,9 @@
 
 
         if ($result['status']==true) {
-            header("Location: ../../admin/users.php?success=1");
+            header("Location: ../../admin/users.php");
         } else {
-            header("Location: ../../admin/users.php?error=1");
+            header("Location: ../../admin/users.php");
         }
         exit;
 
