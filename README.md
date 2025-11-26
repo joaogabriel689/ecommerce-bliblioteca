@@ -1,114 +1,112 @@
-# 📚 Biblioteca Online — E-commerce de Livros (PHP + MySQL)
+# 📚 E-commerce de Biblioteca — Projeto Acadêmico
 
-Sistema desenvolvido como projeto acadêmico para a disciplina de TADS.  
-O objetivo é implementar um e-commerce simples de livros, com controle de usuários, administração e funcionalidades essenciais de um catálogo digital.
-
----
-
-## 🚀 Funcionalidades Principais
-
-- Catálogo de livros com listagem e detalhes
-- Sistema de usuários (cadastro, login e atualização)
-- Área administrativa protegida
-  - CRUD completo de livros
-  - CRUD completo de usuários
-- Carrinho de compras (salvo em sessão)
-- Lista de favoritos (salva em sessão)
-- Validação básica de formulários
-- Organização em pastas seguindo um MVC simplificado
+Sistema simples de e-commerce desenvolvido em **PHP**, **HTML**, **CSS** e **MySQL**, criado para a disciplina de Tecnologia em Análise e Desenvolvimento de Sistemas.  
+Atende aos requisitos básicos: CRUD completo, sessão de favoritos/carrinho e área administrativa.
 
 ---
 
-## 🗂️ Tecnologias Utilizadas
+## 🚀 Funcionalidades
 
-- **PHP puro (procedural + classes simples)**
-- **MySQL** (schema incluso no projeto — banco: `estacio2025`)
-- **HTML5 + CSS3**
-- **JavaScript básico**
-- Servidor local: Apache (XAMPP/LAMP/WAMP)
+### 👤 Usuários
+- Cadastro de usuários  
+- Login e logout  
+- Edição e remoção de usuários (CRUD completo)
+
+### 📚 Produtos (Livros)
+- Cadastro de livros  
+- Edição de livros  
+- Remoção de livros  
+- Listagem geral para visitantes e usuários logados  
+
+### ❤️ Favoritos
+- Salvos **na sessão** (não no banco)  
+- Funciona para qualquer usuário logado  
+
+### 🛒 Carrinho
+- Carrinho baseado em **sessão**  
+- Adição, remoção  de itens  
+
+### 🔐 Área do Administrador
+- Acesso restrito ao e-mail: **admin@bliblioteca.com**  
+- Senha: qualquer (validação simples, apenas por e-mail)  
+- CRUD completo de usuários e produtos
 
 ---
 
-## 🛠️ Instalação e Execução
+## 🧱 Tecnologias Utilizadas
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/joaogabriel689/ecommerce-bliblioteca
-2.Importe o banco de dados:
+- **PHP (procedural + rotinas simples)**
+- **HTML5**
+- **CSS puro**
+- **JavaScript (apenas interações básicas)**
+- **MySQL**
+- **PDO para acesso ao banco**
 
-  Acesse o phpMyAdmin
-  
-  Crie o banco:
-  
-  CREATE DATABASE estacio2025;
-  
-  
-  Importe o arquivo SQL localizado em:
-  
-  /database/estacio2025.sql
-  
-  
-3.Configure a conexão:
-  
-  Arquivo:
-  
-  /config/connection.php
-  
-  
-  Ajuste usuário e senha do MySQL conforme o seu ambiente.
-  
-4.Aponte o servidor para a pasta:
-  
-  /public
-  
-  
-5.Acesse no navegador:
-  
-  http://localhost
+---
 
-🔐 Acesso Administrativo
+## 🗄️ Banco de Dados
 
-A área administrativa só pode ser acessada por um e-mail específico:
+- Nome do banco: **estacio2025**
+- Arquivo `.sql` incluído no projeto  
+- Estrutura simplificada devido aos requisitos da disciplina  
+- Favoritos e carrinho **não fazem parte do banco**, por exigência do projeto
 
-E-mail: admin@bliblioteca.com
+---
 
-Senha: definida por você diretamente no banco ao cadastrar o usuário admin.
+## 📁 Estrutura do Projeto
 
-Sem esse e-mail, o sistema bloqueia o acesso ao painel de administração.
-
-📦 Estrutura do Projeto
 /admin       → telas e ações administrativas
 /class       → classes e lógica de negócio
 /config      → conexão com o banco
 /process     → processamentos de formulários
-/public      → parte visível ao usuário (home, catálogo, etc.)
-📌 Observações Importantes
+/public      → interface do usuário (home, catálogo, etc.)
 
-Carrinho e favoritos são armazenados em sessões, conforme restrições do projeto.
-
-O sistema possui responsividade parcial; o requisito de responsividade em JavaScript não foi totalmente implementado.
-
-Todas as operações de banco utilizam PDO com prepared statements.
-
-📸 Capturas de Tela (adicione aqui)
-
-Exemplo:
-
-Home
-
-Catálogo
-
-Área Admin
-
-CRUD de Livro
-
-CRUD de Usuário
-
-📄 Licença
-
-Projeto acadêmico — livre para uso educacional.
 
 ---
+
+
+
+## 🧪 Como Executar
+
+1. Importe o banco `estacio2025.sql` no MySQL.  
+2. Ajuste `conexao.php` com seu host, usuário e senha.  
+3. Coloque o projeto dentro do diretório do servidor local (XAMPP/MAMP/LAMP).  
+4. Acesse:http://localhost/ecommerce-bliblioteca/public
+
+---
+
+## 🔑 Acesso Admin
+
+- **E-mail:** admin@bliblioteca.com  
+- **Senha:** qualquer  
+
+*(O sistema identifica apenas o e-mail do admin.)*
+
+---
+
+## 📌 Objetivo Acadêmico
+
+Este projeto foi desenvolvido apenas para apresentação acadêmica, com foco em:
+
+- Compreender CRUDs completos  
+- Utilizar sessões no PHP  
+- Praticar integração com MySQL usando PDO  
+- Estruturar um mini e-commerce funcional  
+
+Não é recomendado para uso em produção.
+
+---
+
+## 📸 Prints do Sistema
+
+
+
+---
+
+## 📄 Licença
+
+Projeto acadêmico — uso livre para estudos.
+
 
 
 
