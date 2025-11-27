@@ -113,7 +113,7 @@
         
     </header>
     <main>
-        <a href="javascript:history.back()">Voltar para a página anterior</a>
+        <a href="admin.php">Voltar para a página anterior</a>
 
         <?php
          echo "<h1>Ola {$_SESSION['name']}, aqui voce pode gerenciar o catalogo de livros.</h1>";

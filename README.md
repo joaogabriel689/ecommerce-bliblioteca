@@ -99,9 +99,53 @@ Não é recomendado para uso em produção.
 
 ## 📸 Prints do Sistema
 
-
+[home](./images/home.jpeg)
+[catalogo](./images/catalogo.jpeg)
+[login](./images/login.jpeg)
+[area de controle de produtos](./images/adminprodutos.jpeg)
+[area de controle de usuarios](./images/adminusuarios.jpeg)
+[usando hash na senha](./images/hash.jpeg)
+[funçao de login](./images/loginhash.jpeg)
 
 ---
+# Decisões Técnicas
+
+O sistema foi desenvolvido seguindo três restrições definidas pelo projeto acadêmico:
+
+- Uso obrigatório de PHP e CSS puros, sem frameworks ou bibliotecas externas.  
+- Estrutura padronizada entre os grupos, facilitando correção e apresentação.  
+- Modelo de dados simples, adequado ao nível inicial dos alunos.
+
+Essas restrições influenciaram diretamente as escolhas do projeto:
+
+- Utilização de PHP procedural com classes simples.  
+- Carrinho e favoritos armazenados em sessões, já que não era permitido criar novas tabelas.  
+- Arquitetura baseada em um MVC simplificado.
+
+---
+
+# Limitações Encontradas
+
+Principais dificuldades:
+
+- Implementação da responsividade via JavaScript, exigida pelo projeto.  
+- Estrutura rígida e prazo curto prejudicaram a criação de um layout totalmente responsivo.  
+
+Outras limitações do escopo:
+
+- Carrinho e favoritos não persistidos no banco.  
+- Painel administrativo apenas com funções essenciais.  
+- Ausência de relatórios ou dashboards.
+
+---
+
+# Melhorias Futuras
+
+Se houvesse mais tempo e liberdade técnica, seriam implementadas:
+
+- Modelagem adequada do banco para carrinho, favoritos e histórico de compras.  
+- Relatórios de vendas e estoque no painel administrativo.  
+- Reescrita do frontend com melhor responsividade e componentes organizados.
 
 ## 📄 Licença
 

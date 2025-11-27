@@ -44,7 +44,7 @@
      <header>
         
             <div>
-                <a href="../piblic/index.php">
+                <a href="../public/index.php">
                     <img src="../images/logo-image.png" alt="">
                     <h1>bliblioteca online</h1>
                 </a>
