@@ -38,7 +38,6 @@ Atende aos requisitos básicos: CRUD completo, sessão de favoritos/carrinho e �
 - **PHP (procedural + rotinas simples)**
 - **HTML5**
 - **CSS puro**
-- **JavaScript (apenas interações básicas)**
 - **MySQL**
 - **PDO para acesso ao banco**
 
