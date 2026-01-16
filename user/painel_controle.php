@@ -114,7 +114,7 @@
                 <a href="../public/favorites.php"><i class="fa-regular fa-heart"></i><h2>Favoritos</h2></a>
             </div></li>
             <li><div class="function-user">
-                <a href="../coming-soon.php"><i class="fa-solid fa-location-dot"></i><h2>Enderços</h2></a>
+                <a href="../coming-soon.php"><i class="fa-solid fa-location-dot"></i><h2>Endereços</h2></a>
             </div></li>
             <li><div class="function-user">
                 <a href="../coming-soon.php"><i class="fa-solid fa-credit-card"></i><h2>Formas de Pagamento</h2></a>

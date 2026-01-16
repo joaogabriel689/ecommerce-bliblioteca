@@ -116,9 +116,7 @@ CREATE TABLE `usuarios` (
 
 
 
---
--- Índices para tabelas despejadas
---
+
 
 --
 -- Índices de tabela `produtos`

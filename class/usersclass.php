@@ -97,7 +97,7 @@ class User{
 
             return [
                     'status'=> false,
-                    'msg' => 'o usuaario ja foi registrado ',
+                    'msg' => 'o usuario ja foi registrado ',
                 ];
             
         }
@@ -185,6 +185,7 @@ class User{
             ];
         }
     }
+
     public static function select_all_user( $connection){
         $sql = "SELECT nome,email,endereco,estado,cidade,telefone FROM usuarios;";
         $query = $connection->prepare($sql);
