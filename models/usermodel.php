@@ -32,7 +32,7 @@ class usermodel{
         $this->compras = $compras;
         $this->group = $group;
         $this->codigo = $codigo;
-        $this->password = hash('sha256', $password);
+        $this->password = $password;
         $this->endereco = $endereco;
         $this->info_bancaria = $info_bancaria;
     }
