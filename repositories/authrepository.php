@@ -1,5 +1,6 @@
 <?php
 include("../config/connection.php");
+include("../models/usermodel.php");
 
 class authrepository{
     private $connection;

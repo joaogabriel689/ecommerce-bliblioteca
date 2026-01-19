@@ -57,4 +57,32 @@ class userrepository{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function updateUser($user){
+        $id = $user->id;
+        $name = $user->username;
+        $email = $user->email;
+        $password = password_hash($user->password, PASSWORD_BCRYPT) ?? null;
+        $data_nasc = $user->data_nasc;
+        $phone = $user->phone;
+        $compras = $user->compras;
+        $group_user = $user->group_user;
+        $codigo = $user->codigo;
+
+        if ($password !== null) {
+            // Update password
+            $stmt = $this->connection->prepare('UPDATE users SET name=:name, email=:email, password=:password, data_nasc=:data_nasc, phone=:phone, compras=:compras, group_user=:group_user, codigo=:codigo WHERE id=:id');
+            $stmt->bindParam(':password', $password);
+        } else {
+            // Do not update password
+            $stmt = $this->connection->prepare('UPDATE users SET name=:name, email=:email, data_nasc=:data_nasc, phone=:phone, compras=:compras, group_user=:group_user, codigo=:codigo WHERE id=:id');
+        }
+
+        // Bind all parameters
+        if ($password !== null) {
+            // Update password
+            $stmt->bindParam(':password', $password);
+        }
+        // Bind all other parameters
+        return 0;
+    }
 }
