@@ -1,0 +1,119 @@
+
+#area-login,
+#area-register {
+    background-color: #f4f4f4;
+    border: 3px solid var(--cor-azul);
+    margin: 50px auto;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+}
+
+#area-login {
+    min-height: 400px;
+}
+
+#area-register {
+    min-height: 600px;
+}
+
+#area-login form,
+#area-register form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#area-login form h1,
+#area-register form h1 {
+    color: var(--cor-azul);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#area-login form div,
+#area-register form div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#area-login form label,
+#area-register form label {
+    color: var(--cor-preto);
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#area-login form input,
+#area-register form input {
+    padding: 12px 15px;
+    border: 2px solid var(--cor-azul);
+    background-color: var(--cor-branco);
+    font-size: 1rem;
+}
+
+#area-login form input:focus,
+#area-register form input:focus {
+    outline: none;
+    border-color: var(--cor-verde);
+}
+
+#area-login form input[type="submit"],
+#area-register form input[type="submit"] {
+    background-color: var(--cor-azul);
+    color: var(--cor-branco);
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+#area-login form input[type="submit"]:hover,
+#area-register form input[type="submit"]:hover {
+    background-color: var(--cor-verde);
+}
+
+#area-login p,
+#area-register p {
+    color: var(--cor-preto);
+    text-align: center;
+    margin-top: 20px;
+}
+
+#area-login p a,
+#area-register p a {
+    color: var(--cor-azul);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#area-login p a:hover,
+#area-register p a:hover {
+    color: var(--cor-verde);
+}
+
+
+@media screen and (max-width: 768px) {
+    #area-login,
+    #area-register {
+        padding: 25px;
+        margin: 20px 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #area-login,
+    #area-register {
+        padding: 20px;
+        margin: 15px 10px;
+    }
+
+    #area-login form h1,
+    #area-register form h1 {
+        font-size: 1.5rem;
+    }
+}

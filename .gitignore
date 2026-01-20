@@ -1,0 +1,29 @@
+*.log
+*.tmp
+*.cache
+*.bak
+*.DS_Store
+Cache/
+GPUCache/
+blob_storage/
+logs/
+__pycache__/
+connection.php
+.env
+.DS_Store
+Thumbs.db
+uploads/
+
+
+# VS Code
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# PHP
+/vendor/
+
+# Ambiente
+.env
