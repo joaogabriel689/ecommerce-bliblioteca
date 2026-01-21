@@ -20,34 +20,32 @@ class AuthController {
         }
         if (password_verify($password, $user->password)) {
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['email'] = $user->email;
+            $_SESSION['name'] = $user->name;
             $_SESSION['user_group'] = $user->group;
-            $_SESSION['phone'] = $user->phone;
-            $_SESSION['address'] = [];
-            $_SESSION['compras'] = $user->compras;
-            $_SESSION['codigo'] = $user->codigo;
-
-            return "Login successful.";
+            return true;
         } else {
-            return "Invalid password.";
+            return false;
         }
     }
 
 
 
 
-    public function register($name, $email, $password, $dataNasc = null, $phone = null) {
+    public function register($name, $email, $password, $dataNasc = null, $phone = null, $group = 'user') {
         if ($this->userRepository->findByEmail($email) != null) {
             return "Email already registered.";
         }
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $codigo = bin2hex($email);
         $newUser = new UserModel(
             name: $name,
             email: $email,
             password: $hashedPassword,
             dataNasc: $dataNasc,
-            phone: $phone
+            phone: $phone,
+            group: $group,
+            codigo: $codigo,
         );
 
         $this->userRepository->create($newUser);

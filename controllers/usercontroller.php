@@ -1,22 +1,23 @@
 <?php
 
 include("../repositories/userrepository.php");
+include("../repositories/pedidosrepository.php");
 include("../models/usermodel.php");
+include("../models/pedidomodel.php");
 include("../config/connection.php");
 
 class UserController {
     private $userRepository;
+    private $pedidosrepository;
     
     public function __construct() {
         global $connection;
         $this->userRepository = new UserRepository($connection);
+        $this->pedidosrepository = new PedidoRepository($connection);
     }
 
     public function getUserById($id) {
         return $this->userRepository->findById($id);
-    }
-    public function getUserByEmail($email) {
-        return $this->userRepository->findByEmail($email);
     }
 
     public function getAllUsers() {
@@ -46,5 +47,14 @@ class UserController {
         }
 
         return $this->userRepository->delete($id);
+    }
+    public function getCartItems($user_code, $status = "pending") {
+        $user = $this->getUserById($user_code);
+        if ($user == null) {
+            return "User not found.";
+        }
+        $result =$this->pedidosrepository->findByUserAndStatus($user_code, $status);
+
+        return $result;
     }
 }

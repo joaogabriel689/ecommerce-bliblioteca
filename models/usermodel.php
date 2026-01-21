@@ -15,8 +15,8 @@ class UserModel
     public function __construct(
         int $id = 0,
         string $name = "",
-        string $email = "",
-        string $password = "",
+        string $email,
+        string $password,
         ?string $dataNasc = null,
         ?string $phone = null,
         int $compras = 0,

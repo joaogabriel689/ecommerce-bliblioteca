@@ -1,4 +1,5 @@
 <?php
+include("../models/pedidomodel.php");
 
 class PedidoRepository
 {
@@ -12,14 +13,14 @@ class PedidoRepository
     public function create(object $pedido): bool
     {
         $sql = "
-            INSERT INTO pedidos (user_id, product_id, quantity, total_price, status)
+            INSERT INTO pedidos (user_code, product_id, quantity, total_price, status)
             VALUES (:user_id, :product_id, :quantity, :total_price, :status)
         ";
 
         $stmt = $this->connection->prepare($sql);
 
         return $stmt->execute([
-            ':user_id'     => $pedido->user_id,
+            ':user_code'     => $pedido->user_code,
             ':product_id'  => $pedido->product_id,
             ':quantity'    => $pedido->quantity,
             ':total_price' => $pedido->total_price,
@@ -31,7 +32,7 @@ class PedidoRepository
     {
         $sql = "
             UPDATE pedidos
-            SET user_id = :user_id,
+            SET user_code = :user_code,
                 product_id = :product_id,
                 quantity = :quantity,
                 total_price = :total_price,
@@ -43,7 +44,7 @@ class PedidoRepository
 
         return $stmt->execute([
             ':id'          => $pedido->id,
-            ':user_id'     => $pedido->user_id,
+            ':user_code'     => $pedido->user_code,
             ':product_id'  => $pedido->product_id,
             ':quantity'    => $pedido->quantity,
             ':total_price' => $pedido->total_price,
@@ -72,5 +73,20 @@ class PedidoRepository
         ]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    private function mapToModel(array $data): pedidomodel
+    {
+        return new pedidomodel(
+            id: (int) $data['id'],
+            user_code: (int) $data['user_code'],
+            product_id: (int) $data['product_id'],
+            quantity: (int) $data['quantity'],
+            total_price: (int) $data['total_price'],
+            status: $data['status'],
+            order_date: $data['order_date'],
+            pagamento: $data['pagamento']
+        );
     }
 }
