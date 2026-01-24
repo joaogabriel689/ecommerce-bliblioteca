@@ -1,6 +1,5 @@
 <?php
 include("../config/connection.php");
-include("../models/productmodel.php");
 
 class productrepository{
     private $connection;
@@ -12,29 +11,27 @@ class productrepository{
      * ?
      * @param mixed $id
      * essa funçao retorna um produto pelo id
-     * @return productmodel|null
+     * @return |null
      */
     public function getProductById($id){ 
-        $stmt = $this->connection->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt = $this->connection->prepare("SELECT * FROM produtos WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data ? $this->mapToModel($data) : null;
+        return $data ?? null;
 
     }
+
     /**
      * ?
      * essa funçao retorna todos os produtos
      * @return array
      */
     public function listProducts(){
-        $stmt = $this->connection->prepare('SELECT * FROM products');
-        $products = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $products[] = $this->mapToModel($row);
-        }
+        $stmt = $this->connection->prepare('SELECT * FROM produtos');
+        $data = $stmt->execute();
 
-        return $products;
+        return $data ?? null;
     }
     /**
      * ?
@@ -42,13 +39,11 @@ class productrepository{
      * @return array
      */
     public function getProductsMostSold(){
-        $stmt = $this->connection->prepare('SELECT * FROM products ORDER BY vendas DESC LIMIT 10');
-        $products = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $products[] = $this->mapToModel($row);
-        }
+        $stmt = $this->connection->prepare('SELECT * FROM produtos ORDER BY vendas DESC LIMIT 10');
+        $produtos = [];
+        $data = $stmt->execute();
 
-        return $products;
+        return $data ?? null;
     }
     /**
      * ?
@@ -56,13 +51,11 @@ class productrepository{
      * @return array
      */
     public function getProductsMostVisiteds(){
-        $stmt = $this->connection->prepare('SELECT * FROM products ORDER BY click DESC LIMIT 10');
-        $products = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $products[] = $this->mapToModel($row);
-        }
+        $stmt = $this->connection->prepare('SELECT * FROM produtos ORDER BY clique DESC LIMIT 10');
+        
+        $data = $stmt->execute();
 
-        return $products;
+        return $data ?? null;
     }
     /**
      * ?
@@ -71,7 +64,7 @@ class productrepository{
      * @return bool
      */
     public function deleteProductById($id){
-        $stmt = $this->connection->prepare('DELETE FROM products WHERE id = :id');
+        $stmt = $this->connection->prepare('DELETE FROM produtos WHERE id = :id');
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
 
@@ -79,60 +72,70 @@ class productrepository{
     /**
      * ?
      * essa funçao cria um novo produto
-     * @param ProductModel $product
+     * @param  $product
      * @return bool
      */
-    public function create(ProductModel $product): bool
+    public function create($nome, $tipo, $valor, $autor, $clique, $descricao, $paginas, $idioma, $vendas, $estoque, $img_path, $editora, $categoria): bool
     {
         $stmt = $this->connection->prepare(
-            "INSERT INTO products
-            (name, description, price, stock, category, codigo, paginas, vendas)
+            "INSERT INTO produtos
+            (nome, tipo, valor, autor, clique, descricao, paginas, idioma, vendas, estoque, img_path, editora, categoria)
             VALUES
-            (:name, :description, :price, :stock, :category, :codigo, :paginas, :vendas)"
+            (:nome, :tipo, :valor, :autor, :clique, :descricao, :paginas, :idioma, :vendas, :estoque, :img_path, :editora, :categoria)"
         );
 
         return $stmt->execute([
-            ":name" => $product->name,
-            ":description" => $product->description,
-            ":price" => $product->price,
-            ":stock" => $product->stock,
-            ":category" => $product->category,
-            ":codigo" => $product->codigo,
-            ":paginas" => $product->paginas,
-            ":vendas" => $product->vendas
+            ":nome" => $nome,
+            ":tipo" => $tipo,
+            ":valor" => $valor,
+            ":autor" => $autor,
+            ":clique" => $clique,
+            ":descricao" => $descricao,
+            ":paginas" => $paginas,
+            ":idioma" => $idioma,
+            ":vendas" => $vendas,
+            ":estoque" => $estoque,
+            ":img_path" => $img_path,
+            ":editora" => $editora,
+            ":categoria" => $categoria
         ]);
+
     }
     /**
      * ?
      * essa funçao atualiza um produto
-     * @param ProductModel $product
+     * @param  $product
      * @return bool
      */
-    public function update(ProductModel $product): bool
+    public function update($id, $nome, $tipo, $valor, $autor,  $descricao, $paginas, $idioma, $img_path, $editora, $categoria): bool
     {
         $stmt = $this->connection->prepare(
-            "UPDATE products SET
-                name = :name,
-                description = :description,
-                price = :price,
-                stock = :stock,
-                category = :category,
-                codigo = :codigo,
+            "UPDATE produtos SET
+                nome = :nome,
+                tipo = :tipo,
+                valor = :valor,
+                autor = :autor,
+                descricao = :descricao,
                 paginas = :paginas,
-                vendas = :vendas
+                idioma = :idioma,
+                img_path = :img_path,
+                editora = :editora,
+                categoria = :categoria
             WHERE id = :id"
         );
 
         return $stmt->execute([
-            ":id" => $product->id,
-            ":name" => $product->name,
-            ":description" => $product->description,
-            ":price" => $product->price,
-            ":stock" => $product->stock,
-            ":category" => $product->category,
-            ":codigo" => $product->codigo,
-            ":paginas" => $product->paginas,
-            ":vendas" => $product->vendas
+            ":id" => $id,
+            ":nome" => $nome,
+            ":tipo" => $tipo,
+            ":valor" => $valor,
+            ":autor" => $autor,
+            ":descricao" => $descricao,
+            ":paginas" => $paginas,
+            ":idioma" => $idioma,
+            ":img_path" => $img_path,
+            ":editora" => $editora,
+            ":categoria" => $categoria
         ]);
     }
     /**
@@ -144,14 +147,14 @@ class productrepository{
     public function searchByLike(string $term): array
     {
         $stmt = $this->connection->prepare(
-            "SELECT * FROM products WHERE name LIKE :term"
+            "SELECT nome FROM produtos WHERE nome LIKE :term"
         );
 
         $likeTerm = '%' . $term . '%';
         $stmt->execute([':term' => $likeTerm]);
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map([$this, 'mapToModel'], $results);
+        return array_map([$this, ''], $results);
 
     }
     /**
@@ -162,16 +165,16 @@ class productrepository{
      */
     public function filterProducts(array $filters): array
     {
-        $query = "SELECT * FROM products WHERE 1=1";
+        $query = "SELECT * FROM produtos WHERE 1=1";
         $params = [];
 
         if (isset($filters['category'])) {
-            $query .= " AND category = :category";
+            $query .= " AND categoria = :category";
             $params[':category'] = $filters['category'];
         }
 
         if (isset($filters['min_price'])) {
-            $query .= " AND price >= :min_price";
+            $query .= " AND preco >= :min_price";
             $params[':min_price'] = $filters['min_price'];
         }
 
@@ -179,31 +182,36 @@ class productrepository{
             $query .= " AND price <= :max_price";
             $params[':max_price'] = $filters['max_price'];
         }
+        if (isset($filters['tipo'])) {
+            $query .= 'AND tipo = :tipo';
+            $params[':tipo'] = $filters['tipo'];
+        }
 
         $stmt = $this->connection->prepare($query);
         $stmt->execute($params);
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map([$this, 'mapToModel'], $results);
+        return array_map([$this, ''], $results);
     }
-    /**
-     * ?
-     * essa funçao mapeia os dados do banco para o modelo de produto
-     * @param array $data
-     * @return productmodel
-     */
-    private function mapToModel(array $data): productmodel{
-        return new productmodel(
-            id: (int) $data["id"],
-            name: $data["name"],
-            description: $data["description"],
-            price: (float) $data["price"],
-            stock: (int) $data["stock"],
-            category: $data["category"],
-            codigo: $data["codigo"] ?? null,
-            paginas: (int) $data["paginas"],
-            vendas: (int) $data["vendas"]
-        );
+    public function updateEstoque($id, $movimentacao){
+        $query = "UPDATE produtos SET estoque = estoque + :movimentacao WHERE id = :id";
+        $params = [
+            ":movimentacao"=> $movimentacao,
+            ":id" => $id
+        ];
+        $stmt = $this->connection->prepare($query);
+        return $stmt->execute($params);
+
+    }
+    public function updateClique($id) {
+        $query = "UPDATE produtos SET clique = clique + 1 WHERE id = :id";
+        $params = [
+            ":id"=> $id
+        ];
+        $stmt = $this->connection->prepare($query);
+        return $stmt->execute($params);
     }
 
 }
+
+

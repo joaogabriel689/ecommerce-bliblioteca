@@ -2,8 +2,6 @@
 
 include("../repositories/productrepository.php");
 include("../repositories/pedidosrepository.php");
-include("../models/productmodel.php");
-include("../models/pedidosmodel.php");
 include("../config/connection.php");
 
 class Productcontroller{
@@ -23,31 +21,22 @@ class Productcontroller{
         ];
         return $products;
     }
-    public function add_click($id){
-        $product = $this->productRepository->getProductById($id);
-        $product->clicks += 1;
-        $this->productRepository->update($product);
-        return $this->show_product($id);
-    }
     function list_products(){
         $products = $this->productRepository->listProducts();
         return $products;
     }
-    public function add_cartitem($id, $user_id){
-        $product = $this->productRepository->getProductById($id);
-        $product->vendas += 1;
-        $cartitem = new pedidomodel(
-            0,
-            $user_id,
-            $product->id,
-            1,
-            $product->price,
-            "pending",
-            date("Y-m-d H:i:s"),
-            0
-        );
-        $this->pedidoRepository->create($cartitem);
-        return "Item added to cart";
+    public function add_cartitem($id_produto, $user_id){
+        $pedido = $this->pedidoRepository->findByUserAndProduto($user_id, $id_produto);
+        if ($pedido == null) {
+            $product = $this->productRepository->getProductById($id_produto);
+            if ($product == null) {
+                return "produto nao encontrado";
+            }
+            $this->pedidoRepository->create($user_id, $id_produto, 1, $product['valor']);
+        } else {
+            $this->pedidoRepository->updateQuantity($user_id, $id_produto, 1);
+        }
+        return "produto adicionado ao carrinho";
     }
 
 
@@ -55,22 +44,27 @@ class Productcontroller{
     public function show_product($id){
 
         $product = $this->productRepository->getProductById($id);
+        
         if ($product == null) {
             return "Product not found";
         }
-
+        $this->productRepository->updateClique($product['id']);
         return $product;
     }
-    public function edit_product($product){
+
+
+
+
+    
+    public function edit_product($id, $nome, $tipo, $valor, $autor,  $descricao, $paginas, $idioma, $img_path, $editora, $categoria){
         
-        return $this->productRepository->update($product);
+        return $this->productRepository->update($id, $nome, $tipo, $valor, $autor,  $descricao, $paginas, $idioma, $img_path, $editora, $categoria);
     }
-    public function create_product($product){
-        return $this->productRepository->create($product);
+    public function create_product($nome, $tipo, $valor, $autor, $clique, $descricao, $paginas, $idioma, $vendas, $estoque, $img_path, $editora, $categoria){
+
+        return $this->productRepository->create($nome, $tipo, $valor, $autor, $clique, $descricao, $paginas, $idioma, $vendas, $estoque, $img_path, $editora, $categoria);
     }
-    public function update_product($product){
-        return $this->productRepository->update($product);
-    }
+
     public function delete_product($id){
         return $this->productRepository->deleteProductById($id);
     }
