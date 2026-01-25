@@ -10,7 +10,7 @@ class payinforepository
     }
     public function get($user_id)
     {
-        $sql = "SELECT * FROM dados_banc WHERE id_usuario = :user_id";
+        $sql = "SELECT * FROM dados_banc WHERE id_cliente = :user_id";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([':user_id' => $user_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
