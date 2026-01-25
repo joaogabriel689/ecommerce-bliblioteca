@@ -1,6 +1,5 @@
 <?php
 include("../config/connection.php");
-include("../models/usermodel.php");
 
 class authrepository{
     private $connection;
@@ -18,17 +17,7 @@ class authrepository{
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            $user_logged = new usermodel(
-                $user['id'],
-                $user['name'],
-                $user['data_nasc'],
-                $user['phone'],
-                $user['compras'],
-                $user['group_user'],
-                $user['codigo'],
-                $user['password']
-            );
-            return $user_logged;
+            return $user;
         }
         return null;
     }
