@@ -69,7 +69,7 @@ class Productcontroller{
         //criar um metodo no repositorio de produtos para verificar se o produto ja existe pelo nome do produto!!!!!!
 
     
-        $produto = $this->productRepository->getProductById($id);
+        $produto = $this->productRepository->searchByLike($nome);
         if ($produto != null) {
             return ["status"=> false,"message"=> "Product exists"];
         }
@@ -86,4 +86,3 @@ class Productcontroller{
     }
 }
 
-    

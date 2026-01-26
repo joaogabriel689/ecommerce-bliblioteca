@@ -81,3 +81,9 @@ Esses campos permitem:
 - Base sólida para evolução do projeto
 
 ---
+rotas:
+
+auth
+-/register
+-/login
+-/logout

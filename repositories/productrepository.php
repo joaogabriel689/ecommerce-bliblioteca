@@ -1,82 +1,144 @@
 <?php
+
+// Inclui a configuração de conexão com o banco de dados
 include("../config/connection.php");
 
-class productrepository{
+/**
+ * Repositório de Produtos
+ *
+ * Responsável exclusivamente por operações na tabela `produtos`.
+ *
+ * ❗ Importante:
+ * - Não contém regras de negócio
+ * - Não valida dados
+ * - Não cria sessão
+ * - Apenas executa SQL
+ */
+class productrepository {
+
+    /**
+     * Conexão com o banco de dados
+     */
     private $connection;
 
+    /**
+     * Construtor
+     *
+     * Recebe a conexão via injeção de dependência.
+     *
+     * @param PDO $connection
+     */
     public function __construct($connection){
         $this->connection = $connection;
     }
+
     /**
-     * ?
-     * @param mixed $id
-     * essa funçao retorna um produto pelo id
-     * @return |null
+     * Retorna um produto pelo ID
+     *
+     * @param mixed $id  ID do produto
+     * @return array|null
+     *  Retorna os dados do produto ou null caso não exista
      */
     public function getProductById($id){ 
-        $stmt = $this->connection->prepare("SELECT * FROM produtos WHERE id = :id");
+        $stmt = $this->connection->prepare(
+            "SELECT * FROM produtos WHERE id = :id"
+        );
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data ?? null;
 
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $data ?? null;
     }
 
     /**
-     * ?
-     * essa funçao retorna todos os produtos
-     * @return array
+     * Retorna todos os produtos cadastrados
+     *
+     * @return array|null
+     *  Retorna os produtos ou null em caso de falha
      */
     public function listProducts(){
-        $stmt = $this->connection->prepare('SELECT * FROM produtos');
+        $stmt = $this->connection->prepare(
+            'SELECT * FROM produtos'
+        );
+
+        // Executa a consulta
         $data = $stmt->execute();
 
         return $data ?? null;
     }
+
     /**
-     * ?
-     * essa funçao retorna os 10 produtos mais vendidos
-     * @return array
+     * Retorna os 10 produtos mais vendidos
+     *
+     * @return array|null
      */
     public function getProductsMostSold(){
-        $stmt = $this->connection->prepare('SELECT * FROM produtos ORDER BY vendas DESC LIMIT 10');
+        $stmt = $this->connection->prepare(
+            'SELECT * FROM produtos ORDER BY vendas DESC LIMIT 10'
+        );
+
         $produtos = [];
+
+        // Executa a consulta
         $data = $stmt->execute();
 
         return $data ?? null;
     }
+
     /**
-     * ?
-     * essa funçao retorna os 10 produtos mais visitados
-     * @return array
+     * Retorna os 10 produtos mais visitados (mais cliques)
+     *
+     * @return array|null
      */
     public function getProductsMostVisiteds(){
-        $stmt = $this->connection->prepare('SELECT * FROM produtos ORDER BY clique DESC LIMIT 10');
-        
+        $stmt = $this->connection->prepare(
+            'SELECT * FROM produtos ORDER BY clique DESC LIMIT 10'
+        );
+
+        // Executa a consulta
         $data = $stmt->execute();
 
         return $data ?? null;
     }
+
     /**
-     * ?
-     * essa funçao deleta um produto pelo id
-     * @param mixed $id
+     * Remove um produto pelo ID
+     *
+     * @param mixed $id  ID do produto
      * @return bool
+     *  Retorna true se o DELETE for bem-sucedido
      */
     public function deleteProductById($id){
-        $stmt = $this->connection->prepare('DELETE FROM produtos WHERE id = :id');
+        $stmt = $this->connection->prepare(
+            'DELETE FROM produtos WHERE id = :id'
+        );
         $stmt->bindParam(':id', $id);
-        return $stmt->execute();
 
+        return $stmt->execute();
     }
+
     /**
-     * ?
-     * essa funçao cria um novo produto
-     * @param  $product
+     * Cria um novo produto
+     *
      * @return bool
+     *  Retorna true se o INSERT for executado com sucesso
      */
-    public function create($nome, $tipo, $valor, $autor, $clique, $descricao, $paginas, $idioma, $vendas, $estoque, $img_path, $editora, $categoria): bool
-    {
+    public function create(
+        $nome,
+        $tipo,
+        $valor,
+        $autor,
+        $clique,
+        $descricao,
+        $paginas,
+        $idioma,
+        $vendas,
+        $estoque,
+        $img_path,
+        $editora,
+        $categoria
+    ): bool {
         $stmt = $this->connection->prepare(
             "INSERT INTO produtos
             (nome, tipo, valor, autor, clique, descricao, paginas, idioma, vendas, estoque, img_path, editora, categoria)
@@ -99,16 +161,27 @@ class productrepository{
             ":editora" => $editora,
             ":categoria" => $categoria
         ]);
-
     }
+
     /**
-     * ?
-     * essa funçao atualiza um produto
-     * @param  $product
+     * Atualiza os dados de um produto
+     *
      * @return bool
+     *  Retorna true se o UPDATE for executado com sucesso
      */
-    public function update($id, $nome, $tipo, $valor, $autor,  $descricao, $paginas, $idioma, $img_path, $editora, $categoria): bool
-    {
+    public function update(
+        $id,
+        $nome,
+        $tipo,
+        $valor,
+        $autor,
+        $descricao,
+        $paginas,
+        $idioma,
+        $img_path,
+        $editora,
+        $categoria
+    ): bool {
         $stmt = $this->connection->prepare(
             "UPDATE produtos SET
                 nome = :nome,
@@ -138,10 +211,11 @@ class productrepository{
             ":categoria" => $categoria
         ]);
     }
+
     /**
-     * ?
-     * essa funçao busca produtos pelo nome
-     * @param string $term
+     * Busca produtos pelo nome usando LIKE
+     *
+     * @param string $term  Termo de busca
      * @return array
      */
     public function searchByLike(string $term): array
@@ -154,12 +228,14 @@ class productrepository{
         $stmt->execute([':term' => $likeTerm]);
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map([$this, ''], $results);
 
+        // Retorna os resultados processados (sem transformação definida)
+        return array_map([$this, ''], $results);
     }
+
     /**
-     * ?
-     * essa funçao filtra produtos por categoria e faixa de preço
+     * Filtra produtos por categoria, tipo e faixa de preço
+     *
      * @param array $filters
      * @return array
      */
@@ -182,8 +258,9 @@ class productrepository{
             $query .= " AND price <= :max_price";
             $params[':max_price'] = $filters['max_price'];
         }
+
         if (isset($filters['tipo'])) {
-            $query .= 'AND tipo = :tipo';
+            $query .= ' AND tipo = :tipo';
             $params[':tipo'] = $filters['tipo'];
         }
 
@@ -191,26 +268,46 @@ class productrepository{
         $stmt->execute($params);
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Retorna os resultados processados (sem transformação definida)
         return array_map([$this, ''], $results);
     }
+
+    /**
+     * Atualiza o estoque de um produto
+     *
+     * @param int $id
+     * @param int $movimentacao  Valor positivo ou negativo
+     * @return bool
+     */
     public function updateEstoque($id, $movimentacao){
         $query = "UPDATE produtos SET estoque = estoque + :movimentacao WHERE id = :id";
+
         $params = [
-            ":movimentacao"=> $movimentacao,
+            ":movimentacao" => $movimentacao,
             ":id" => $id
         ];
+
         $stmt = $this->connection->prepare($query);
+
         return $stmt->execute($params);
     }
+
+    /**
+     * Incrementa o contador de cliques de um produto
+     *
+     * @param int $id
+     * @return bool
+     */
     public function updateClique($id) {
         $query = "UPDATE produtos SET clique = clique + 1 WHERE id = :id";
+
         $params = [
-            ":id"=> $id
+            ":id" => $id
         ];
+
         $stmt = $this->connection->prepare($query);
+
         return $stmt->execute($params);
     }
-
 }
-
-
