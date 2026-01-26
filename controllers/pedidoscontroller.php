@@ -27,20 +27,25 @@ class PedidosController {
             $itens['produto'][$i] = $pedido[$i]['quantidade'];
             $itens['produto'][$i] = $pedido[$i]['valor_total'];
         }
-
-        return [
-            "itens" => $itens,
-            "total" => $total
+        $data = [
+            'itens' => $itens,
+            'total' => $total
         ];
+
+        return ['status' => true, 'message' => 'Cart retrieved successfully', 'data' => $data];
     }
 
+    public function finalizarPedido($id_pedido, $forma_pagamento){
+        return $this->pedidoRepository->updateStatus($id_pedido, "finalizado", $forma_pagamento);
+    }
 
-    public function updateStatus($id, $status){
+    public function updateStatus($id, $status, $forma_pagamento = 0){
         $status_possiveis = ['pendente', 'processando', 'enviado', 'entregue', 'cancelado'];
         if (!in_array($status, $status_possiveis)) {
             return false;
         }
-        return $this->pedidoRepository->updateStatus($id, $status);
+        $pedido = $this->pedidoRepository->updateStatus($id, $status, $forma_pagamento);
+        return ['status' => true, 'message' => 'Status updated successfully', 'data' => $pedido];
     }
 
 

@@ -55,13 +55,14 @@ class PedidoRepository
         ]);
 
     }
-    public function updateStatus($id, $status): bool
+    public function updateStatus($id, $status, int $forma_pagamento): bool
     {
-        $sql = 'UPDATE pedidos SET status = :status WHERE id = :id';
+        $sql = 'UPDATE pedidos SET status = :status, forma_pagamento = :forma_pagamento WHERE id = :id';
         $stmt = $this->connection->prepare($sql);
         $pedido = $stmt->execute([
             ':id'     => $id,
             ':status'  => $status,
+            ':forma_pagamento' => $forma_pagamento
         ]);
         return $pedido;
     }

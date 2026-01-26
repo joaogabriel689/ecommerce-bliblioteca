@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include("../repositories/userrepository.php");
 include("../utils/validators.php");
 include("../config/connection.php");
@@ -16,19 +16,19 @@ class AuthController {
     }
     public function login($email, $password) {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
-            return "email invalido";
+            return ["status" => false, "message" => "email invalido"];
         }
         $user = $this->userRepository->findByEmail($email);
         if ($user == null) {
-            return "User not found.";
+            return ["status" => false, "message" => "User not found."];
         }
         if (password_verify($password, $user['senha'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['nome'];
             $_SESSION['user_group'] = $user['grupo'];
-            return true;
+            return ["status" => true, "message" => "Login successful."];
         } else {
-            return false;
+            return ["status" => false, "message" => "Invalid password."];
         }
     }
 
@@ -38,14 +38,14 @@ class AuthController {
     public function register($name, $email, $cpf, $password, $dataNasc, $phone, $compras, $group, $codigo) {
 
         if (validarCPF($cpf) == false) {
-            return 'cpf invalido';
+            return ["status" => false, "message" => "cpf invalido"];
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
-            return "email invalido";
+            return ["status" => false, "message" => "email invalido"];
         }
 
         if ($this->userRepository->findByEmail($email) != null) {
-            return "Email already registered.";
+            return ["status" => false, "message" => "Email already registered."];
         }
 
         $this->userRepository->create($name, $email, $cpf, $password, $dataNasc, $phone, $compras, $group);
@@ -54,7 +54,7 @@ class AuthController {
     public function logout() {
         session_unset();
         session_destroy();
-        return "Logged out successfully.";
+        return ["status" => true, "message" => "Logged out successfully."];
     }
 }
 

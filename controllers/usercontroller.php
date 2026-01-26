@@ -18,7 +18,8 @@ class UserController {
 
 
     public function getUserById($id) {
-        return $this->userRepository->findById($id);
+        $user = $this->userRepository->findById($id);
+        return ['status' => true, 'message' => 'User retrieved successfully', 'data' => $user];
     }
 
 
@@ -26,7 +27,8 @@ class UserController {
 
 
     public function getAllUsers() {
-        return $this->userRepository->listAll();
+        $users = $this->userRepository->listAll();
+        return ['status' => true, 'message' => 'Users retrieved successfully', 'data' => $users];
     }
 
 
@@ -37,10 +39,14 @@ class UserController {
         if ($user == null) {
             return "User not found.";
         }
+        $data = $this->userRepository->update($id, $name, $email, $cpf, $password, $dataNasc, $phone, null, $group_code, $codigo);
 
 
-        return $this->userRepository->update($id, $name, $email, $cpf, $password, $dataNasc, $phone, null, $group_code, $codigo);
+    
+        return ['status' => true, 'message' => 'User updated successfully', 'data' => $data];
     }
+
+
 
 
 
@@ -49,21 +55,13 @@ class UserController {
         if ($user == null) {
             return "User not found.";
         }
-
-        return $this->userRepository->delete($id);
+        $data = $this->userRepository->delete($id);
+        return ['status' => true, 'message' => 'User deleted successfully', 'data' => $data];
     }
 
 
 
-    public function getCartItems($id_usuario, $status = "pending") {
-        $user = $this->getUserById($id_usuario);
-        if ($user == null) {
-            return "User not found.";
-        }
-        $result =$this->pedidosrepository->findByUserAndStatus($id_usuario, $status);
 
-        return $result;
-    }
 
     
 }

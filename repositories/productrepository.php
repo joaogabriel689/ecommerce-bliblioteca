@@ -201,7 +201,6 @@ class productrepository{
         ];
         $stmt = $this->connection->prepare($query);
         return $stmt->execute($params);
-
     }
     public function updateClique($id) {
         $query = "UPDATE produtos SET clique = clique + 1 WHERE id = :id";
