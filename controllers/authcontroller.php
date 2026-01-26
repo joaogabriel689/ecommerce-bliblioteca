@@ -23,10 +23,9 @@ class AuthController {
             return ["status" => false, "message" => "User not found."];
         }
         if (password_verify($password, $user['senha'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['name'] = $user['nome'];
-            $_SESSION['user_group'] = $user['grupo'];
-            return ["status" => true, "message" => "Login successful."];
+            $user_loged = ['id' => $user['id'], 'name' => $user['nome'], 'email' => $user['email'], 'group_code' => $user['group_code']];
+            $_SESSION['user'] = $user_loged;
+            return ["status" => true, "message" => "Login successful.", "data" => $user_loged];
         } else {
             return ["status" => false, "message" => "Invalid password."];
         }
@@ -35,7 +34,7 @@ class AuthController {
 
 
 
-    public function register($name, $email, $cpf, $password, $dataNasc, $phone, $compras, $group, $codigo) {
+    public function register($name, $email, $cpf, $password, $dataNasc, $phone, $compras, $group) {
 
         if (validarCPF($cpf) == false) {
             return ["status" => false, "message" => "cpf invalido"];

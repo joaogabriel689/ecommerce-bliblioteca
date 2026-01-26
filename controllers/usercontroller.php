@@ -34,12 +34,12 @@ class UserController {
 
 
 
-    public function updateUser($id, $name, $cpf, $email, $password = null, $dataNasc = null, $phone = null, $group_code = null, $codigo = null) {
+    public function updateUser($id, $name, $cpf, $email, $password = null, $dataNasc = null, $phone = null, $group_code = null) {
         $user = $this->getUserById($id);
         if ($user == null) {
-            return "User not found.";
+            return ["status" => false, "message" => "User not found."];
         }
-        $data = $this->userRepository->update($id, $name, $email, $cpf, $password, $dataNasc, $phone, null, $group_code, $codigo);
+        $data = $this->userRepository->update($id, $name, $email, $cpf, $password, $dataNasc, $phone, $group_code);
 
 
     
