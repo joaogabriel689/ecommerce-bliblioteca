@@ -1,7 +1,20 @@
 <?php
 
-// Inicia a sessão
+/**
+ * Configura o cookie da sessão para ser acessível apenas via HTTP
+ * (impede acesso por JavaScript, aumentando a segurança)
+ */
+session_set_cookie_params(['httpOnly' => true]);
+
+/**
+ * Inicia a sessão
+ */
 session_start();
+
+/**
+ * Regenera o ID da sessão para evitar session fixation
+ */
+session_regenerate_id(true);
 
 /**
  * Verifica se o usuário já está logado
@@ -87,7 +100,10 @@ if ($action['status'] == false) {
 } else {
 
     // Login realizado com sucesso
+    // Cria a sessão do usuário autenticado
+    $_SESSION['user'] = $action['data'];
     http_response_code(200);
+            
     echo json_encode([
         'status'  => true,
         'message' => $action['message'],

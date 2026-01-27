@@ -1,7 +1,7 @@
 <?php
 
-include("../repositories/pedidosrepository.php");
-include("../config/connection.php");
+include_once __DIR__ . "/../repositories/pedidosrepository.php";
+include_once __DIR__ . "/../config/connection.php";
 
 /**
  * Controller responsável por operações relacionadas a pedidos

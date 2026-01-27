@@ -1,8 +1,7 @@
 <?php
-
-include("../repositories/userrepository.php");
-include("../repositories/pedidorepository.php");
-include("../config/connection.php");
+include_once __DIR__ ."/../repositories/userrepository.php";
+include_once __DIR__ ."/../repositories/pedidosrepository.php";
+include_once __DIR__ ."/../config/connection.php";
 
 /**
  * Controller responsável por operações relacionadas aos usuários
@@ -50,6 +49,13 @@ class UserController {
             'message' => 'User retrieved successfully',
             'data' => $user
         ];
+    }
+    public function getUserByEmail($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+            return ["status" => false, "message" => "email invalido"];
+        }
+        $user = $this->userRepository->findByEmail($email);
+        return ['status' => true,'message'=> 'user retrieved sucessfully','data'=> $user];
     }
 
     /**

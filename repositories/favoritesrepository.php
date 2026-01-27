@@ -113,4 +113,16 @@ class favoritesrepository {
          */
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
+    public function getFavoritesByUserAndItemId($userId, $itemId){
+        $stmt = $this->connection->prepare(
+            "SELECT id_produto 
+             FROM favoritos 
+             WHERE id_cliente = :user_id
+               AND id_produto = :item_id"
+        );
+        $stmt->bindParam(":user_id", $userId);
+        $stmt->bindParam(":item_id", $itemId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

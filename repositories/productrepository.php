@@ -50,6 +50,17 @@ class productrepository {
 
         return $data ?? null;
     }
+    public function getProductByname($name){
+        $stmt = $this->connection->prepare(
+            "SELECT * FROM produtos WHERE nome = :name"
+        );
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $data ?? null;
+    }
 
     /**
      * Retorna todos os produtos cadastrados

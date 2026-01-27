@@ -3,7 +3,7 @@
 /**
  * Repository responsável por manipular a tabela `enderecos`
  */
-class AddressRepository
+class AdressRepository
 {
     /**
      * Conexão com o banco de dados

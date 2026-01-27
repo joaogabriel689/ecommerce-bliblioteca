@@ -1,60 +1,104 @@
 <?php
 
-function validarCPF(string $cpf): bool {
-    $cpf_value = [];
-    $valores_padrao = "0123456789.-";
-    $soma_um = 0;
-    $soma_dois = 0;
-    $resto_divisao_um = 0;
-    $resto_divisao_dois = 0;
-    $cont = 0;
-    for ($i = 0; $i <= $cpf; $i++) {
-        if (strpos($valores_padrao, $cpf[$i]) == false){
-            return false;
-        }
-        if ($cpf[$i] != "." ?? $cpf[$i] != "-") {
-            $cpf_value[] = $cpf[$i];
-            $cont++;
-        }
-    }
-    if ($cont > 11 ?? $cont <11) {
+function validarCPF(string $cpf): bool
+{
+    // Remove tudo que não for número
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+
+    // Verifica se tem 11 dígitos
+    if (strlen($cpf) !== 11) {
         return false;
     }
-    $cont = 0;
-    for ($j = 0;$j <= 10; $j++){
-        if ($j > 8) {
-            break;
-        }
-        $mutiplicacao = $cpf_value[$j] * (10 - $j);
-        $soma_um += $mutiplicacao;
-    }
-    $resto_divisao_um = ($soma_um * 10) %11;
 
-    if ($resto_divisao_um == 10){
-        $resto_divisao_um = 0;
-    }
-    if ($resto_divisao_um != $cpf_value[10]){
+    // Bloqueia CPFs com todos os dígitos iguais (ex: 11111111111)
+    if (preg_match('/^(\d)\1{10}$/', $cpf)) {
         return false;
+    }
 
+    // Converte para array de números
+    $cpf_array = array_map('intval', str_split($cpf));
+
+    // ===== Primeiro dígito verificador =====
+    $soma = 0;
+    for ($i = 0; $i < 9; $i++) {
+        $soma += $cpf_array[$i] * (10 - $i);
     }
-    for ($j = 0;$j <= 11; $j++){
-        if ($j > 9) {
-            break;
-        }
-        $mutiplicacao = $cpf_value[$j] * (11 - $j);
-        $soma_dois += $mutiplicacao;
+
+    $digito1 = ($soma * 10) % 11;
+    if ($digito1 === 10) {
+        $digito1 = 0;
     }
-    $resto_divisao_dois = ($soma_dois * 10) %11;
-    if ($resto_divisao_dois == 10){
-        $resto_divisao_dois= 0;
-    }
-    if ($resto_divisao_dois != $cpf_value[11]){
+
+    if ($digito1 !== $cpf_array[9]) {
         return false;
-
     }
+
+    // ===== Segundo dígito verificador =====
+    $soma = 0;
+    for ($i = 0; $i < 10; $i++) {
+        $soma += $cpf_array[$i] * (11 - $i);
+    }
+
+    $digito2 = ($soma * 10) % 11;
+    if ($digito2 === 10) {
+        $digito2 = 0;
+    }
+
+    if ($digito2 !== $cpf_array[10]) {
+        return false;
+    }
+
     return true;
 }
 
+function validarCelularBR($telefone) {
+
+    $tel = preg_replace('/[^0-9]/', '', $telefone);
+    
+
+    $regex = '/^[1-9]{2}9[0-9]{8}$/';
+    
+    return preg_match($regex, $tel);
+}
+
+function validarCEP($cep)
+{
+    // Remove caracteres não numéricos
+    $cep = preg_replace('/[^0-9]/', '', $cep);
+
+    // Verifica se tem exatamente 8 dígitos
+    if (strlen($cep) !== 8) {
+        return false;
+    }
+
+    // Consulta a API ViaCEP
+    $url = "https://viacep.com.br/ws/{$cep}/json/";
+    $response = @file_get_contents($url);
+
+    if ($response === false) {
+        return false;
+    }
+
+    $dados = json_decode($response, true);
+
+    // Verifica se o CEP existe
+    if (isset($dados['erro']) && $dados['erro'] === true) {
+        return false;
+    }
+
+    // Normaliza retorno para o padrão do banco
+    return [
+        'rua'          => $dados['address'] ?? '',
+        'bairro'       => $dados['district'] ?? '',
+        'cidade'       => $dados['city'] ?? '',
+        'uf'           => $dados['state'] ?? '',
+        'cep'          => (int) $cep,
+
+        // Campos que NÃO vêm da API
+        'numero'       => null,       // deve vir do frontend
+        'complemento'  => null         // opcional
+    ];
+}
 
 
 

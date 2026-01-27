@@ -1,24 +1,9 @@
 <?php
 
-/**
- * Configura o cookie da sessão para ser acessível apenas via HTTP
- * (impede acesso por JavaScript, aumentando a segurança)
- */
-session_set_cookie_params(['httpOnly' => true]);
 
-/**
- * Inicia a sessão
- */
-session_start();
-
-/**
- * Regenera o ID da sessão para evitar session fixation
- */
-session_regenerate_id(true);
-
-include("../repositories/userrepository.php");
-include("../utils/validators.php");
-include("../config/connection.php");
+include_once __DIR__ . "/../repositories/userrepository.php";
+include_once __DIR__ . "/../utils/validators.php";
+include_once __DIR__ . "/../config/connection.php";
 
 /**
  * Controller responsável pela autenticação de usuários
@@ -83,11 +68,9 @@ class AuthController {
                 'group_code' => $user['group_code']
             ];
 
-            // Cria a sessão do usuário autenticado
-            $_SESSION['user'] = $user_loged;
 
-            // Regenera o ID da sessão após login
-            session_regenerate_id(true);
+
+
 
             return [
                 "status" => true,
@@ -121,6 +104,9 @@ class AuthController {
         // Valida email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
             return ["status" => false, "message" => "email invalido"];
+        }
+        if (validarCelularBR($phone) == 1 ?? false) {
+            return ["status" => false, "message" => "telefone invalido"];
         }
 
         // Verifica se o email já existe
