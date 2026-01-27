@@ -81,7 +81,7 @@ class payinforepository
         $sql .= implode(', ', $fields);
 
         // Define a condição de atualização pelo usuário
-        $sql .= ' WHERE id_usuario = :user_id';
+        $sql .= ' WHERE id_cliente = :user_id';
 
         // Prepara a query final
         $stmt = $this->connection->prepare($sql);
@@ -112,7 +112,7 @@ class payinforepository
          */
         if ($cartao === null){
 
-            $sql =  "DELETE * FROM dados_banc WHERE id_cliente = :user_id";
+            $sql =  "DELETE FROM dados_banc WHERE id_cliente = :user_id";
 
             $stmt = $this->connection->prepare($sql);
             $stmt->bindValue(":user_id", $user_id);
@@ -154,7 +154,7 @@ class payinforepository
          * Monta dinamicamente a query INSERT
          * com base nas chaves do array $data
          */
-        $sql = 'INSERT INTO dados_banc (id_usuario, ' 
+        $sql = 'INSERT INTO dados_banc (id_cliente, ' 
              . implode(', ', array_keys($data)) 
              . ') VALUES (:user_id, ' 
              . implode(', ', array_map(fn($key) => ":$key", array_keys($data))) 

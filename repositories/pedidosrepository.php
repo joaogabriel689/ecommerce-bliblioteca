@@ -42,7 +42,7 @@ class PedidoRepository
      * @return bool
      *  Retorna true se o INSERT for executado com sucesso
      */
-    public function create($user_id, $product_id, $quantity, $total_price, $status = "pendente"): bool
+    public function create($user_id, $product_id, $product_value, $quantity, $total_price, $status = "pendente"): bool
     {
         /**
          * Insere um novo registro na tabela pedidos.
@@ -50,8 +50,8 @@ class PedidoRepository
          * no momento da criação.
          */
         $sql = "
-            INSERT INTO pedidos (id_produto, valor_total, quantidade, id_cliente, data, pagamento, status) values
-            (:product_id, :total_price, :quantity, :user_id, NOW(), :total_price, :status)
+            INSERT INTO pedidos (id_produto, valor_produto,  valor_total, quantidade, id_cliente, data, status) values
+            (:product_id, :product_value, :total_price, :quantity, :user_id, NOW(), :status)
         ";
 
         // Prepara a query
@@ -61,8 +61,9 @@ class PedidoRepository
         return $stmt->execute([
             ":user_id"      => $user_id,
             ":product_id"   => $product_id,
-            ":quantity"     => $quantity,
+            ":product_value"=> $product_value,
             ":total_price"  => $total_price,
+            ":quantity"     => $quantity,
             ":status"       => $status
         ]);
     }
@@ -231,6 +232,6 @@ class PedidoRepository
             ':id_produto' => $id_produto,
         ]);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

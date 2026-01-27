@@ -88,10 +88,10 @@ function validarCEP($cep)
 
     // Normaliza retorno para o padrão do banco
     return [
-        'rua'          => $dados['address'] ?? '',
-        'bairro'       => $dados['district'] ?? '',
-        'cidade'       => $dados['city'] ?? '',
-        'uf'           => $dados['state'] ?? '',
+        'rua'          => $dados['logradouro'] ?? '',
+        'bairro'       => $dados['bairro'] ?? '',
+        'cidade'       => $dados['localidade'] ?? '',
+        'uf'           => $dados['uf'] ?? '',
         'cep'          => (int) $cep,
 
         // Campos que NÃO vêm da API

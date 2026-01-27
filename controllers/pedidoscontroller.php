@@ -56,12 +56,13 @@ class PedidosController {
             $total += $pedido[$i]['valor_total'];
 
             // Montagem dos dados do produto
-            // (sobrescrito a cada atribuição conforme a lógica atual)
-            $itens['produto'][$i] = $pedido[$i]['id'];
-            $itens['produto'][$i] = $pedido[$i]['id_produto'];
-            $itens['produto'][$i] = $pedido[$i]['valor_produto'];
-            $itens['produto'][$i] = $pedido[$i]['quantidade'];
-            $itens['produto'][$i] = $pedido[$i]['valor_total'];
+            $itens['produto'][$i] = [
+                'id_pedido'     => $pedido[$i]['id'],
+                'id_produto'    => $pedido[$i]['id_produto'],
+                'valor_produto' => $pedido[$i]['valor_produto'],
+                'quantidade'    => $pedido[$i]['quantidade'],
+                'valor_total'   => $pedido[$i]['valor_total'],
+            ];
         }
 
         // Estrutura final de resposta

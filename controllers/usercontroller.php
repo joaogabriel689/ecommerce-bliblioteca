@@ -7,7 +7,7 @@ include_once __DIR__ ."/../config/connection.php";
  * Controller responsável por operações relacionadas aos usuários
  * (consulta, listagem, atualização e remoção)
  */
-class UserController {
+class UserController{
 
     /**
      * Repositório de usuários

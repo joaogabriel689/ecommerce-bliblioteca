@@ -105,7 +105,7 @@ class AuthController {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
             return ["status" => false, "message" => "email invalido"];
         }
-        if (validarCelularBR($phone) == 1 ?? false) {
+        if (!validarCelularBR($phone) == 1 ?? false) {
             return ["status" => false, "message" => "telefone invalido"];
         }
 

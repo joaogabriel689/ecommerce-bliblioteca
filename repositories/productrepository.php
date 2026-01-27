@@ -74,7 +74,8 @@ class productrepository {
         );
 
         // Executa a consulta
-        $data = $stmt->execute();
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $data ?? null;
     }
@@ -89,10 +90,9 @@ class productrepository {
             'SELECT * FROM produtos ORDER BY vendas DESC LIMIT 10'
         );
 
-        $produtos = [];
-
         // Executa a consulta
-        $data = $stmt->execute();
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $data ?? null;
     }
@@ -104,12 +104,12 @@ class productrepository {
      */
     public function getProductsMostVisiteds(){
         $stmt = $this->connection->prepare(
-            'SELECT * FROM produtos ORDER BY clique DESC LIMIT 10'
+            'SELECT * FROM produtos ORDER BY click DESC LIMIT 10'
         );
 
         // Executa a consulta
-        $data = $stmt->execute();
-
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data ?? null;
     }
 
@@ -140,8 +140,8 @@ class productrepository {
         $tipo,
         $valor,
         $autor,
-        $clique,
-        $descricao,
+        $click,
+        $descri,
         $paginas,
         $idioma,
         $vendas,
@@ -152,9 +152,9 @@ class productrepository {
     ): bool {
         $stmt = $this->connection->prepare(
             "INSERT INTO produtos
-            (nome, tipo, valor, autor, clique, descricao, paginas, idioma, vendas, estoque, img_path, editora, categoria)
+            (nome, tipo, valor, autor, click, descri, paginas, idioma, vendas, estoque, img_path, editora, categoria)
             VALUES
-            (:nome, :tipo, :valor, :autor, :clique, :descricao, :paginas, :idioma, :vendas, :estoque, :img_path, :editora, :categoria)"
+            (:nome, :tipo, :valor, :autor, :click, :descri, :paginas, :idioma, :vendas, :estoque, :img_path, :editora, :categoria)"
         );
 
         return $stmt->execute([
@@ -162,8 +162,8 @@ class productrepository {
             ":tipo" => $tipo,
             ":valor" => $valor,
             ":autor" => $autor,
-            ":clique" => $clique,
-            ":descricao" => $descricao,
+            ":click" => $click,
+            ":descri" => $descri,
             ":paginas" => $paginas,
             ":idioma" => $idioma,
             ":vendas" => $vendas,
@@ -186,7 +186,7 @@ class productrepository {
         $tipo,
         $valor,
         $autor,
-        $descricao,
+        $descri,
         $paginas,
         $idioma,
         $img_path,
@@ -199,7 +199,7 @@ class productrepository {
                 tipo = :tipo,
                 valor = :valor,
                 autor = :autor,
-                descricao = :descricao,
+                descri = :descri,
                 paginas = :paginas,
                 idioma = :idioma,
                 img_path = :img_path,
@@ -214,7 +214,7 @@ class productrepository {
             ":tipo" => $tipo,
             ":valor" => $valor,
             ":autor" => $autor,
-            ":descricao" => $descricao,
+            ":descri" => $descri,
             ":paginas" => $paginas,
             ":idioma" => $idioma,
             ":img_path" => $img_path,
@@ -241,7 +241,7 @@ class productrepository {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Retorna os resultados processados (sem transformação definida)
-        return array_map([$this, ''], $results);
+        return $results;
     }
 
     /**
@@ -261,12 +261,12 @@ class productrepository {
         }
 
         if (isset($filters['min_price'])) {
-            $query .= " AND preco >= :min_price";
+            $query .= " AND valor >= :min_price";
             $params[':min_price'] = $filters['min_price'];
         }
 
         if (isset($filters['max_price'])) {
-            $query .= " AND price <= :max_price";
+            $query .= " AND valor <= :max_price";
             $params[':max_price'] = $filters['max_price'];
         }
 
@@ -311,7 +311,7 @@ class productrepository {
      * @return bool
      */
     public function updateClique($id) {
-        $query = "UPDATE produtos SET clique = clique + 1 WHERE id = :id";
+        $query = "UPDATE produtos SET click = click + 1 WHERE id = :id";
 
         $params = [
             ":id" => $id

@@ -12,7 +12,7 @@ if ($_SESSION['user']['group'] != 'admin'){
     echo json_encode(['status'=> false,'message'=> 'admin required']);
     exit();
 }
-include("../../controllers/usercontroller.php");
+include("../../controllers/UserController.php");
 $method = $_GET["method"];
 $user = new UserController();
 if ($method == "GET"){

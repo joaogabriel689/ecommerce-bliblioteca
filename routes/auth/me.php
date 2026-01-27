@@ -18,13 +18,13 @@ if (!isset($_SESSION["user"])) {
 
 // Importa o controller responsável pela autenticação
 include("../../controllers/authcontroller.php");
-include("../../controllers/usercontroller.php");
+include("../../controllers/UserController.php");
 
-$usercontroller = new UserController();
+$UserController = new UserController();
 
 $method = $_SERVER["REQUEST_METHOD"];
 if ($method == "GET") {
-    $user = $usercontroller->getUserById($_SESSION["user"]['id']);
+    $user = $UserController->getUserById($_SESSION["user"]['id']);
     if ($user == null) {
         http_response_code(400);
         echo json_encode(['status'=>false, 'message'=> 'não foi possivel obter o usuario']);
@@ -62,7 +62,7 @@ if ($method == "GET") {
     $id = $content['id'];
 
     // Busca usuário atual no banco
-    $user = $userController->getUserById($id);
+    $user = $UserController->getUserById($id);
 
     if ($user == null) {
         http_response_code(404);
@@ -83,7 +83,7 @@ if ($method == "GET") {
     $group_code = $content['group_code'] ?? $user['group_code'];
 
     // Chama update
-    $result = $userController->updateUser(
+    $result = $UserController->updateUser(
         $id,
         $name,
         $cpf,
@@ -102,7 +102,7 @@ if ($method == "GET") {
 
     echo json_encode($result);
 }else if ($method == 'DELETE'){
-    $user = $userController->deleteUser($id);
+    $user = $UserController->deleteUser($id);
     http_response_code(200);
     echo json_encode($user);
     exit();

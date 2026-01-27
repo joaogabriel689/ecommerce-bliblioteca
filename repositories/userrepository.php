@@ -98,7 +98,7 @@ class UserRepository
             "INSERT INTO users
             (name, email, cpf, password, data_nasc, phone, compras, group_user)
             VALUES
-            (:name, :email, :password, :data_nasc, :phone, :compras, :group_user)"
+            (:name, :email, :cpf, :password, :data_nasc, :phone, :compras, :group_user)"
         );
         
 
@@ -142,7 +142,7 @@ class UserRepository
                 email = :email,
                 data_nasc = :data_nasc,
                 phone = :phone,
-                group_user = :group_user,
+                group_user = :group_user
         ";
 
         // Só atualiza senha se vier preenchida
