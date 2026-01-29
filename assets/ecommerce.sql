@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 23, 2026 at 11:37 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1
+-- Tempo de geração: 24/01/2026 às 04:34
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ecommerce`
+-- Banco de dados: `ecommerce`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorias`
+-- Estrutura para tabela `categorias`
 --
 
 CREATE TABLE `categorias` (
@@ -33,7 +33,7 @@ CREATE TABLE `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categorias`
+-- Despejando dados para a tabela `categorias`
 --
 
 INSERT INTO `categorias` (`id`, `tipo`) VALUES
@@ -53,7 +53,7 @@ INSERT INTO `categorias` (`id`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dados_banc`
+-- Estrutura para tabela `dados_banc`
 --
 
 CREATE TABLE `dados_banc` (
@@ -66,7 +66,7 @@ CREATE TABLE `dados_banc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dados_banc`
+-- Despejando dados para a tabela `dados_banc`
 --
 
 INSERT INTO `dados_banc` (`id`, `cartao`, `codigo_cartao`, `nome_titu`, `id_cliente`, `validade`) VALUES
@@ -78,7 +78,7 @@ INSERT INTO `dados_banc` (`id`, `cartao`, `codigo_cartao`, `nome_titu`, `id_clie
 -- --------------------------------------------------------
 
 --
--- Table structure for table `enderecos`
+-- Estrutura para tabela `enderecos`
 --
 
 CREATE TABLE `enderecos` (
@@ -94,7 +94,7 @@ CREATE TABLE `enderecos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `enderecos`
+-- Despejando dados para a tabela `enderecos`
 --
 
 INSERT INTO `enderecos` (`id`, `rua`, `bairro`, `numero`, `complemento`, `cidade`, `uf`, `cep`, `id_cliente`) VALUES
@@ -107,7 +107,7 @@ INSERT INTO `enderecos` (`id`, `rua`, `bairro`, `numero`, `complemento`, `cidade
 -- --------------------------------------------------------
 
 --
--- Table structure for table `favoritos`
+-- Estrutura para tabela `favoritos`
 --
 
 CREATE TABLE `favoritos` (
@@ -119,7 +119,7 @@ CREATE TABLE `favoritos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grupo`
+-- Estrutura para tabela `grupo`
 --
 
 CREATE TABLE `grupo` (
@@ -129,7 +129,7 @@ CREATE TABLE `grupo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `grupo`
+-- Despejando dados para a tabela `grupo`
 --
 
 INSERT INTO `grupo` (`id`, `tipo`, `descri`) VALUES
@@ -140,12 +140,15 @@ INSERT INTO `grupo` (`id`, `tipo`, `descri`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedidos`
+-- Estrutura para tabela `pedidos`
 --
 
 CREATE TABLE `pedidos` (
   `id` int(4) NOT NULL,
   `id_produto` int(4) NOT NULL,
+  `valor_produto` decimal(10,0) NOT NULL,
+  `valor_total` double NOT NULL,
+  `quantidade` int(11) NOT NULL,
   `id_cliente` int(4) NOT NULL,
   `data` date NOT NULL,
   `pagamento` int(2) NOT NULL,
@@ -155,7 +158,7 @@ CREATE TABLE `pedidos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produtos`
+-- Estrutura para tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -176,7 +179,7 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `produtos`
+-- Despejando dados para a tabela `produtos`
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `tipo`, `valor`, `autor`, `click`, `descri`, `paginas`, `idioma`, `vendas`, `estoque`, `img_path`, `editora`, `categoria`) VALUES
@@ -190,7 +193,7 @@ INSERT INTO `produtos` (`id`, `nome`, `tipo`, `valor`, `autor`, `click`, `descri
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_pagamento`
+-- Estrutura para tabela `tipo_pagamento`
 --
 
 CREATE TABLE `tipo_pagamento` (
@@ -200,7 +203,7 @@ CREATE TABLE `tipo_pagamento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tipo_pagamento`
+-- Despejando dados para a tabela `tipo_pagamento`
 --
 
 INSERT INTO `tipo_pagamento` (`id`, `tipo`, `descri`) VALUES
@@ -212,7 +215,7 @@ INSERT INTO `tipo_pagamento` (`id`, `tipo`, `descri`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_produto`
+-- Estrutura para tabela `tipo_produto`
 --
 
 CREATE TABLE `tipo_produto` (
@@ -222,7 +225,7 @@ CREATE TABLE `tipo_produto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tipo_produto`
+-- Despejando dados para a tabela `tipo_produto`
 --
 
 INSERT INTO `tipo_produto` (`id`, `tipo`, `descri`) VALUES
@@ -235,7 +238,7 @@ INSERT INTO `tipo_produto` (`id`, `tipo`, `descri`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -251,7 +254,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nasc`, `telefone`, `compras`, `grupo`) VALUES
@@ -262,31 +265,31 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nasc`, `tel
 (5, 'Otávio', 1641332678, '', '', '1995-10-11', '6798416233', 0, 1);
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `categorias`
+-- Índices de tabela `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dados_banc`
+-- Índices de tabela `dados_banc`
 --
 ALTER TABLE `dados_banc`
   ADD PRIMARY KEY (`id`),
   ADD KEY `relacão1` (`id_cliente`);
 
 --
--- Indexes for table `enderecos`
+-- Índices de tabela `enderecos`
 --
 ALTER TABLE `enderecos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `enderecos-usu` (`id_cliente`);
 
 --
--- Indexes for table `favoritos`
+-- Índices de tabela `favoritos`
 --
 ALTER TABLE `favoritos`
   ADD PRIMARY KEY (`id`),
@@ -294,13 +297,13 @@ ALTER TABLE `favoritos`
   ADD KEY `favoritos-produ` (`id_produto`);
 
 --
--- Indexes for table `grupo`
+-- Índices de tabela `grupo`
 --
 ALTER TABLE `grupo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pedidos`
+-- Índices de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
@@ -309,7 +312,7 @@ ALTER TABLE `pedidos`
   ADD KEY `pedidos-pagam` (`pagamento`);
 
 --
--- Indexes for table `produtos`
+-- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id`),
@@ -317,113 +320,113 @@ ALTER TABLE `produtos`
   ADD KEY `produtos-tipo` (`tipo`);
 
 --
--- Indexes for table `tipo_pagamento`
+-- Índices de tabela `tipo_pagamento`
 --
 ALTER TABLE `tipo_pagamento`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tipo_produto`
+-- Índices de tabela `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuarios-grupo` (`grupo`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `categorias`
+-- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `dados_banc`
+-- AUTO_INCREMENT de tabela `dados_banc`
 --
 ALTER TABLE `dados_banc`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `enderecos`
+-- AUTO_INCREMENT de tabela `enderecos`
 --
 ALTER TABLE `enderecos`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `favoritos`
+-- AUTO_INCREMENT de tabela `favoritos`
 --
 ALTER TABLE `favoritos`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `grupo`
+-- AUTO_INCREMENT de tabela `grupo`
 --
 ALTER TABLE `grupo`
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `pedidos`
+-- AUTO_INCREMENT de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `produtos`
+-- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tipo_pagamento`
+-- AUTO_INCREMENT de tabela `tipo_pagamento`
 --
 ALTER TABLE `tipo_pagamento`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tipo_produto`
+-- AUTO_INCREMENT de tabela `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Restrições para tabelas despejadas
 --
 
 --
--- Constraints for table `dados_banc`
+-- Restrições para tabelas `dados_banc`
 --
 ALTER TABLE `dados_banc`
   ADD CONSTRAINT `relacão1` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `enderecos`
+-- Restrições para tabelas `enderecos`
 --
 ALTER TABLE `enderecos`
   ADD CONSTRAINT `enderecos-usu` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `favoritos`
+-- Restrições para tabelas `favoritos`
 --
 ALTER TABLE `favoritos`
   ADD CONSTRAINT `favoritos-produ` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `favoritos-usu` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `pedidos`
+-- Restrições para tabelas `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos-pagam` FOREIGN KEY (`pagamento`) REFERENCES `tipo_pagamento` (`id`),
@@ -431,14 +434,14 @@ ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos-usu` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id`);
 
 --
--- Constraints for table `produtos`
+-- Restrições para tabelas `produtos`
 --
 ALTER TABLE `produtos`
   ADD CONSTRAINT `produtos-categ` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`id`),
   ADD CONSTRAINT `produtos-tipo` FOREIGN KEY (`tipo`) REFERENCES `tipo_produto` (`id`);
 
 --
--- Constraints for table `usuarios`
+-- Restrições para tabelas `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios-grupo` FOREIGN KEY (`grupo`) REFERENCES `grupo` (`id`);
