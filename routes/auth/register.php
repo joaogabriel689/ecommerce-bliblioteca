@@ -103,6 +103,5 @@ if ($action["status"] === false) {
     echo json_encode([
         "status"  => true,
         "message" => $action["message"],
-        "data"    => $action["data"]
     ]);
 }

@@ -35,9 +35,19 @@ class PayinfoController {
         ];
     }
     public function addpayinfo($user_id, $payinfo) {
-        return $this->payinfoRepository->create($user_id, $payinfo);
+        $payment = $this->payinfoRepository->create($user_id, $payinfo);
+        if ($payment) {
+            return ['status' => true,'message'=> 'sucess'];
+        }
+        
+        return ['status'=> false,'message'=> 'failed'];
     }
     public function updatepayinfo($user_id, $payinfo) {
-        return $this->payinfoRepository->update($user_id, $payinfo);
+        $payment = $this->payinfoRepository->update($user_id, $payinfo);
+        if ($payment) {
+            return ['status' => true,'message'=> 'sucess'];
+        }
+        
+        return ['status'=> false,'message'=> 'failed'];
     }
 }

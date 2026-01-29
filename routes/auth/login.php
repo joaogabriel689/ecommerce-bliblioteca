@@ -4,7 +4,7 @@
  * Configura o cookie da sessão para ser acessível apenas via HTTP
  * (impede acesso por JavaScript, aumentando a segurança)
  */
-session_set_cookie_params(['httpOnly' => true]);
+session_set_cookie_params(['httponly' => true]);
 
 /**
  * Inicia a sessão

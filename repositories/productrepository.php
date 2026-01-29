@@ -281,8 +281,53 @@ class productrepository {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Retorna os resultados processados (sem transformação definida)
-        return array_map([$this, ''], $results);
+        return $results;
     }
+    /**
+     * Busca produtos por termo (LIKE) aplicando filtros adicionais
+     *
+     * @param string $term
+     * @param array $filters
+     * @return array
+     */
+    public function searchInFilteredProducts(string $term, array $filters): array
+    {
+        $query = "SELECT * FROM produtos WHERE nome LIKE :term";
+        $params = [];
+
+        // Termo de busca
+        $params[':term'] = '%' . $term . '%';
+
+        // Filtro por categoria
+        if (isset($filters['category'])) {
+            $query .= " AND categoria = :category";
+            $params[':category'] = $filters['category'];
+        }
+
+        // Filtro por preço mínimo
+        if (isset($filters['min_price'])) {
+            $query .= " AND valor >= :min_price";
+            $params[':min_price'] = $filters['min_price'];
+        }
+
+        // Filtro por preço máximo
+        if (isset($filters['max_price'])) {
+            $query .= " AND valor <= :max_price";
+            $params[':max_price'] = $filters['max_price'];
+        }
+
+        // Filtro por tipo
+        if (isset($filters['tipo'])) {
+            $query .= " AND tipo = :tipo";
+            $params[':tipo'] = $filters['tipo'];
+        }
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * Atualiza o estoque de um produto

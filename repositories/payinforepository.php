@@ -85,7 +85,7 @@ class payinforepository
 
         // Prepara a query final
         $stmt = $this->connection->prepare($sql);
-
+        $stmt->bindValue(':id_cliente', $user_id);
         // Faz o bind dinâmico de todos os valores do array $data
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);

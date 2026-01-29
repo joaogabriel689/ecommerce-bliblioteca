@@ -12,11 +12,11 @@ if ($_SESSION['user']['group'] != 'admin'){
     echo json_encode(['status'=> false,'message'=> 'admin required']);
     exit();
 }
-include("../../controllers/UserController.php");
-$method = $_GET["method"];
-$user = new UserController();
+include("../controllers/UserController.php");
+$method = $_SERVER["method"];
+$userController = new UserController();
 if ($method == "GET"){
-$users = $user->getAllUsers();
+$users = $userController->getAllUsers();
     if ($users == null){
         http_response_code(400);
         echo json_encode(["status"=> false,"message"=> "failed retrivied users"]);
@@ -40,8 +40,11 @@ $users = $user->getAllUsers();
         exit();
     }
 
-    // ID é obrigatório
-    if (!isset($content['id']) || isset($content['email'])) {
+    // Deve existir id OU email
+    if (
+        (!isset($content['id']) || empty($content['id'])) &&
+        (!isset($content['email']) || empty($content['email']))
+    ) {
         http_response_code(400);
         echo json_encode([
             "status" => false,
@@ -50,6 +53,7 @@ $users = $user->getAllUsers();
         exit();
     }
 
+
     $id = $content['id'];
     $email = $content['email'];
 
@@ -57,7 +61,7 @@ $users = $user->getAllUsers();
     if ($email == null || $email == '') {
         $user = $userController->getUserById($id);
     }else{
-        $user = $userController->getUserByemail($id);
+        $user = $userController->getUserByemail($email);
     }
 
     if ($user == null) {
@@ -99,8 +103,8 @@ $users = $user->getAllUsers();
     echo json_encode($result);
     exit();
 }else if ($method == 'DELETE'){
-    $id = $content['id'];
-    $action = $user->deleteUser($id);
+    $id = $_GET['id'];
+    $action = $userController->deleteUser($id);
     http_response_code(200);
     echo json_encode(['status' => true, 'message' => 'deleted sucess']);
 

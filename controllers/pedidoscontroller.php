@@ -78,22 +78,6 @@ class PedidosController {
         ];
     }
 
-    /**
-     * Finaliza um pedido específico
-     *
-     * Atualiza o status do pedido para "finalizado"
-     *
-     * @param int $id_pedido ID do pedido
-     * @param int $forma_pagamento Código da forma de pagamento
-     * @return bool Resultado da atualização
-     */
-    public function finalizarPedido($id_pedido, $forma_pagamento){
-        return $this->pedidoRepository->updateStatus(
-            $id_pedido,
-            "finalizado",
-            $forma_pagamento
-        );
-    }
 
     /**
      * Atualiza o status de um pedido
@@ -106,7 +90,7 @@ class PedidosController {
      * @param int $forma_pagamento Código da forma de pagamento (opcional)
      * @return array|bool Retorna erro ou estrutura de sucesso
      */
-    public function updateStatus($id, $status, $forma_pagamento = 0){
+    public function updateStatus($id_usuario, $id_produto, $status, $forma_pagamento = 0){
 
         // Lista de status permitidos
         $status_possiveis = [
@@ -124,7 +108,8 @@ class PedidosController {
 
         // Atualiza o status do pedido
         $pedido = $this->pedidoRepository->updateStatus(
-            $id,
+            $id_usuario,
+            $id_produto,
             $status,
             $forma_pagamento
         );
@@ -135,4 +120,5 @@ class PedidosController {
             'data' => $pedido
         ];
     }
+
 }

@@ -140,19 +140,20 @@ class PedidoRepository
      * @return bool
      *  Retorna true se o UPDATE for executado com sucesso
      */
-    public function updateStatus($id, $status, int $forma_pagamento): bool
+    public function updateStatus($id_usuario, $id_produto, $status, int $forma_pagamento): bool
     {
         $sql = '
             UPDATE pedidos 
             SET status = :status, forma_pagamento = :forma_pagamento 
-            WHERE id = :id
+            WHERE id_cliente = :id_cliente AND id_produto = :id_produto
         ';
 
         $stmt = $this->connection->prepare($sql);
 
         // Executa a atualização do pedido
         $pedido = $stmt->execute([
-            ':id'               => $id,
+            ':id_cliente'               => $id_usuario,
+            ':id_produto'=> $id_produto,
             ':status'           => $status,
             ':forma_pagamento'  => $forma_pagamento
         ]);

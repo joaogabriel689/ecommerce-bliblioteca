@@ -127,7 +127,7 @@ class AuthController {
         );
 
         // Realiza login automático após cadastro
-        return $this->login($email, $password);
+        return ["status"=> true,"message"=> "register sucessfully"];
     }
 
     /**

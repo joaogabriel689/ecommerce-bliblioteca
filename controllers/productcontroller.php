@@ -55,8 +55,20 @@ class Productcontroller {
     /**
      * Lista todos os produtos cadastrados
      */
-    public function list_products(){
-        $products = $this->productRepository->listProducts();
+    public function list_products($term = null, $filters = null){
+        if (isset($filters) && is_array($filters) and isset($term)) {
+            $products = $this->productRepository->searchInFilteredProducts($term, $filters);
+        }
+        if (!isset($filters)){
+            $products = $this->productRepository->searchByLike($term);
+        }
+        if (!isset($term)){
+            $products = $this->productRepository->filterProducts($filters);
+        }
+        if (!isset($term) and isset($filters)){
+            $products = $this->productRepository->listProducts();
+        }      
+        
 
         return [
             "status"  => true,
@@ -86,13 +98,14 @@ class Productcontroller {
                     "message" => "Product not found"
                 ];
             }
-
+            
             // Cria um novo item no carrinho com quantidade 1
             $this->pedidoRepository->create(
                 $user_id,
                 $id_produto,
+                $product['valor'],
                 1,
-                $product['valor']
+                $product['valor'],
             );
 
         } else {

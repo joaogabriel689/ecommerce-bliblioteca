@@ -49,17 +49,9 @@ if ($method == "GET") {
         exit();
     }
 
-    // ID é obrigatório
-    if (!isset($content['id'])) {
-        http_response_code(400);
-        echo json_encode([
-            "status" => false,
-            "message" => "User id is required"
-        ]);
-        exit();
-    }
 
-    $id = $content['id'];
+
+    $id = $_SESSION['user']['id'];
 
     // Busca usuário atual no banco
     $user = $UserController->getUserById($id);
@@ -102,7 +94,7 @@ if ($method == "GET") {
 
     echo json_encode($result);
 }else if ($method == 'DELETE'){
-    $user = $UserController->deleteUser($id);
+    $user = $UserController->deleteUser($_SESSION['user']['id']);
     http_response_code(200);
     echo json_encode($user);
     exit();
