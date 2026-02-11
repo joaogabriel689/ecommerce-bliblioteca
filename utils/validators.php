@@ -58,7 +58,7 @@ function validarCelularBR($telefone) {
 
     $regex = '/^[1-9]{2}9[0-9]{8}$/';
     
-    return preg_match($regex, $tel);
+    return preg_match($regex, $tel) === 1;
 }
 
 function validarCEP($cep)

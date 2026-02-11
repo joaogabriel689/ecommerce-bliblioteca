@@ -1,13 +1,17 @@
 <?php
 
-// Inicia a sessão
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => false, // coloque true se estiver em HTTPS
+    'samesite' => 'Strict'
+]);
+
 session_start();
 
-/**
- * Verifica se o usuário já está deslogado
- * Caso não exista a sessão "user", impede o logout
- */
-if (isset($_SESSION["user"]) == false) {
+header('Content-Type: application/json');
+
+// Verifica se está logado
+if (!isset($_SESSION["user"])) {
     http_response_code(400);
     echo json_encode([
         "status"  => false,
@@ -16,78 +20,28 @@ if (isset($_SESSION["user"]) == false) {
     exit();
 }
 
-// Importa o controller de autenticação
-include("../../controllers/authcontroller.php");
+// Destroi todos os dados da sessão
+$_SESSION = [];
 
-/**
- * Obtém o corpo bruto da requisição HTTP
- * Usado para ler dados enviados em JSON
- */
-$body = file_get_contents('php://input');
-
-/**
- * Decodifica o JSON recebido para um array associativo
- */
-$content = json_decode($body, true);
-
-/**
- * Verifica se o JSON é válido
- */
-if (!$content) {
-    http_response_code(400);
-    echo json_encode([
-        "status"  => false,
-        "message" => "Invalid JSON input"
-    ]);
-    exit();
+// Remove cookie da sessão
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params["path"],
+        $params["domain"],
+        $params["secure"],
+        $params["httponly"]
+    );
 }
 
-/**
- * Obtém o campo "logout" do corpo da requisição
- * Espera-se um valor booleano
- */
-$logout = $content["logout"];
+// Destrói sessão
+session_destroy();
 
-/**
- * Verifica se a requisição de logout é válida
- */
-if ($logout === true) {
-
-    // Cria o controller de autenticação
-    $authcontroller = new AuthController();
-
-    // Executa a ação de logout
-    $action = $authcontroller->logout();
-
-    /**
-     * Retorna a resposta de acordo com o resultado
-     */
-    if ($action["status"] === false) {
-
-        http_response_code(400);
-        echo json_encode([
-            "status"  => false,
-            "message" => $action["message"]
-        ]);
-
-    } else {
-
-        http_response_code(200);
-        echo json_encode([
-            "status"  => true,
-            "message" => $action["message"]
-        ]);
-    }
-
-} else {
-
-    /**
-     * Caso o campo logout não seja true,
-     * a requisição é considerada inválida
-     */
-    http_response_code(400);
-    echo json_encode([
-        "status"  => false,
-        "message" => "Invalid logout request"
-    ]);
-}
+http_response_code(200);
+echo json_encode([
+    "status"  => true,
+    "message" => "Logout successful"
+]);

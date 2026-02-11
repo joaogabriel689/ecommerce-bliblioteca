@@ -1,25 +1,18 @@
 <?php
 
-/**
- * Configura o cookie da sessão para ser acessível apenas via HTTP
- * (impede acesso por JavaScript, aumentando a segurança)
- */
-session_set_cookie_params(['httponly' => true]);
+// Sempre iniciar sessão primeiro
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => false, // coloque true se estiver usando HTTPS
+    'samesite' => 'Strict'
+]);
 
-/**
- * Inicia a sessão
- */
 session_start();
 
-/**
- * Regenera o ID da sessão para evitar session fixation
- */
-session_regenerate_id(true);
+// Define header JSON
+header('Content-Type: application/json');
 
-/**
- * Verifica se o usuário já está logado
- * Caso exista a sessão "user", impede novo login
- */
+// Se já estiver logado, bloqueia novo login
 if (isset($_SESSION["user"])) {
     http_response_code(400);
     echo json_encode([
@@ -29,24 +22,15 @@ if (isset($_SESSION["user"])) {
     exit();
 }
 
-// Importa o controller de autenticação
-include("../../controllers/authcontroller.php");
+// Importa controller
+require_once("../../controllers/authcontroller.php");
 
-/**
- * Obtém o corpo bruto da requisição HTTP
- * Geralmente utilizado para requisições JSON (POST, PUT, etc)
- */
+// Pega body da requisição
 $body = file_get_contents('php://input');
-
-/**
- * Decodifica o JSON recebido para um array associativo
- */
 $content = json_decode($body, true);
 
-/**
- * Verifica se o JSON é válido
- */
-if (!$content) {
+// Verifica JSON inválido
+if (json_last_error() !== JSON_ERROR_NONE) {
     http_response_code(400);
     echo json_encode([
         "status" => false,
@@ -55,12 +39,10 @@ if (!$content) {
     exit();
 }
 
-/**
- * Verifica se os campos obrigatórios estão presentes
- */
+// Verifica campos obrigatórios
 if (
-    isset($content["email"]) == false ||
-    isset($content["password"]) == false
+    empty($content["email"]) ||
+    empty($content["password"])
 ) {
     http_response_code(400);
     echo json_encode([
@@ -70,26 +52,15 @@ if (
     exit();
 }
 
-/**
- * Extrai os dados do corpo da requisição
- */
 $email = $content["email"];
 $password = $content["password"];
 
-/**
- * Cria o controller de autenticação
- * e executa a ação de login
- */
+// Executa login
 $authcontroller = new AuthController();
 $action = $authcontroller->login($email, $password);
 
-/**
- * Retorna a resposta apropriada com base
- * no resultado da autenticação
- */
-if ($action['status'] == false) {
+if ($action['status'] === false) {
 
-    // Login inválido
     http_response_code(400);
     echo json_encode([
         'status'  => false,
@@ -99,11 +70,12 @@ if ($action['status'] == false) {
 
 } else {
 
-    // Login realizado com sucesso
-    // Cria a sessão do usuário autenticado
+    // Regenera ID SOMENTE após login válido
+    session_regenerate_id(true);
+
     $_SESSION['user'] = $action['data'];
+
     http_response_code(200);
-            
     echo json_encode([
         'status'  => true,
         'message' => $action['message'],

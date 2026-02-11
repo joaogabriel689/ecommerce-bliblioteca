@@ -17,7 +17,7 @@ if (isset($_SESSION["user"])) {
 }
 
 // Importa o controller responsável pela autenticação
-include("../../controllers/authcontroller.php");
+include_once __DIR__ . "/../../controllers/AuthController.php";
 
 /**
  * Obtém o corpo bruto da requisição HTTP

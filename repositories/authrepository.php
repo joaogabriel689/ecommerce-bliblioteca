@@ -2,7 +2,8 @@
 
 // Inclui o arquivo responsável pela conexão com o banco de dados
 // Presume-se que ele forneça uma instância válida de PDO
-include("../config/connection.php");
+require_once __DIR__ . '/../config/connection.php';
+
 
 /**
  * Repositório de autenticação
@@ -35,50 +36,37 @@ class authrepository {
     }
 
     /**
-     * Autentica um usuário com base em username e password
+     * Autentica um usuário com base em username e senha$senha
      *
      * @param object $user
      *  Espera um objeto contendo:
      *  - $user->username
-     *  - $user->password
+     *  - $user->senha$senha
      *
      * @return array|null
      *  Retorna os dados do usuário se a autenticação for válida
      *  ou null caso falhe
      */
-    public function authenticate($user){
+    public function authenticate($email, $senha) {
 
-        // Extrai o username e a senha do objeto recebido
-        $username = $user->username;
-        $password = $user->password;
-
-        // Prepara a query para buscar o usuário pelo nome
-        // Uso de prepared statement para evitar SQL Injection
         $stmt = $this->connection->prepare(
-            'SELECT * FROM users WHERE name = :name'
+            'SELECT * FROM usuarios WHERE email = :email'
         );
 
-        // Faz o bind do parâmetro :name com o username informado
-        $stmt->bindParam(':name', $username);
+        $stmt->bindParam(':email', $email);
 
-        // Executa a query no banco de dados
         $stmt->execute();
 
-        // Busca o usuário como array associativo
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
 
-        /**
-         * Verifica duas condições:
-         * 1. Se o usuário existe no banco
-         * 2. Se a senha informada confere com o hash salvo
-         */
-        if ($user && password_verify($password, $user['password'])) {
-            // Autenticação bem-sucedida
-            // Retorna os dados completos do usuário
+        if ($user && password_verify($senha, $user['senha'])) {
+            unset($user['senha']);
             return $user;
+
         }
 
-        // Caso usuário não exista ou senha esteja incorreta
         return null;
     }
+
 }

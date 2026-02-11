@@ -55,20 +55,24 @@ class Productcontroller {
     /**
      * Lista todos os produtos cadastrados
      */
-    public function list_products($term = null, $filters = null){
-        if (isset($filters) && is_array($filters) and isset($term)) {
+    public function list_products($term = null, $filters = null)
+    {
+
+        if (!empty($term) && is_array($filters) && !empty($filters)) {
             $products = $this->productRepository->searchInFilteredProducts($term, $filters);
         }
-        if (!isset($filters)){
+
+        if (!empty($term)) {
             $products = $this->productRepository->searchByLike($term);
         }
-        if (!isset($term)){
+
+        if (is_array($filters) && !empty($filters)) {
             $products = $this->productRepository->filterProducts($filters);
         }
-        if (!isset($term) and isset($filters)){
-            $products = $this->productRepository->listProducts();
-        }      
-        
+
+    
+        $products = $this->productRepository->listProducts();
+
 
         return [
             "status"  => true,

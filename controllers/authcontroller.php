@@ -1,7 +1,8 @@
 <?php
 
 
-include_once __DIR__ . "/../repositories/userrepository.php";
+include_once __DIR__ . "/../repositories/UserRepository.php";
+include_once __DIR__ . "/../repositories/AuthRepository.php";
 include_once __DIR__ . "/../utils/validators.php";
 include_once __DIR__ . "/../config/connection.php";
 
@@ -51,36 +52,19 @@ class AuthController {
         }
 
         // Busca usuário pelo email
-        $user = $this->userRepository->findByEmail($email);
-
-        if ($user == null) {
-            return ["status" => false, "message" => "User not found."];
+        $user = $this->authRepository->authenticate($email, $password);
+        if($user === null) {
+            return ["status" => false, "message" => "Invalid email or password."];
         }
-
-        // Verifica a senha informada com o hash armazenado
-        if (password_verify($password, $user['senha'])) {
-
-            // Dados mínimos armazenados na sessão
-            $user_loged = [
-                'id' => $user['id'],
-                'name' => $user['nome'],
-                'email' => $user['email'],
-                'group_code' => $user['group_code']
-            ];
+        
+        return [
+            "status" => true,
+            "message" => "Login successful.",
+            "data" => $user
+        ];
+        
 
 
-
-
-
-            return [
-                "status" => true,
-                "message" => "Login successful.",
-                "data" => $user_loged
-            ];
-
-        } else {
-            return ["status" => false, "message" => "Invalid password."];
-        }
     }
 
     /**
@@ -105,7 +89,7 @@ class AuthController {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
             return ["status" => false, "message" => "email invalido"];
         }
-        if (!validarCelularBR($phone) == 1 ?? false) {
+        if (!validarCelularBR($phone) == false) {
             return ["status" => false, "message" => "telefone invalido"];
         }
 
@@ -126,7 +110,6 @@ class AuthController {
             $group
         );
 
-        // Realiza login automático após cadastro
         return ["status"=> true,"message"=> "register sucessfully"];
     }
 
