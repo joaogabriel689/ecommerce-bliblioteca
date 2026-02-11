@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/01/2026 às 04:34
+-- Tempo de geração: 11/02/2026 às 19:17
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -246,7 +246,7 @@ CREATE TABLE `usuarios` (
   `nome` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `cpf` int(8) NOT NULL,
   `email` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `senha` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `senha` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `data_nasc` date NOT NULL,
   `telefone` varchar(14) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `compras` int(3) NOT NULL DEFAULT 0,
@@ -262,7 +262,8 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nasc`, `tel
 (2, 'Murilo', 235633523, '', '', '2010-12-31', '67986743332', 0, 1),
 (3, 'João Henrique', 123321, '', '', '2007-03-21', '6796745547', 0, 3),
 (4, 'Antônio', 24242472, '', '', '2012-02-22', '679884533', 0, 1),
-(5, 'Otávio', 1641332678, '', '', '1995-10-11', '6798416233', 0, 1);
+(5, 'Otávio', 1641332678, '', '', '1995-10-11', '6798416233', 0, 1),
+(11, 'joao gabriel', 2147483647, 'joaogabriel@example.com', '$2y$10$o7.6Bf8OiOnWeGZJGk89veoIvKA86sw1oqnPSuCmi92TzliBlo32y', '1990-01-01', '6799240458', 0, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -400,7 +401,7 @@ ALTER TABLE `tipo_produto`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para tabelas despejadas

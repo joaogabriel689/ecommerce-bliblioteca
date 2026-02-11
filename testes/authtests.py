@@ -38,5 +38,3 @@ def test_logout():
     print("BODY:", response.text)
 test_register()
 test_login()
-me()
-test_logout()

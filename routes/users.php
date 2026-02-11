@@ -2,110 +2,99 @@
 
 session_start();
 
-if (!isset($_SESSION['user'])){
-    http_response_code(400);
+if (!isset($_SESSION['user'])) {
+    http_response_code(401);
     echo json_encode(['status' => false, 'message'=> 'login required']);
-    exit();    
+    exit();
 }
-if ($_SESSION['user']['group'] != 'admin'){
-    http_response_code(400);
+
+if ($_SESSION['user']['grupo'] != 1) { // ajuste conforme seu padrão
+    http_response_code(403);
     echo json_encode(['status'=> false,'message'=> 'admin required']);
     exit();
 }
+
 include("../controllers/UserController.php");
-$method = $_SERVER["method"];
+
+$method = $_SERVER["REQUEST_METHOD"];
 $userController = new UserController();
-if ($method == "GET"){
-$users = $userController->getAllUsers();
-    if ($users == null){
+
+if ($method === "GET") {
+
+    $users = $userController->getAllUsers();
+
+    if (!$users) {
         http_response_code(400);
-        echo json_encode(["status"=> false,"message"=> "failed retrivied users"]);
-        exit();
-    }else{
+        echo json_encode(["status"=> false,"message"=> "failed retrieving users"]);
+    } else {
         http_response_code(200);
-        echo json_encode(["status"=> true,"message"=> "sucess", 'data' => $users]);
-        exit();
+        echo json_encode(["status"=> true,"message"=> "success", 'data' => $users]);
     }
-}else if ($method == 'PUT'){
+    exit();
+}
+
+if ($method === "PUT") {
 
     $body = file_get_contents("php://input");
     $content = json_decode($body, true);
 
     if ($content === null) {
         http_response_code(400);
-        echo json_encode([
-            "status" => false,
-            "message" => "JSON inválido"
-        ]);
+        echo json_encode(["status" => false,"message" => "Invalid JSON"]);
         exit();
     }
 
-    // Deve existir id OU email
-    if (
-        (!isset($content['id']) || empty($content['id'])) &&
-        (!isset($content['email']) || empty($content['email']))
-    ) {
+    $id = $content['id'] ?? null;
+    $email = $content['email'] ?? null;
+
+    if (!$id && !$email) {
         http_response_code(400);
-        echo json_encode([
-            "status" => false,
-            "message" => "User id or email is required"
-        ]);
+        echo json_encode(["status" => false,"message" => "User id or email required"]);
         exit();
     }
 
+    $user = $id 
+        ? $userController->getUserById($id)
+        : $userController->getUserByEmail($email);
 
-    $id = $content['id'];
-    $email = $content['email'];
-
-    // Busca usuário atual no banco
-    if ($email == null || $email == '') {
-        $user = $userController->getUserById($id);
-    }else{
-        $user = $userController->getUserByemail($email);
-    }
-
-    if ($user == null) {
+    if (!$user) {
         http_response_code(404);
-        echo json_encode([
-            "status" => false,
-            "message" => "User not found"
-        ]);
+        echo json_encode(["status" => false,"message" => "User not found"]);
         exit();
     }
 
-    // Mantém dados antigos se não vier do front
-    $name       = $content['name']       ?? $user['name'];
-    $cpf        = $content['cpf']        ?? $user['cpf'];
-    $email      = $content['email']      ?? $user['email'];
-    $password   = $content['password']   ?? null; // só atualiza se vier
-    $dataNasc   = $content['dataNasc']   ?? $user['dataNasc'];
-    $phone      = $content['phone']      ?? $user['phone'];
-    $group_code = $content['group_code'] ?? $user['group_code'];
-
-    // Chama update
     $result = $userController->updateUser(
-        $id,
-        $name,
-        $cpf,
-        $email,
-        $password,
-        $dataNasc,
-        $phone,
-        $group_code
+        $user['id'],
+        $content['nome'] ?? $user['nome'],
+        $content['cpf'] ?? $user['cpf'],
+        $content['email'] ?? $user['email'],
+        $content['password'] ?? null,
+        $content['data_nasc'] ?? $user['data_nasc'],
+        $content['telefone'] ?? $user['telefone'],
+        $content['grupo'] ?? $user['grupo']
     );
 
-    if ($result['status'] === false) {
-        http_response_code(400);
-    } else {
-        http_response_code(200);
-    }
-
+    http_response_code($result['status'] ? 200 : 400);
     echo json_encode($result);
     exit();
-}else if ($method == 'DELETE'){
-    $id = $_GET['id'];
-    $action = $userController->deleteUser($id);
-    http_response_code(200);
-    echo json_encode(['status' => true, 'message' => 'deleted sucess']);
-
 }
+
+if ($method === "DELETE") {
+
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        http_response_code(400);
+        echo json_encode(["status" => false,"message" => "User id required"]);
+        exit();
+    }
+
+    $result = $userController->deleteUser($id);
+
+    http_response_code($result['status'] ? 200 : 400);
+    echo json_encode($result);
+    exit();
+}
+
+http_response_code(405);
+echo json_encode(["status" => false,"message" => "Method not allowed"]);
