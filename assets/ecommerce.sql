@@ -246,7 +246,7 @@ CREATE TABLE `usuarios` (
   `nome` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `cpf` int(8) NOT NULL,
   `email` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `senha` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `senha` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `data_nasc` date NOT NULL,
   `telefone` varchar(14) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `compras` int(3) NOT NULL DEFAULT 0,
