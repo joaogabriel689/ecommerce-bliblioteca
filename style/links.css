@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;700&family=Kalam&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Updock&display=swap');
+
+
+:root{
+
+    /*Color Theme Swatches in Hex */
+    --color1: #F2F2F2;
+    --color2: #3D6373;
+    --color3: #88B0BF;
+    --color4: #BF9E60;
+    --color5: #73451D;
+    --color6: #323232;
+
+    --text-font: 'Roboto', sans-serif;
+    --logo-font: 'Updock', cursive;
+    --special-font: 'Kalam', cursive;
+    --title-font: 'Hind', sans-serif;
+}
+
+
+.green-link{
+    display: inline-block;
+    width: 50px;
+
+    font-size: 1.2em;
+    text-decoration: none;
+    text-align: center;
+
+    color: var(--color1);
+    background: linear-gradient(45deg, #37bb37, #1dca1d);
+
+    border-radius: 8px;
+
+    margin: 5px auto 5px 0px;
+    padding: 12px;
+}
+.green-link:hover {
+    transform: scale(1.01);
+}
+
+.red-link {
+    display: inline-block;
+    width: 50px;
+
+    font-size: 1.2em;
+    text-decoration: none;
+    text-align: center;
+
+    color: var(--color1);
+	background: linear-gradient(45deg, #ff0000, #e10000);
+
+    border-radius: 8px;
+
+    margin: 5px auto 5px 0px;
+    padding: 12px;
+}
+.red-link:hover {
+    transform: scale(1.01);
+}

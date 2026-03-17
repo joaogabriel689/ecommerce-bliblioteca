@@ -1,0 +1,96 @@
+
+/*
+ * Configurações do corpo do formulário
+ *
+ */
+.form-area{
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    background-color: var(--color1);
+    border-radius: 10px;
+   box-shadow: 0px 2px 8px 0px #0000005c;
+}
+form.std-form {
+    width: fit-content;
+    margin: auto;
+}
+form.expan-form
+{
+    width: auto;
+}
+
+form.std-form .form-session {
+	padding: 10px;
+}
+
+.form-session > span {
+	padding: 10px;
+
+    #display: inline-block;
+}
+
+.form-session .inline-block {
+    display: inline-block;
+    padding: 5px;
+}
+
+
+.input-body {
+    padding: 5px;
+
+    border-bottom: 1px solid var(--color3);
+}
+.input-body input[type="text"], input[type="number"] {
+    background: none;
+    outline: none;
+    border: none;
+
+    font-size: 1.2em;
+}
+.input-body input[type="text"]:hover, input[type="number"]:hover {
+    /*background-color: #EDEDED;*/
+    transform: scale(1.01);
+}
+/**
+ * Configurações dos inputs do formulário
+ *
+ **/
+textarea.std-textarea {
+    background: none;
+    border: 1px solid var(--color3);
+    border-radius: 5px;
+    width: 350px;
+    height: 50px;
+    margin: auto;
+    display: block;
+    resize: none;
+}
+
+input.green-submit {
+
+    font-size: 1.2em;
+    text-decoration: none;
+    text-align: center;
+
+    color: var(--color1);
+    background: linear-gradient(45deg, #37bb37, #1dca1d);
+
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    margin: 5px auto 5px 0px;
+    padding: 12px;
+}
+input.green-submit:hover {
+    transform: scale(1.03);
+}
+
+select.std-select {
+    padding: 11px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color4);
+    
+}

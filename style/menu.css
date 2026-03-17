@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;700&family=Kalam&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Updock&display=swap');
+:root{
+
+    /*Color Theme Swatches in Hex */
+    --color1: #F2F2F2;
+    --color2: #3D6373;
+    --color3: #88B0BF;
+    --color4: #BF9E60;
+    --color5: #73451D;
+    --color6: #323232;
+
+    --text-font: 'Roboto', sans-serif;
+    --logo-font: 'Updock', cursive;
+    --special-font: 'Kalam', cursive;
+    --title-font: 'Hind', sans-serif;
+}
+
+
+nav.big-nav {
+
+    padding: 10px;
+}
+
+
+/*
+ * se for montar um menu através de uma lista HTML, já temos
+ * algumas marcas já prontas.
+ *
+ */
+.big-nav > ul {
+    list-style: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.big-nav ul li {
+    /*display: inline-block;*/
+
+    width: 100%;
+    /*background-color: var(--color2);*/
+    background: linear-gradient(45deg, #88B0BF, #88B0BF);
+
+    padding: 10px;
+    margin: 5px;
+
+    border-radius: 8px;
+}
+.big-nav ul li:hover{
+    background: none;
+    background-color: var(--color2);
+    transform: scale(1.01);
+}
+
+.big-nav {
+    font-size: 1.2em;
+}
+
+
+/*
+ * Marcas para montar um menu com Cards
+ *
+ */
+.big-nav .menu-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.card {
+    width: 300px;
+    height: fit-content;
+
+    padding: 10px;
+
+    border: 1px solid var(--color3);
+    border-radius: 5px;
+
+    box-shadow: 1px 2px 5px 0px #0000008a;
+}
+.card:hover {
+    background-color: var(--color3);
+}
+.card h1 {
+    text-align: center;
+}
+.card p {
+    color: var(--color6);
+}
+
+
+
+/*
+
+*/
+
+article.panel {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-around;
+    background: linear-gradient(172deg, #9566ff, #fdcb6f);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.3em;
+}

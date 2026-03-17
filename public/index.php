@@ -43,12 +43,15 @@
 </head>
 <body>
     <!-- options to your account and a link to home-->
+    <section id="logo-header-section">
+        <img src="../images/couto-dark-transp-name.png" alt="site logo">
+    </section>
     <header>
         <div id="header-start">
-            <span>
+            <!--<span>
                 <img src="../images/coutos2.png" alt="label">
-                <!--<h1>Couto's Books</h1>-->
-            </span>
+                <!--<h1>Couto's Books</h1>--
+            </span>-->
             <span>
                 <span class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>

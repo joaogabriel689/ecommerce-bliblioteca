@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;700&family=Kalam&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Updock&display=swap');
+:root{
+
+    /*Color Theme Swatches in Hex */
+    --color1: #F2F2F2;
+    --color2: #3D6373;
+    --color3: #88B0BF;
+    --color4: #BF9E60;
+    --color5: #73451D;
+    --color6: #323232;
+
+    --text-font: 'Roboto', sans-serif;
+    --logo-font: 'Updock', cursive;
+    --special-font: 'Kalam', cursive;
+    --title-font: 'Hind', sans-serif;
+}
+
+h1 {
+	font-family: var(--title-font);
+	font-size: 1.3em;
+
+	color: var(--color6);
+}
+
+h1.no-mar {
+	margin: 0;
+	
+}
+
+hr.trans-hr {
+	color: ;
+	width: 80%;
+}
+
+p {
+	font-family: var(--text-font);
+	color: var(--color6);
+}
+
+a {
+	font-family: var(--text-font);
+	color: var(--color4);
+
+	text-decoration: underline;
+}
+a:hover {
+	color: var(--color5);
+}
+
+i.table-action {
+	color: var(--color3);
+
+	font-size: 1.4em;
+	curson: pointer;
+}
+i:hover {
+	transform: scale(1.2);
+}
+
+.green-bg {
+	display: inline-block;
+	padding: 7px;
+	width: 88px;
+	color: white;
+	background: linear-gradient(45deg, #25fa25, #00c500);
+
+	border-radius: 5px;
+}
+.red-bg {
+	display: inline-block;
+	padding: 7px;
+	width: 88px;
+	color: white;
+	background: linear-gradient(45deg, #ff0000, #e10000);
+
+	border-radius: 5px;	
+}
+.gray-bg {
+	display: inline-block;
+	padding: 7px;
+	width: 88px;
+	color: white;
+	background-color: #c3c3c3;
+
+	border-radius: 5px;
+}

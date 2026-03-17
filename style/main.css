@@ -8,6 +8,7 @@
     --color3: #88B0BF;
     --color4: #BF9E60;
     --color5: #73451D;
+    --color6: #323232;
 
     --text-font: 'Roboto', sans-serif;
     --logo-font: 'Updock', cursive;
@@ -119,6 +120,22 @@ header #header-end a:hover{
 
     color: var(--color2);
     background-color: var(--color1);
+}
+
+#logo-header-section 
+{
+    /*background-color: var(--color2);*/
+    background: linear-gradient(to right, #3D6373, #4e7b8f);
+
+    padding: 10px;
+    margin: 0;
+}
+
+#logo-header-section > img
+{
+    display: block;
+    width: fit-content;
+    margin: auto;
 }
 
 /***************************************************
