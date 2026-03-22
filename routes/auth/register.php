@@ -1,12 +1,7 @@
 <?php
 
-// Inicia a sessão PHP
 session_start();
 
-/**
- * Verifica se o usuário já está logado
- * Impede o registro caso exista uma sessão ativa
- */
 if (isset($_SESSION["user"])) {
     http_response_code(400);
     echo json_encode([
@@ -16,41 +11,26 @@ if (isset($_SESSION["user"])) {
     exit();
 }
 
-// Importa o controller responsável pela autenticação
 include("../../controllers/authcontroller.php");
 
-/**
- * Obtém o corpo bruto da requisição HTTP
- */
-$body = file_get_contents('php://input');
-
-/**
- * Decodifica o JSON recebido em um array associativo
- */
-$content = json_decode($body, true);
-
-/**
- * Verifica se o JSON é válido
- */
-if (!$content) {
+//  AGORA USA $_POST
+if (empty($_POST)) {
     http_response_code(400);
     echo json_encode([
         "status"  => false,
-        "message" => "Invalid JSON input"
+        "message" => "Nenhum dado enviado"
     ]);
     exit();
 }
 
-/**
- * Verifica se todos os campos obrigatórios estão presentes
- */
+//  VALIDA CAMPOS
 if (
-    isset($content["nome"]) == false ||
-    isset($content["email"]) == false ||
-    isset($content["cpf"]) == false ||
-    isset($content["password"]) == false ||
-    isset($content["data_nascimento"]) == false ||
-    isset($content["phone"]) == false
+    !isset($_POST["nome"]) ||
+    !isset($_POST["email"]) ||
+    !isset($_POST["cpf"]) ||
+    !isset($_POST["password"]) ||
+    !isset($_POST["data_nascimento"]) ||
+    !isset($_POST["phone"])
 ) {
     http_response_code(400);
     echo json_encode([
@@ -60,21 +40,16 @@ if (
     exit();
 }
 
-/**
- * Atribui os dados recebidos às variáveis locais
- */
-$nome             = $content["nome"];
-$email            = $content["email"];
-$cpf              = $content["cpf"];
-$senha            = $content["password"];
-$data_nascimento  = $content["data_nascimento"];
-$phone            = $content["phone"];
+//  ATRIBUIÇÃO DIRETA DO $_POST
+$nome             = $_POST["nome"];
+$email            = $_POST["email"];
+$cpf              = $_POST["cpf"];
+$senha            = $_POST["password"];
+$data_nascimento  = $_POST["data_nascimento"];
+$phone            = $_POST["phone"];
 
-/**
- * Cria o controller de autenticação
- * Registra o usuário com perfil padrão "cliente"
- */
 $authcontroller = new AuthController();
+
 $action = $authcontroller->register(
     $nome,
     $email,
@@ -82,13 +57,10 @@ $action = $authcontroller->register(
     $senha,
     $data_nascimento,
     $phone,
-    0,              // compras iniciais
-    "cliente"       // grupo padrão
+    0,
+    "cliente"
 );
 
-/**
- * Retorna a resposta conforme o resultado do registro
- */
 if ($action["status"] === false) {
 
     http_response_code(400);
