@@ -11,7 +11,7 @@ document.querySelector("#cat-more").onmouseover = function(){
     document.querySelector("#more-list").className = "class-more-list"
 
 }
-/*Configurando um Delay para disparar a função de encoder o elemento #cat-more*/
+/*Configurando um Delay para disparar a função de esconder o elemento #cat-more*/
 function hide_cat_more(){
     document.querySelector("#more-list").className = "hidden"
     //alert("Hidden!")
