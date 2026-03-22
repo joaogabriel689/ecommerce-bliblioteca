@@ -185,48 +185,6 @@
                 </form>
             </aside>
             <section id="shop">
-                <article>
-                    <p>Alice in the Wonder Land</p>
-                    <img src="../estoque/3317606238_1GG.jpg" alt="product image">
-                    
-                    <p class="price-text">-R$99,99.</p>
-                    <a href="">buy</a>
-                </article>
-                <article>
-                    <p>Book O Labirinto do Fauno</p>
-                    <img src="../estoque/41GDgPe1cCL._SY498_BO1,204,203,200_.jpg" alt="product image">
-                                 
-                    <p class="price-text">-R$99,99.</p>
-                    <a href="">buy</a>
-                </article>
-                <article>
-                    <p>Childrens Classics kit</p>
-                    <img src="../estoque/Best-of-Children-Classics.jpg" alt="product image">
-                                 
-                    <p class="price-text">-R$99,99.</p>
-                    <a href="">buy</a>
-                </article>
-                <article>
-                    <p>Alice in the Wonder Land</p>
-                    <img src="../estoque/3317606238_1GG.jpg" alt="product image">
-                    
-                    <p class="price-text">-R$99,99.</p>
-                    <a href="">buy</a>
-                </article>
-                <article>
-                    <p>Book O Labirinto do Fauno</p>
-                    <img src="../estoque/41GDgPe1cCL._SY498_BO1,204,203,200_.jpg" alt="product image">
-                                 
-                    <p class="price-text">-R$99,99.</p>
-                    <a href="">buy</a>
-                </article>
-                <article>
-                    <p>Childrens Classics kit</p>
-                    <img src="../estoque/Best-of-Children-Classics.jpg" alt="product image">
-                                 
-                    <p class="price-text">-R$99,99.</p>
-                    <a href="">buy</a>
-                </article>
             </section>
         </section>
         <section>
@@ -273,6 +231,7 @@
         <p class="copy">&copy;NerdSoft</p>
 
     </footer>
+    <script type="text/javascript" src="adds.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
