@@ -38,6 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" type="text/css" href="../style/loading.css">
     <script src="https://kit.fontawesome.com/9eddd44c51.js" crossorigin="anonymous"></script>
     <title>Couto's Books</title>
 </head>
@@ -148,22 +149,22 @@
         <section id="main-area">
             <aside id="filters">
                 <!--Filter options-->
-                <form action="">
+                <form id="filter-form" action="">
                     <h1>Filters</h1>
                     <div>
                         <div id="apply-reset">
-                            <a href="" id="reset-link">Reset</a>
-                            <a href="" id="apply-link">Apply</a>
+                            <a id="reset-link">Reset</a>
+                            <a id="apply-link">Apply</a>
                         </div>
                     </div>
                     <div>
                         
                         <div>
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox" class="ipt" name="new" id="">
                             <label for="">New</label>
                         </div>
                         <div>
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox" class="ipt" name="sale" id="">
                             <label for="">Sale</label>
                         </div>
                     </div>
@@ -171,15 +172,15 @@
                     <div>
                         <h2>Price</h2>
                         <label for="">price (between 10 and 100)</label>
-                        <input type="range" min="10" max="100">
+                        <input type="range" min="10" max="100" class="ipt" name="price-range">
                     </div>
 
                     <div>
                         <h2>Cover type</h2>
                         <label for="">hard</label>
-                        <input type="radio" name="cover">
+                        <input type="radio" class="ipt" name="cover-hard">
                         <label for="">normal</label>
-                        <input type="radio" name="cover">
+                        <input type="radio" class="ipt" name="cover-normal">
                     </div>
 
                 </form>
@@ -217,7 +218,7 @@
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
                 <div>
-                    <p>47 9987-0233</p>
+                    <p>47 9987-0233</p> 
                 </div>
             </span>
             <span>
@@ -231,7 +232,16 @@
         <p class="copy">&copy;NerdSoft</p>
 
     </footer>
+    <section class="loading hidden">
+        <section class="box">
+            <article class="content-center">
+                <span class="spinner-animation"></span>
+            </article>
+        </section>
+    </section>
+    <!--script src="FormClass.js"></script-->
+    <script type="module" src="setFilter.js"></script>
     <script type="text/javascript" src="adds.js"></script>
-    <script src="main.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
