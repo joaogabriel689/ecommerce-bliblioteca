@@ -1,89 +1,128 @@
-# Branch: reorganizando-diretorios
+# 📚 E-commerce Coutos Books
 
-Esta branch tem como objetivo **simplificar a estrutura do projeto**, facilitando a **manutenção**, o **entendimento do código** e a **evolução futura**.
-
----
-
-## Estrutura anterior
-
-Antes da reorganização, o projeto possuía apenas **3 classes principais**:
-
-1. Conexão com o banco de dados  
-2. Gerenciamento de usuários  
-3. Gerenciamento de produtos  
-
-Essa estrutura funcionava, mas dificultava a escalabilidade e a separação de responsabilidades.
+Um projeto de e-commerce para uma biblioteca online desenvolvido por  
+@joaogabriel689 e @Luiz-Mtca-tech.
 
 ---
 
-## Nova estrutura do projeto
+## 📌 Sobre o Projeto
 
-O projeto agora segue um padrão mais organizado e profissional:
+Inicialmente, o projeto foi desenvolvido como um trabalho acadêmico, com diversas limitações — principalmente na modelagem do banco de dados exigida para facilitar a apresentação em sala de aula.
 
-### 1️⃣ Conexão com o banco
-- Responsável apenas por criar e gerenciar a conexão com o banco de dados.
+Essa modelagem não permitia funcionalidades básicas como:
+- armazenamento de favoritos
+- carrinho persistido no banco
 
----
-
-### 2️⃣ Repositórios
-- Responsáveis **exclusivamente pela comunicação com o banco**.
-- Contêm apenas **SQL e operações de persistência**.
-- Existe **um repositório para cada tabela** do banco.
-
-Exemplo:
-- `UserRepository`
-- `ProductRepository`
-- `AddressRepository`
-- `PedidoRepository`
+Atualmente, o sistema está sendo evoluído para algo mais próximo de um sistema real de mercado.
 
 ---
 
-### 3️⃣ Controllers
-- Utilizam as classes de conexão e repositórios **por composição**.
-- São responsáveis por:
-  - Validação dos dados
-  - Regras de negócio
-  - Controle do fluxo da aplicação
-- Não contêm SQL diretamente.
+## 🛠️ Tecnologias Utilizadas
+
+- **Backend:** PHP (procedural)
+- **Frontend:** HTML, CSS e JavaScript
+- **Banco de Dados:** MySQL
 
 ---
 
-## Validações adicionadas
+## 🏗️ Arquitetura
 
-Foram implementadas validações para:
-- ✅ CPF
-- ✅ E-mail
+Mesmo sendo um projeto em PHP procedural, o sistema segue uma organização em camadas:
 
-Essas validações ocorrem antes do envio dos dados para os repositórios.
+### 📦 Repositórios
+Responsáveis pelo acesso ao banco de dados e operações básicas de CRUD.
 
----
+### 🎮 Controllers
+Responsáveis pela validação dos dados e pela comunicação com os repositórios.
 
-## Alterações na tabela de pedidos
-
-Foram adicionadas novas colunas para melhorar o controle do carrinho/pedido:
-
-- `valor_produto`
-- `quantidade`
-- `valor_total`
-
-Esses campos permitem:
-- Maior controle dos itens do pedido
-- Facilidade no cálculo do total
-- Histórico correto de preços
+### 🌐 Rotas (arquivos `.php`)
+Recebem e validam as requisições antes de chamar os controllers.
 
 ---
 
-## Objetivo da reorganização
+## 🔐 Segurança
 
-- Código mais limpo e legível
-- Separação clara de responsabilidades
-- Facilidade para manutenção e testes
-- Base sólida para evolução do projeto
+O sistema implementa algumas práticas importantes de segurança:
+
+- RBAC (Role-Based Access Control)
+- Uso de query parameters para evitar SQL Injection
+- Senhas armazenadas com PASSWORD_BCRYPT
+- Sessões regenerativas e HttpOnly
 
 ---
-rotas:
 
-auth
--/register
--/login
--/logout
+## 👥 Roles do Sistema
+
+- cliente  
+- autorizado  
+- administrador  
+
+---
+
+## 🚀 Principais Rotas
+
+### 🔑 Autenticação
+
+#### `/auth/register.php`
+
+Recebe via POST:
+
+- nome  
+- email  
+- cpf  
+- password  
+- data_nascimento  
+- phone  
+
+---
+
+#### `/auth/login.php`
+
+Recebe via POST:
+
+- email  
+- password  
+
+---
+
+#### `/auth/me.php`
+
+Suporta:
+
+- GET  
+- POST  
+- DELETE  
+
+POST recebe:
+
+- name  
+- cpf  
+- email  
+- password  
+- dataNasc  
+- phone  
+- group_code  
+
+---
+
+#### `/auth/logout.php`
+
+Recebe via POST:
+
+- logout  
+
+---
+
+## 📈 Evolução do Projeto
+
+O projeto está em constante evolução, com foco em:
+
+- melhoria da arquitetura  
+- expansão das funcionalidades  
+- aproximação com padrões reais de mercado  
+
+---
+
+## 📌 Observação
+
+Apesar de utilizar PHP procedural, o projeto já aplica conceitos importantes de organização e segurança, servindo como base sólida para evolução futura.

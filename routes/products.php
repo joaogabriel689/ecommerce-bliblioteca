@@ -1,24 +1,30 @@
 <?php
 
+session_start();
+
 include("../controllers/ProductController.php");
 
-$method = $_SERVER['REQUEST_METHOD'];
 $productController = new ProductController();
+$method = $_SERVER['REQUEST_METHOD'];
+
+// 🔥 pasta de upload
+$uploadDir = "../uploads/";
+if (!is_dir($uploadDir)) {
+    mkdir($uploadDir, 0777, true);
+}
 
 switch ($method) {
 
     case 'GET':
 
-        // Filtros via query string
         $term    = $_GET['term']    ?? null;
         $filters = $_GET['filters'] ?? null;
-        $id = $_GET['id'] ?? null;
-        /**precisa criar os metodos de buscar a partir de um filtro, a aprtir de um termo e de um termo em produtos filtrados no controller */
+        $id      = $_GET['id']      ?? null;
+
         if ($id){
-            $product = $productController->show_product($id);
+            $products = $productController->show_product($id);
 
-        }else if ($term && $filters) {
-
+        } else if ($term && $filters) {
             $products = $productController->list_products($term, $filters);
 
         } elseif ($filters) {
@@ -29,8 +35,6 @@ switch ($method) {
 
         } else {
             $products = $productController->list_products();
-
-            
         }
 
         if ($products === null || empty($products)) {
@@ -50,125 +54,161 @@ switch ($method) {
         ]);
         exit();
 
+
     case 'POST':
+
+        // 🔥 METHOD OVERRIDE (PUT via POST)
+        if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
+
+            if (!isset($_SESSION['user'])){
+                http_response_code(401);
+                echo json_encode(['status' => false, 'message'=> 'login required']);
+                exit();    
+            }
+
+            if ($_SESSION['user']['group'] != 'admin'){
+                http_response_code(403);
+                echo json_encode(['status'=> false,'message'=> 'admin required']);
+                exit();
+            }
+
+            if (empty($_POST['id'])) {
+                http_response_code(400);
+                echo json_encode(['status'=> false,'message'=> 'id required']);
+                exit();
+            }
+
+            $product = $productController->show_product($_POST['id']);
+
+            if ($product === null) {
+                http_response_code(404);
+                echo json_encode(['status'=> false,'message'=> 'product not exists']);
+                exit();
+            }
+
+            // 🔥 imagem atual
+            $img_path = $product['img_path'];
+
+            // 🔥 upload opcional
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+
+                $fileTmp  = $_FILES['image']['tmp_name'];
+                $fileName = uniqid() . "_" . basename($_FILES['image']['name']);
+                $destPath = $uploadDir . $fileName;
+
+                if (move_uploaded_file($fileTmp, $destPath)) {
+                    $img_path = "uploads/" . $fileName;
+                }
+            }
+
+            $result = $productController->edit_product(
+                $_POST['id'],
+                $_POST['name'] ?? $product['name'],
+                $_POST['tipo'] ?? $product['tipo'],
+                $_POST['valor'] ?? $product['valor'],
+                $_POST['autor'] ?? $product['autor'],
+                $_POST['descriçao'] ?? $product['descriçao'],
+                $_POST['paginas'] ?? $product['paginas'],
+                $_POST['idioma'] ?? $product['idioma'],
+                $img_path,
+                $_POST['editora'] ?? $product['editora'],
+                $_POST['categoria'] ?? $product['categoria']
+            );
+
+            http_response_code($result['status'] ? 200 : 400);
+            echo json_encode($result);
+            exit();
+        }
+
+        // 🔥 CREATE NORMAL
+
         if (!isset($_SESSION['user'])){
-            http_response_code(400);
+            http_response_code(401);
             echo json_encode(['status' => false, 'message'=> 'login required']);
             exit();    
         }
+
         if ($_SESSION['user']['group'] != 'admin'){
-            http_response_code(400);
+            http_response_code(403);
             echo json_encode(['status'=> false,'message'=> 'admin required']);
             exit();
         }
-        $body = file_get_contents('php://input');
-        $content = json_decode($body, true);
-        if ($content === null || empty($content)) {
+
+        if (empty($_POST)) {
             http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> 'JSON invalid']);
+            echo json_encode(['status'=> false,'message'=> 'no data sent']);
             exit();
         }
-        /**
-         * precisa tirar o vendas e o cliques do controller
-         */
-        $produtct = $productController->create_product(
-            $content['name'],
-            $content['tipo'],
-            $content['valor'],
-            $content['autor'],
-            $content['clique'],
-            $content['descriçao'],
-            $content['paginas'],
-            $content['idioma'],
-            $content['vendas'],
-            $content['estoque'],
-            $content['img_path'],
-            $content['editora'],
-            $content['categoria']);
-        if ($produtct === null) {
-            http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> 'failed create product']);
-            exit();
+
+        // 🔥 upload de imagem
+        $img_path = null;
+
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+
+            $fileTmp  = $_FILES['image']['tmp_name'];
+            $fileName = uniqid() . "_" . basename($_FILES['image']['name']);
+            $destPath = $uploadDir . $fileName;
+
+            if (move_uploaded_file($fileTmp, $destPath)) {
+                $img_path = "uploads/" . $fileName;
+            }
         }
-        http_response_code(200);
-        echo json_encode(['status'=> true,'message'=> 'sucess']);
+
+        $product = $productController->create_product(
+            $_POST['name'],
+            $_POST['tipo'],
+            $_POST['valor'],
+            $_POST['autor'],
+            $_POST['clique'],
+            $_POST['descriçao'],
+            $_POST['paginas'],
+            $_POST['idioma'],
+            $_POST['vendas'],
+            $_POST['estoque'],
+            $img_path,
+            $_POST['editora'],
+            $_POST['categoria']
+        );
+
+        http_response_code($product ? 200 : 400);
+        echo json_encode([
+            'status'=> (bool)$product,
+            'message'=> $product ? 'success' : 'failed create product'
+        ]);
         exit();
-    case 'PUT':
-        if (!isset($_SESSION['user'])){
-            http_response_code(400);
-            echo json_encode(['status' => false, 'message'=> 'login required']);
-            exit();    
-        }
-        if ($_SESSION['user']['group'] != 'admin'){
-            http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> 'admin required']);
-            exit();
-        }
-        $body = file_get_contents('php://input');
-        $content = json_decode($body, true);
-        if ($content === null || empty($content)) {
-            http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> 'JSON invalid']);
-            exit();
-        }
-        $product = $productController->show_product($content['id']);
-        if ($product === null) {
-            http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> 'product not exists']);
-            exit();
-        }
 
-        $nome = $content['nome'] ?? $product['nome'];
-        $tipo = $content['tipo'] ?? $product['tipo'];
-        $valor = $content['valor'] ?? $product['valor'];
-        $autor = $content['autor'] ?? $product['autor'];
-        $descricao = $content['descri'] ?? $product['descri'];
-        $paginas = $content['paginas' ] ?? $product['paginas'];
-        $idioma = $content['idioma'] ?? $product['idioma'];
-        $img_path = $content['img_path'] ?? $product['img_path'];
-        $editora = $content['editora'] ?? $product['editora'];
-        $categoria = $content['categoria'] ?? $product['categoria'];
 
-        $product_update = $productController->edit_product($content['id'],$nome, $tipo, $valor, $autor, $descricao, $paginas, $idioma, $img_path, $editora, $categoria);
-        if ($product_update['status'] === false) {
-            http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> $product_update['message']]);
-            exit();
-        }
-        http_response_code(200);
-        echo json_encode(['status'=> true,'message'=> $product_update['message']]);
     case 'DELETE':
+
         if (!isset($_SESSION['user'])){
-            http_response_code(400);
+            http_response_code(401);
             echo json_encode(['status' => false, 'message'=> 'login required']);
             exit();    
         }
+
         if ($_SESSION['user']['group'] != 'admin'){
-            http_response_code(400);
+            http_response_code(403);
             echo json_encode(['status'=> false,'message'=> 'admin required']);
             exit();
         }
 
-        $body = file_get_contents('php://input');
-        $content = json_decode($body, true);
+        $id = $_GET['id'] ?? null;
 
-        if ($content === null || empty($content)) {
+        if (!$id) {
             http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> 'JSON invalid']);
+            echo json_encode(['status'=> false,'message'=> 'id required']);
             exit();
         }
-        $id = $_GET['id'];
-        $product = $Productcontroller->delete_product($id);
-        if ($product['status'] === false) {
-            http_response_code(400);
-            echo json_encode(['status'=> false,'message'=> $product['message']]);
-            exit();
-        }
-        http_response_code(200);
-        echo json_encode(['status'=> true,'message'=> $product['message']]);
+
+        $product = $productController->delete_product($id);
+
+        http_response_code($product['status'] ? 200 : 400);
+        echo json_encode($product);
+        exit();
 
 
     default:
+
         http_response_code(405);
         echo json_encode([
             'status' => false,

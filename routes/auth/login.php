@@ -31,30 +31,7 @@ if (isset($_SESSION["user"])) {
 
 // Importa o controller de autenticação
 include("../../controllers/authcontroller.php");
-
-/**
- * Obtém o corpo bruto da requisição HTTP
- * Geralmente utilizado para requisições JSON (POST, PUT, etc)
- */
-$body = file_get_contents('php://input');
-
-/**
- * Decodifica o JSON recebido para um array associativo
- */
-$content = json_decode($body, true);
-
-/**
- * Verifica se o JSON é válido
- */
-if (!$content) {
-    http_response_code(400);
-    echo json_encode([
-        "status" => false,
-        "message" => "Invalid JSON input"
-    ]);
-    exit();
-}
-
+$content = $_POST;
 /**
  * Verifica se os campos obrigatórios estão presentes
  */
