@@ -12,42 +12,14 @@ if (!isset($_SESSION['user'])){
     exit();    
 }
 
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_POST['action'];
+
 $adressconroller = new AdressController();
 
 switch ($method) {
-
-    case 'GET':
-
-        $adress = $adressconroller->getAdressesByUserId($_SESSION['user']['id']);
-
-        if ($adress['status'] == false){
-            http_response_code(400);
-            echo json_encode([
-                'status'=> false,
-                'message'=> $adress['message']
-            ]);
-            exit();
-        }
-
-        http_response_code(200);
-        echo json_encode([
-            'status'=> true,
-            'message'=> $adress['message'],
-            'data'=> $adress['data']
-        ]);
-        exit();
-
-
     case 'POST':
-
-        // 🔥 SUPORTA JSON E FORM
         $content = $_POST;
 
-        if (empty($content)) {
-            $body = file_get_contents('php://input');
-            $content = json_decode($body, true);
-        }
 
         if ($content === null || empty($content)){
             http_response_code(400);
@@ -57,13 +29,11 @@ switch ($method) {
             ]);
             exit();
         }
-
-        // 🔥 CORREÇÃO AQUI
         if (!isset($content['cep']) || !isset($content['numero'])){
             http_response_code(400);
             echo json_encode([
                 'status'=> false,
-                'message'=> 'cep and number required'
+                'message'=> 'é necessário o cep e o numero'
             ]);
             exit();
         }
@@ -89,4 +59,64 @@ switch ($method) {
             'data'=> $adress['data']
         ]);
         exit();
+    case 'PUT':
+        $content = $_POST;
+
+        if ($content === null || empty($content)){
+            http_response_code(400);
+            echo json_encode([
+                'status'=> false,
+                'message'=> 'Invalid input'
+            ]);
+            exit();
+        }
+        if (!isset($content['id']) || !isset($content['cep']) || !isset($content['numero'])){
+            http_response_code(400);
+            echo json_encode([
+                'status'=> false,
+                'message'=> 'é necessário o id, cep e o numero'
+            ]);
+            exit();
+        }
+
+        $adress = $adressconroller->editadress(
+            $_SESSION['user']['id'],
+            $content
+        );
+
+        if ($adress['status'] == false){
+            http_response_code(400);
+            echo json_encode([
+                'status'=> false,
+                'message'=> $adress['message']
+            ]);
+            exit();
+        }
+
+        http_response_code(200);
+        echo json_encode([
+            'status'=> true,
+            'message'=> $adress['message'],
+            'data'=> $adress['data']
+        ]);
+        exit();
+
+    case 'DELETE':
+        if (!isset($_GET['id'])) {
+            http_response_code(400);
+            echo json_encode([
+                'status'=> false,
+                'message'=> 'id is required'
+            ]);
+            exit();
+        }
+        
+
+     default:
+         http_response_code(405);
+         echo json_encode([
+             'status' => false,
+             'message' => 'Method not allowed'
+         ]);
+         exit();
 }

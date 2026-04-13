@@ -59,9 +59,32 @@ class AdressController {
         }
     }
     public function editadress($userId, $data) {
-        return $this->adressRepository->update($userId, $data);
+        $adress = $this->adressRepository->update($userId, $data);
+        if (!$adress) {
+            return [
+                'status' => false,
+                'message' => 'Failed to update address'
+            ];
+        }else {
+            return [
+                'status' => true,
+                'message' => 'Address updated successfully'
+            ];
+        }
     }
     public function deleteadress($userId, $id) {
-        return $this->adressRepository->delete($userId, $id);
+        $adress = $this->adressRepository->delete($id);
+        if (!$adress) {
+            return [
+                'status' => false,
+                'message' => 'Failed to delete address'
+            ];
+        }else {
+            return [
+                'status' => true,
+                'message' => 'Address deleted successfully'
+            ];
+        }
+        
     }
 }
