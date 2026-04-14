@@ -12,8 +12,8 @@
 export default class FormClass {
 
 	/**
-	 *  @param string formId //id do <form>
-	 *  @param string phpFile //url até o PHP que vai tratar os dados
+	 *  @param {string} formId //id do <form>
+	 *  @param {string} phpFile //url até o PHP que vai tratar os dados
 	 */
 	constructor(formId, phpFile)
 	{
@@ -47,7 +47,7 @@ export default class FormClass {
 	 *  Função pega todos os elementos do formulário e retorna
 	 * seus valores.
 	 * 
-	 * @return Object final_list;
+	 * @return {Object} final_list;
 	 * lista com a chave sendo o .name do input e o valor o seu
 	 * atributo .value.
 	 * 
@@ -67,7 +67,7 @@ export default class FormClass {
 	 *  generatePostString cria um string com os dados POST do formulário
 	 * no formato correto para indexar os dados na da requisição.
 	 * 
-	 * @return str final_str
+	 * @return {string} final_str
 	 * 
 	 **/ 
 	generatePostString()
@@ -93,8 +93,8 @@ export default class FormClass {
 	 * estático, voce pode escolher outra lista de inputs, ao seu critério, para
 	 * obter a string.
 	 * 
-	 * @param Object inputList //lista com todos os elementos de um <form>
-	 * @return str final_str
+	 * @param {Object} inputList //lista com todos os elementos de um <form>
+	 * @return {string} final_str
 	 * 
 	 **/
 	static generatePostString(inputList)

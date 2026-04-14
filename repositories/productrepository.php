@@ -231,8 +231,12 @@ class productrepository {
      */
     public function searchByLike(string $term): array
     {
+        /**
+         * adicionei alguns campos a mais na busca para atender a
+         * demanda do ../public/setSearch.js
+         */
         $stmt = $this->connection->prepare(
-            "SELECT nome FROM produtos WHERE nome LIKE :term"
+            "SELECT nome, img_path, id, valor FROM produtos WHERE nome LIKE :term"
         );
 
         $likeTerm = '%' . $term . '%';

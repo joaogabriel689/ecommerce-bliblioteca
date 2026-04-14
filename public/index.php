@@ -56,7 +56,7 @@
             <span>
                 <span class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="what you're looking for?">
+                <input type="text" id="search-input" placeholder="what you're looking for?">
                 </span>
             </span>
         </div>
@@ -239,9 +239,9 @@
             </article>
         </section>
     </section>
-    <!--script src="FormClass.js"></script-->
     <script type="module" src="setFilter.js"></script>
-    <script type="text/javascript" src="adds.js"></script>
+    <script type="module" src="setSearch.js"></script>
+    <script type="text/javascript" src="setAdds.js"></script>
     <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

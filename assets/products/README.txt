@@ -1,5 +1,6 @@
-=========!IMPORTANTE========
+@author Luiz-Mtca-tech
 
+=========!IMPORTANTE======== 
 	Por enquanto, vou salvar neste diretório as imagens dos nossos produtos, até que seja decidido um local mais adequado.
 
 	--$pode ser alterado em futuras versões.
