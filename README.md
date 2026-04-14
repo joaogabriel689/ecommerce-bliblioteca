@@ -113,6 +113,35 @@ Recebe via POST:
 
 ---
 
+### `/adress.php`
+
+aceita POST, PUT e DELETE( via parametro action no formulario)
+POST/PUT:
+-rua
+-bairro
+-numero
+-complemento
+-cidade
+-uf
+-cep
+
+DELETE:
+-id
+
+### `/users.php`
+
+aceita POST, PUT e DELETE (via paramentro action no formulario de envio)
+
+POST/PUT:
+-nome
+-cpf
+-password
+-email
+-datanasc
+-phone
+-group_code
+
+
 ## 📈 Evolução do Projeto
 
 O projeto está em constante evolução, com foco em:
