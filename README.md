@@ -61,86 +61,198 @@ O sistema implementa algumas práticas importantes de segurança:
 
 ## 🚀 Principais Rotas
 
+---
+
 ### 🔑 Autenticação
-
-#### `/auth/register.php`
-
-Recebe via POST:
-
-- nome  
-- email  
-- cpf  
-- password  
-- data_nascimento  
-- phone  
 
 ---
 
-#### `/auth/login.php`
+#### `POST /auth/register.php`
 
-Recebe via POST:
+Cadastra um novo usuário.
 
-- email  
-- password  
+**Body (POST):**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `nome` | string | Nome completo |
+| `email` | string | E-mail do usuário |
+| `cpf` | string | CPF do usuário |
+| `password` | string | Senha |
+| `data_nascimento` | string | Data de nascimento |
+| `phone` | string | Telefone |
+
+---
+
+#### `POST /auth/login.php`
+
+Autentica o usuário e inicia a sessão.
+
+**Body (POST):**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `email` | string | E-mail do usuário |
+| `password` | string | Senha |
 
 ---
 
 #### `/auth/me.php`
 
-Suporta:
+Retorna ou atualiza os dados do usuário autenticado, ou encerra a conta.
 
-- GET  
-- POST  
-- DELETE  
+**Métodos aceitos:** `GET` · `POST` · `DELETE`
 
-POST recebe:
+**Body (POST):**
 
-- name  
-- cpf  
-- email  
-- password  
-- dataNasc  
-- phone  
-- group_code  
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `name` | string | Nome completo |
+| `cpf` | string | CPF |
+| `email` | string | E-mail |
+| `password` | string | Nova senha |
+| `dataNasc` | string | Data de nascimento |
+| `phone` | string | Telefone |
+| `group_code` | string | Código do grupo/role |
 
----
-
-#### `/auth/logout.php`
-
-Recebe via POST:
-
-- logout  
+> `GET` não requer body. `DELETE` encerra a conta do usuário autenticado.
 
 ---
 
-### `/adress.php`
+#### `POST /auth/logout.php`
 
-aceita POST, PUT e DELETE( via parametro action no formulario)
-POST/PUT:
--rua
--bairro
--numero
--complemento
--cidade
--uf
--cep
+Encerra a sessão do usuário.
 
-DELETE:
--id
+**Body (POST):**
 
-### `/users.php`
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `logout` | string | passar 'true' para fazer o logout |
 
-aceita POST, PUT e DELETE (via paramentro action no formulario de envio)
+---
 
-POST/PUT:
--nome
--cpf
--password
--email
--datanasc
--phone
--group_code
+### 📍 `/adress.php`
 
+Gerencia endereços do usuário autenticado.
+
+**Métodos aceitos:** `POST` · `PUT` · `DELETE`
+
+> O método é definido pelo parâmetro `action` enviado no formulário.
+
+**Body (POST / PUT):**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `rua` | string | Nome da rua |
+| `bairro` | string | Bairro |
+| `numero` | string | Número |
+| `complemento` | string | Complemento |
+| `cidade` | string | Cidade |
+| `uf` | string | Estado (UF) |
+| `cep` | string | CEP |
+
+**Body (DELETE):**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | int | ID do endereço a ser removido |
+
+---
+
+### 👤 `/users.php`
+
+Gerencia usuários do sistema (uso administrativo).
+
+**Métodos aceitos:** `POST` · `PUT` · `DELETE`
+
+> O método é definido pelo parâmetro `action` enviado no formulário.  
+> Retorna um **JSON**.
+
+**Body (POST / PUT):**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `nome` | string | Nome completo |
+| `cpf` | string | CPF |
+| `password` | string | Senha |
+| `email` | string | E-mail |
+| `datanasc` | string | Data de nascimento |
+| `phone` | string | Telefone |
+| `group_code` | string | Código do grupo/role |
+
+**Body (DELETE):**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | int | ID do usuário a ser removido |
+
+---
+
+### 📦 `/products.php`
+
+Gerencia o catálogo de produtos (livros).
+
+**Métodos aceitos:** `GET` · `POST` · `PUT` · `DELETE`
+
+---
+
+#### `POST` / `PUT`
+
+Cria ou atualiza um produto.
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | int | ID do produto (obrigatório no PUT) |
+| `name` | string | Nome do livro |
+| `tipo` | string | Tipo (ex: físico, digital) |
+| `valor` | float | Preço |
+| `autor` | string | Autor |
+| `descriçao` | string | Descrição |
+| `paginas` | int | Número de páginas |
+| `idioma` | string | Idioma |
+| `editora` | string | Editora |
+| `categoria` | string | Categoria |
+| `img` | file | Imagem do produto |
+
+---
+
+#### `GET`
+
+Busca produtos. Aceita as seguintes formas de consulta:
+
+**Por ID:**
+
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `id` | int | ID do produto |
+
+**Por termo (busca textual):**
+
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `termo` | string | Busca com LIKE no nome/descrição |
+
+**Por filtros:**
+
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-----------|
+| `category` | string | Filtra por categoria |
+| `min_price` | float | Preço mínimo |
+| `max_price` | float | Preço máximo |
+| `tipo` | string | Tipo do produto |
+
+**caso nenhum parametro seja passado, retornara todos os produtos**
+---
+
+#### `DELETE`
+
+Remove um produto.
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | int | ID do produto a ser removido |
+
+---
 
 ## 📈 Evolução do Projeto
 

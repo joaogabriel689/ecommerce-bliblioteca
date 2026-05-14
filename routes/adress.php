@@ -3,16 +3,11 @@
 session_start();
 include("../controllers/AdressController.php");
 
-if (!isset($_SESSION['user'])){
-    http_response_code(400);
-    echo json_encode([
-        'status' => false,
-        'message'=> 'login required'
-    ]);
-    exit();    
-}
+include_once __DIR__ ."/../../utils/validators.php";
+verifyLogin();
 
 $method = $_POST['action'];
+$_POST['action'] = null;
 
 $adressconroller = new AdressController();
 

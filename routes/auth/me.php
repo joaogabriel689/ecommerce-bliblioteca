@@ -1,17 +1,8 @@
 <?php  
 session_start();
 
-/**
- * Verifica se o usuário já está logado
- */
-if (!isset($_SESSION["user"])) {
-    http_response_code(400);
-    echo json_encode([
-        "status"  => false,
-        "message" => "User not logged in"
-    ]);
-    exit();
-}
+include_once __DIR__ ."/../../utils/validators.php";
+verifyLogin();
 
 include("../../controllers/authcontroller.php");
 include("../../controllers/UserController.php");
@@ -40,9 +31,9 @@ if ($method == "GET") {
         ]);
     }
 
-} else if ($method === "POST") { //  ALTERADO DE PUT PARA POST
+} else if ($method === "POST") { 
 
-    //  AGORA USA $_POST EM VEZ DE JSON
+    
     if (empty($_POST)) {
         http_response_code(400);
         echo json_encode([

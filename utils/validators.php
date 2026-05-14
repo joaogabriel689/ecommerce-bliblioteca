@@ -101,4 +101,15 @@ function validarCEP($cep)
 }
 
 
-
+function verifyLogin() {
+    if (!isset($_SESSION['user'])) {
+        header('Location: login.php');
+        exit();
+     }
+}
+function verifyRole($requiredRole) {
+    if (!isset($_SESSION['user']) || $_SESSION['user']['group_code'] !== $requiredRole) {
+        header('Location: login.php');
+        exit();
+     }
+}

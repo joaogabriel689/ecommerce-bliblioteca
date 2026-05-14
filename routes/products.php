@@ -3,12 +3,13 @@
 session_start();
 
 include("../controllers/ProductController.php");
+include_once __DIR__ ."/../../utils/validators.php";
 
 $productController = new ProductController();
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_POST['action'];
 
-// 🔥 pasta de upload
-$uploadDir = "../uploads/";
+
+$uploadDir = "../estoque/";
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0777, true);
 }
@@ -57,20 +58,12 @@ switch ($method) {
 
     case 'POST':
 
-        // 🔥 METHOD OVERRIDE (PUT via POST)
         if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
 
-            if (!isset($_SESSION['user'])){
-                http_response_code(401);
-                echo json_encode(['status' => false, 'message'=> 'login required']);
-                exit();    
-            }
+            verifyLogin();
+            verifyRole('admin');
 
-            if ($_SESSION['user']['group'] != 'admin'){
-                http_response_code(403);
-                echo json_encode(['status'=> false,'message'=> 'admin required']);
-                exit();
-            }
+
 
             if (empty($_POST['id'])) {
                 http_response_code(400);
@@ -86,10 +79,9 @@ switch ($method) {
                 exit();
             }
 
-            // 🔥 imagem atual
+
             $img_path = $product['img_path'];
 
-            // 🔥 upload opcional
             if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
 
                 $fileTmp  = $_FILES['image']['tmp_name'];
@@ -97,7 +89,7 @@ switch ($method) {
                 $destPath = $uploadDir . $fileName;
 
                 if (move_uploaded_file($fileTmp, $destPath)) {
-                    $img_path = "uploads/" . $fileName;
+                    $img_path = "estoque/" . $fileName;
                 }
             }
 
@@ -128,11 +120,8 @@ switch ($method) {
             exit();    
         }
 
-        if ($_SESSION['user']['group'] != 'admin'){
-            http_response_code(403);
-            echo json_encode(['status'=> false,'message'=> 'admin required']);
-            exit();
-        }
+        verifyLogin();
+        verifyRole('admin');
 
         if (empty($_POST)) {
             http_response_code(400);
@@ -150,7 +139,7 @@ switch ($method) {
             $destPath = $uploadDir . $fileName;
 
             if (move_uploaded_file($fileTmp, $destPath)) {
-                $img_path = "uploads/" . $fileName;
+                $img_path = "estoque/" . $fileName;
             }
         }
 
@@ -186,11 +175,8 @@ switch ($method) {
             exit();    
         }
 
-        if ($_SESSION['user']['group'] != 'admin'){
-            http_response_code(403);
-            echo json_encode(['status'=> false,'message'=> 'admin required']);
-            exit();
-        }
+        verifyLogin();
+        verifyRole('admin');
 
         $id = $_GET['id'] ?? null;
 

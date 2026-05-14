@@ -73,7 +73,7 @@ class AdressController {
         }
     }
     public function deleteadress($userId, $id) {
-        $adress = $this->adressRepository->delete($id);
+        $adress = $this->adressRepository->delete($userId);
         if (!$adress) {
             return [
                 'status' => false,

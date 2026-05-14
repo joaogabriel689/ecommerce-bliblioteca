@@ -1,15 +1,9 @@
 <?php
 
 session_start();
+include_once __DIR__ ."/../../utils/validators.php";
 
-if (!isset($_SESSION['user'])){
-    http_response_code(401);
-    echo json_encode([
-        'status' => false,
-        'message'=> 'login required'
-    ]);
-    exit();    
-}
+verifyLogin();
 
 
 include("../controllers/UserController.php");
@@ -45,7 +39,6 @@ switch ($method) {
                     exit();
                 }
 
-                // 🔥 busca usuário
                 if ($email) {
                     $user = $userController->getUserByemail($email);
                 } else {
@@ -61,7 +54,7 @@ switch ($method) {
                     exit();
                 }
 
-                // 🔥 update com fallback
+            
                 $result = $userController->updateUser(
                     $user['id'],
                     $_POST['name']       ?? $user['name'],

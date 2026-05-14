@@ -8,7 +8,6 @@ GPUCache/
 blob_storage/
 logs/
 __pycache__/
-connection.php
 .env
 .DS_Store
 Thumbs.db
