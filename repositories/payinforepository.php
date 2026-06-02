@@ -12,7 +12,7 @@
  * - Não contém regras de negócio
  * - Executa apenas SQL
  */
-class payinforepository
+class PayinfoRepository
 {
     /**
      * Conexão com o banco de dados (PDO)
@@ -67,7 +67,7 @@ class payinforepository
     public function update($user_id, $data)
     {
         // Inicia a construção dinâmica da query UPDATE
-        $sql = 'UPDATE dados_banc set';
+        $sql = 'UPDATE dados_banc SET ';
 
         // Armazena os campos que serão atualizados
         $fields = [];
@@ -85,7 +85,7 @@ class payinforepository
 
         // Prepara a query final
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':id_cliente', $user_id);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         // Faz o bind dinâmico de todos os valores do array $data
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);
@@ -126,7 +126,7 @@ class payinforepository
              * Caso um cartão seja informado,
              * remove apenas o registro correspondente
              */
-            $sql =  "DELETE * FROM dados_banc 
+            $sql =  "DELETE FROM dados_banc 
                      WHERE id_cliente = :user_id 
                        AND cartao = :cartao";
 

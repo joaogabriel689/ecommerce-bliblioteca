@@ -1,4 +1,4 @@
-k<?php
+<?php
 include_once __DIR__ ."/../config/connection.php";
 include_once __DIR__ ."/../repositories/payinforepository.php";
 

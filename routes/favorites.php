@@ -4,17 +4,11 @@ session_start();
 
 include("../controllers/FavoritesController.php");
 
-if (!isset($_SESSION['user'])){
-    http_response_code(401);
-    echo json_encode([
-        'status' => false,
-        'message'=> 'login required'
-    ]);
-    exit();    
-}
-
+include_once __DIR__ ."../utils/validators.php";
+verifyLogin();
 $favoritescontroller = new FavoritesController();
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_POST['action'];
+$_POST['action'] = null;
 
 switch ($method) {
 
@@ -58,7 +52,7 @@ switch ($method) {
             $product_id
         );
 
-        if ($favorite['status'] == false) { // 🔥 corrigido
+        if ($favorite['status'] == false) { 
             http_response_code(400);
             echo json_encode([
                 'status'=> false,

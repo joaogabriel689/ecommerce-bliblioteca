@@ -58,14 +58,14 @@ class AuthController {
         }
 
         // Verifica a senha informada com o hash armazenado
-        if (password_verify($password, $user['senha'])) {
+        if (password_verify($password, $user['password'])) {
 
             // Dados mínimos armazenados na sessão
             $user_loged = [
                 'id' => $user['id'],
-                'name' => $user['nome'],
+                'name' => $user['name'],
                 'email' => $user['email'],
-                'group_code' => $user['group_code']
+                'group_code' => $user['group_user']
             ];
 
 
@@ -105,7 +105,7 @@ class AuthController {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
             return ["status" => false, "message" => "email invalido"];
         }
-        if (!validarCelularBR($phone) == 1 ?? false) {
+        if (!validarCelularBR($phone)) {
             return ["status" => false, "message" => "telefone invalido"];
         }
 

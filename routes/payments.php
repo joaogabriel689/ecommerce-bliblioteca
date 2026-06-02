@@ -4,17 +4,12 @@ session_start();
 
 include("../controllers/PayInfoController.php");
 
-if (!isset($_SESSION['user'])){
-    http_response_code(401);
-    echo json_encode([
-        'status' => false,
-        'message'=> 'login required'
-    ]);
-    exit();    
-}
+include_once __DIR__ ."/../../utils/validators.php";
+verifyLogin();
 
-$method = $_SERVER['REQUEST_METHOD'];
-$payinfoconroller = new PayInfoController(); // 🔥 corrigido
+$method = $_POST['action'];
+$_POST['action'] = null;
+$payinfoconroller = new PayInfoController(); 
 
 switch ($method) {
 
@@ -43,7 +38,6 @@ switch ($method) {
     case 'POST':
 
         $content = $_POST;
-        // 🔥 CORREÇÃO
         if ($content === null){
             http_response_code(400);
             echo json_encode([
@@ -53,7 +47,6 @@ switch ($method) {
             exit();
         }
 
-        // 🔥 validação mínima
         if (!isset($content['cartao'], $content['codigo_cartao'])) {
             http_response_code(400);
             echo json_encode([
@@ -88,14 +81,14 @@ switch ($method) {
 
     case 'PUT':
 
-        $body = file_get_contents("php://input");
-        $content = json_decode($body, true);
+        
+        $content = $_POST;
 
         if ($content === null) {
             http_response_code(400);
             echo json_encode([
                 "status" => false,
-                "message" => "JSON inválido"
+                "message" => "conteudo inválido"
             ]);
             exit();
         }
@@ -111,7 +104,7 @@ switch ($method) {
             exit();
         }
 
-        $paymentsData = $payments['data']; // 🔥 correção
+        $paymentsData = $payments['data']; 
 
         $payinfoData = [
             'cartao'        => $content['cartao']        ?? ($paymentsData['cartao'] ?? null),

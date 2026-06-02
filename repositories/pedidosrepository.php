@@ -108,7 +108,7 @@ class PedidoRepository
         $pedido['quantidade'] += $quantity;
 
         // Recalcula o valor total com base no valor unitário
-        $pedido['valor_total'] = $quantity * $pedido['valor_produto'];
+        $pedido['valor_total'] = $pedido['quantidade'] * $pedido['valor_produto'];
 
         /**
          * Atualiza o pedido com a nova quantidade e valor total

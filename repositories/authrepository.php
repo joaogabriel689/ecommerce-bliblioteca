@@ -15,7 +15,7 @@ include("../config/connection.php");
  * - NÃO contém regras de negócio
  * - Apenas executa SQL e retorna dados
  */
-class authrepository {
+class AuthRepository {
 
     /**
      * Conexão com o banco de dados (PDO)
