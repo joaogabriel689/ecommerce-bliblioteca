@@ -58,3 +58,67 @@
 .red-link:hover {
     transform: scale(1.01);
 }
+
+/*
+ * Em uso no arquivo buy.php
+ *
+ */
+button.green-button{
+    display: inline-block;
+
+    font-size: 1.2em;
+    text-decoration: none;
+    text-align: center;
+
+    color: var(--color1);
+    background: linear-gradient(45deg, #37bb37, #1dca1d);
+
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    margin: 5px auto 5px 0px;
+    padding: 12px;
+}
+button.red-button
+{
+    display: inline-block;
+    width: 50px;
+
+    font-size: 1.2em;
+    text-decoration: none;
+    text-align: center;
+
+    color: var(--color1);
+    background: linear-gradient(45deg, #ff0000, #e10000);
+
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    margin: 5px auto 5px 0px;
+    padding: 12px;
+}
+
+button.std-button
+{
+   padding: 12px;
+   background-color: var(--color2);
+   color: var(--color1);
+   border: none;
+   border-radius: 5px;
+}
+button.std-button:hover {
+   background-color: var(--color3);
+}
+
+button.invisible{
+    background: none;
+    border:none;
+    outline: none;
+}
+
+.red-fg
+{
+    color:  linear-gradient(45deg, #ff0000, #e10000);
+}

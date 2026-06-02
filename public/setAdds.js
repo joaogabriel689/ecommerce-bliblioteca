@@ -37,7 +37,7 @@ function adds(params) {
         add_box.appendChild(price)
 
         const buy_link= document.createElement("a")
-        buy_link.href = "./shop/shop.html?number=" + params[i].id
+        buy_link.href = "./shop.php?number=" + params[i].id
         buy_link.innerText = "buy"
         add_box.appendChild(buy_link)
 

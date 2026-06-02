@@ -21,6 +21,17 @@ export default class Server {
 		this.conn = new XMLHttpRequest();
 	}
 	
+	
+	/**
+	 * Este método simplesmente envia um requisição para o arquivo da classe, caso
+	 * executr algum outro arquivo do servidor.
+	 */
+	load()
+	{
+		this.conn.open("POST", this.url, true);
+		this.conn.send();
+	}
+	
 	submitFormPost(dataStr)
 	{
 		this.conn.open("POST", this.url, true);

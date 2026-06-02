@@ -41,14 +41,36 @@ form.std-form .form-session {
 
     border-bottom: 1px solid var(--color3);
 }
-.input-body input[type="text"], input[type="number"] {
+
+.input-body-fat
+{
+    padding: 12px;
+
+    border: 1px solid #c0c0c0;
+    border-radius: 7px;
+
+
+}
+.input-body input[type="text"], .input-body input[type="number"], .input-body input[type="email"], .input-body input[type="password"] {
     background: none;
     outline: none;
     border: none;
 
     font-size: 1.2em;
 }
-.input-body input[type="text"]:hover, input[type="number"]:hover {
+.input-body input[type="text"]:hover, .input-body input[type="number"]:hover, .input-body input[type="email"]:hover {
+    /*background-color: #EDEDED;*/
+    transform: scale(1.01);
+}
+
+.input-body-fat input[type="text"], .input-body-fat input[type="number"], .input-body-fat input[type="email"], .input-body-fat input[type="password"] {
+    background: none;
+    outline: none;
+    border: none;
+
+    /*font-size: 1.2em;*/
+}
+.input-body-fat input[type="text"]:hover, .input-body-fat input[type="number"]:hover, .input-body-fat input[type="email"]:hover {
     /*background-color: #EDEDED;*/
     transform: scale(1.01);
 }
@@ -67,6 +89,11 @@ textarea.std-textarea {
     resize: none;
 }
 
+
+/**
+ * Marcas para o botão de Submit
+ * 
+ * */
 input.green-submit {
 
     font-size: 1.2em;
@@ -88,9 +115,46 @@ input.green-submit:hover {
 }
 
 select.std-select {
-    padding: 11px;
+    padding: 7px;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: var(--color4);
     
+}
+
+select.std-select-fat
+{
+    padding: 12px;
+    border: 1px solid #c0c0c0;
+    border-radius: 7px;
+
+    background-color: white;
+    color: #585555;
+}
+
+/**
+ * Marcas para o alinhamento vertical do botão de Submit
+ * 
+ * */
+ /*À esquerda*/
+ .sub-lf
+ {
+    width: fit-content;
+    margin: auto auto auto 0px;
+ }
+ /*À direita*/
+ .sub-rt
+ {
+    width: fit-content;
+    margin: auto 0px auto auto;
+ }
+
+
+ /**
+  * Marcas para configurar um H1 dentro do formulário
+  * 
+  * */
+h1.form-sub-title
+{
+    font-size: 1.2em;
 }

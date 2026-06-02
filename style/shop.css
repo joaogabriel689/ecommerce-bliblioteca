@@ -1,0 +1,341 @@
+/**
+ *  (c) redxam llc and affiliates. Confidential and proprietary.
+ *
+ *  @oncall dev
+ *  @format
+ */
+
+
+section#main-area-add {
+   display: flex;
+
+   padding: 15px;
+}
+section#main-area-add > div {
+   padding: 10px;
+}
+/**********************************
+         aside marks
+**********************************/
+aside#adds-left {
+   width: 20%;
+
+   padding: 10px;
+}
+aside#adds-left article {
+   padding: 5px;
+   margin: 10px 0px;
+
+   background-color: var(--color1);
+
+   border-radius: 3px;
+
+   box-shadow: 2px 1px 12px rgba(0, 0, 0, 0.267);
+}
+aside#adds-left article img{
+   display: block;
+   width: 100px;
+   margin: auto;
+}
+aside#adds-left article div p.price{
+   font-size: 1.3em;
+}
+aside#adds-left article div p.sub-description {
+   font-size: 0.8em;
+}
+
+
+/**********************************
+         buy marks
+**********************************/
+section#buy {
+   display: flex;
+
+   padding: 10px;
+}
+section#buy > span {
+   width: 50%;
+}
+section#buy span img {
+   display: block;
+
+   width: 250px;
+   margin: auto;
+}
+section#buy span h1{
+   font-family: var(--title-font);
+   font-weight: lighter;
+   font-size: 1.2em;
+}
+section#buy span h2 {
+   margin-bottom: 0;
+   font-family: var(--text-font);
+   font-weight: lighter;
+   font-size: 1.2em;
+
+   text-decoration: underline;
+}
+
+
+p.price {
+   font-size: 1.5em;
+   font-weight: bolder;
+
+   color: #4c4c4c;
+}
+/**********************************
+         review marks
+**********************************/
+
+div#review-favorite-div {
+   padding: 10px 0px;
+}
+a.review-link {
+   margin: 0px 4px;
+   padding: 3px;
+
+   background-color: rgb(221, 221, 221);
+   color: #4c4c4c;
+
+   border-radius: 3px;
+
+   text-decoration: none;
+}
+
+a.review-link i {
+   color: rgb(255 215 11);
+}
+a.favorite-link {
+   margin: 0px 4px;
+   padding: 3px;
+
+   border: 1px solid rgb(253, 123, 108);
+   border-radius: 3px;
+
+   text-decoration: none;
+
+   color: rgb(253, 123, 108);
+}
+a.review-link:hover, a.favorite-link:hover{
+   background-color: rgb(241, 241, 241);
+}
+/**********************************
+         payment marks
+**********************************/
+
+section#buy span > p a{
+   display: inline;
+
+}
+a.add-cart {
+   display: inline-block;
+
+   width: 30%;
+
+   margin: auto;
+   padding: 5px;
+
+   text-align: center;
+   text-decoration: none;
+
+   color: #4c4c4c;
+   background-color: rgb(221, 221, 221);;
+}
+a.buy-now {
+   display: inline-block;
+
+   width: 30%;
+
+   margin: auto;
+   padding: 5px;
+
+   text-align: center;
+   text-decoration: none;
+
+   color: var(--color1);
+   background: linear-gradient(45deg, #37bb37, #0ed90e);
+
+
+   border-radius: 3px;
+}
+a.buy-now:hover, a.add-cart:hover{
+   transform: scale(1.03);
+}
+/**********************************
+         details marks
+**********************************/
+
+article#details p {
+   color: #4c4c4c;
+   font-size: 0.9em;
+}
+
+article#details ul#details-list {
+   margin: 10px 0px;
+   list-style: none;
+
+   overflow-x: auto;
+
+}
+ul#details-list li{
+   display: inline-block;
+
+   width: fit-content;
+
+   padding: 5px;
+   margin: 5px;
+
+}
+
+ul#details-list li p {
+   margin: 5px 0px;
+   text-align: center;
+}
+
+ul#details-list li i {
+   display: block;
+   width: fit-content;
+   margin: auto;
+
+   color: #4c4c4c;
+}
+/**************************
+         comments marks
+***************************/
+
+section#comments article{
+   padding: 10px;
+   margin: 5px;
+
+   background-color: var(--color1);
+
+   border-radius: 5px;
+}
+section#comments img{
+   width: 30px;
+}
+
+section#comment article div p {
+   margin: 0;
+}
+p.comment-user-name {
+   margin: 0;
+}
+p.comment-date {
+   margin: 0;
+   font-size: 0.75em;
+}
+p.comment-text {
+   margin: 5px 0px;
+}
+/*************
+   your-comment marks
+*************/
+section#your-comment {
+   padding: 10px;
+}
+input#y-review{
+   display: inline-block;
+   margin: 0px 5px;
+   width: 80%;
+   height: 30px;
+   padding: 3px;
+   outline: none;
+   border-width: 0px 0px 1px 0px;
+   border-color: #bbbbbb;
+   /* border: 1px solid #bbbbbb; */
+}
+input#s-review {
+   padding: 12px;
+   background-color: var(--color2);
+   color: var(--color1);
+   border: none;
+   border-radius: 5px;
+}
+input#s-review:hover {
+   background-color: var(--color3);
+}
+/*************************
+      bottom adds marks
+*************************/
+section#adds-bottom article{
+   display: inline-block;
+   width: 200px;
+}
+section#adds-bottom article img{
+   display: block;
+   
+   max-width: 125px;
+}
+section#adds-bottom .sub-description {
+   font-size: 0.7em;
+}
+
+/**************************
+         global marks
+***************************/
+.stars {
+   display: inline-block;
+   height: 0.9375rem;
+   width: 5.3125rem;
+   background: transparent url(../assets/sprite-busca.png) 0 0 no-repeat scroll;
+   background-size: 297%;
+}
+
+.stars-info {
+   font-family: var(--text-font);
+   font-size: 0.9em;
+}
+.r-5-0 {
+   background-position: -3.625rem -9.25rem;
+}
+.r-4-5 {
+   background-position: -3.625rem -8.31rem;
+}
+.r-4-0 {
+   background-position: -3.625rem -7.49rem;
+}
+.r-3-0{
+   background-color: -3.625rem -5.75rem;
+}
+p.on {
+   color: rgb(25, 173, 25);
+}
+p.off {
+   color: rgb(187, 35, 35);
+}
+
+
+/***************************************************
+                    Responsivity marks
+****************************************************/
+
+@media(max-width: 1400px){
+   aside#adds-left{
+      display: none;
+   }
+}
+@media(max-width: 1220px){
+   main{
+      width: 100%;
+   }
+}
+@media(max-width: 925px){
+   section#buy {
+      display: block;
+   }
+   section#buy > span {
+      width: auto;
+      display: block;
+   }
+}
+@media(max-width: 600px){
+   section#adds-bottom article{
+      display: block;
+      width: auto;
+      
+   }
+   section#adds-bottom article > img {
+      margin: auto;
+   }
+}

@@ -45,7 +45,7 @@
 <body>
     <!-- options to your account and a link to home-->
     <section id="logo-header-section">
-        <img src="../images/couto-dark-transp-name.png" alt="site logo">
+        <img id="site-logo" src="../images/couto-dark-transp-name.png" alt="site logo">
     </section>
     <header>
         <div id="header-start">
@@ -61,7 +61,7 @@
             </span>
         </div>
         <div id="header-end">
-                <a href="./login.php">Login<i class="fa-solid fa-user"></i></a>
+                <a href="./signup.php">Login<i class="fa-solid fa-user"></i></a>
                 <a href=""><i class="fa-solid fa-bag-shopping"></i></a>
         </div>
     </header>

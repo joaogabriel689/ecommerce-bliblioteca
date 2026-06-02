@@ -136,6 +136,7 @@ header #header-end a:hover{
     display: block;
     width: fit-content;
     margin: auto;
+    cursor: pointer;
 }
 
 /***************************************************

@@ -36,12 +36,68 @@ export default class AddsClass {
 		    add_box.appendChild(price)
 
 		    const buy_link= document.createElement("a")
-		    buy_link.href = "./shop/shop.html?number=" + products_list[i].id
+		    buy_link.href = "./shop.php?number=" + products_list[i].id
 		    buy_link.innerText = "buy"
 		    add_box.appendChild(buy_link)
 
 		    document.querySelector(id).appendChild(add_box)
 		}
 
+	}
+	
+	/**
+	 * @param {object} product // lista com todos as informações do produto
+	 */
+	static generateAddPage(product)
+	{
+		
+	}
+	
+	/**
+	 * @param {string} asideId //Id do elemento onde serão colocados os
+	 * anuncios relacionados
+	 * @param {Object} productArray //arrays com os anuncios relacionados alguns de 
+	 * seus dados.
+	 */
+	static showRelatedAdds(asideId, productArray)
+	{
+		productArray.forEach(function(item, index){
+			
+			if(index <= 3) {
+				var art_element = document.createElement("article");
+
+				let img = docomument.createElement("img");
+				img.src = item["img_path"];
+				img.alt = "Product Image";
+
+				let stars_div = document.createElement("div");
+				stars_div.className = "stars-r-5-0";
+
+				let second_div = document.createElement("div");
+
+				let link = document.createElement("a");
+				link.href = "./shop.php?number=" + item["id"];
+
+				let text = document.createElement("p");
+				text.className = "sub-description";
+				text.innerText = item["nome"];
+
+				let price = document.createElement(p);
+				price.className = "price";
+				price.innerText = item["valor"];
+
+				second_div.appendChild(link)
+				second_div.appendChild(text)
+				second_div.appendChild(price);
+
+				art_element.appendChild(img);
+				art_element.appendChild(stars_div);
+				art_element.appendChild(second_div);
+
+				document.querySelector(asideId).appendChild(art_element);
+				index++;
+	
+			}
+		})
 	}
 }

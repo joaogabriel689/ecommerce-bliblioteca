@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;700&family=Kalam&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Updock&display=swap');
+:root{
+
+    /*Color Theme Swatches in Hex */
+    --color1: #F2F2F2;
+    --color2: #3D6373;
+    --color3: #88B0BF;
+    --color4: #BF9E60;
+    --color5: #73451D;
+    --color6: #323232;
+
+    --text-font: 'Roboto', sans-serif;
+    --logo-font: 'Updock', cursive;
+    --special-font: 'Kalam', cursive;
+    --title-font: 'Hind', sans-serif;
+}
+
+/**
+ * Configurações de ul para o arquivo Buy.php
+ * 
+ */
+ul
+{
+    list-style: none;
+}
+ul > li {
+    display: inline-block;
+} 
+
+.order-section 
+{
+    background-color: var(--color1);
+    padding: 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+.upper-payment-section
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    padding: 10px;
+}
+
+
+.order-info
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.order-info h1 {
+    font-family: var(--title-font);
+    font-size: 1.2em;
+}
+
+.your-products 
+{
+
+}
+#products-show article
+{
+    background-color: var(--color1);
+    paddind: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#products-show article img
+{
+    width: 74px;
+    height: 45px;
+}
+
+#actions-area
+{
+    position: relative;
+    height: 100px;
+    width: 100px;
+}
+#actions-area > div 
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#takeout-link
+{
+    display: block;
+    text-decoration: none;
+    font-size: 1.6em;
+
+    color: var(--color4);
+}

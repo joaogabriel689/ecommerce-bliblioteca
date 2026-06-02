@@ -31,3 +31,10 @@ document.querySelector("#more-list").onmouseout = function(){
     
     document.querySelector("#more-list").className = "hidden"
 }
+
+
+
+document.querySelector("#site-logo").onclick = function(){
+	
+	window.location = "./index.php";
+}

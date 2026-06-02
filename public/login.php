@@ -195,7 +195,7 @@
 							<section id="submit-area">
 								<div>
 									<input class="green-button" type="submit" value="Login">
-									<a class="gray-button" href="">Sign up</a>
+									<a class="gray-button" href="./signup.php">Sign up</a>
 								</div>								
 							</section>
 

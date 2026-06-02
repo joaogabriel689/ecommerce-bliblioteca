@@ -33,7 +33,7 @@ hr.trans-hr {
 	width: 80%;
 }
 
-p {
+p, label {
 	font-family: var(--text-font);
 	color: var(--color6);
 }
